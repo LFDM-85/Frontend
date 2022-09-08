@@ -35,7 +35,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "vercel-build": "react-scripts build && build dist"
+    "vercel-build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
