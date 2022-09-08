@@ -1,4 +1,4 @@
-import { axiosPrivate} from '../../interceptors/axios';
+import  axiosPrivate from '../../interceptors/axios';
 import { useEffect} from 'react';
 import useRefreshToken from './useRefreshToken';
 import useAuth from './useAuth';
