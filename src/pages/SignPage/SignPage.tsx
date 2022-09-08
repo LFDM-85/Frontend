@@ -77,7 +77,7 @@ export function SignPage(): JSX.Element {
     }
   }, [confirmPasswordChange]);
 
-  const signRoute: string = signIn ? 'https://backend-two-gamma.vercel.app:5000/auth/signin' : 'https://backend-two-gamma.vercel.app:5000/auth/signup';
+  const signRoute: string = signIn ? 'auth/signin' : 'auth/signup';
 
   const submitHandler = async ({
     name,
