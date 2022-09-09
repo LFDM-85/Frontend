@@ -7,7 +7,8 @@ export default axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
-    'mode': 'cors'
+    'Access-Control-Allow-Origin' : '*',
+    'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
   },
-  withCredentials: true,
+  withCredentials: false,
 });
