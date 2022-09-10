@@ -1,6 +1,6 @@
 import axios from 'axios';
 // Vercel site
-const BASE_URL = 'https://backend-two-gamma.vercel.app:5000/';
+const BASE_URL = 'https://backend-two-gamma.vercel.app/';
 
 
 export default axios.create({
