@@ -20,11 +20,13 @@ export const AppRoutes = () => {
   );
 
   useEffect(() => {
+
+
     const isAuthenticated = localStorage.getItem('isAuthenticated');
     if (isAuthenticated) {
       axios
         .get('auth/whoami', {
-          headers: { 'Content-Type': 'application/json' },
+          // headers: { 'Content-Type': 'application/json' },
           withCredentials: true,
         })
         .then((res) => {
