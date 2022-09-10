@@ -6,7 +6,7 @@ const BASE_URL = 'https://backend-two-gamma.vercel.app/';
 export default axios.create({
   baseURL: BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
   },
   withCredentials: false,
 });
