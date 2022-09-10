@@ -10,9 +10,9 @@ import { MyPageRoute } from '../shared/components/MyPageRoute/MyPageRoute';
 export const AppRoutes = () => {
   const [signedUser, setSignedUser] = useState(false);
   const navigate = useNavigate();
-  const MyPage = lazy(() =>
-    import('../pages/MyPage/MyPage').then(({ MyPage }) => ({ default: MyPage }))
-  );
+  // const MyPage = lazy(() =>
+  //   import('../pages/MyPage/MyPage').then(({ MyPage }) => ({ default: MyPage }))
+  // );
   const SignPage = lazy(() =>
     import('../pages/SignPage/SignPage').then(({ SignPage }) => ({
       default: SignPage,
