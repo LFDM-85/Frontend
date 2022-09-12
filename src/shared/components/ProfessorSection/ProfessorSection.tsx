@@ -12,13 +12,10 @@ export const ProfessorSection = () => {
           professor = person;
           return professor;
           
-        };
+        }
       });
-    }); 
+    });
   
-  
-
-
   return (
     <>
       <Typography>
