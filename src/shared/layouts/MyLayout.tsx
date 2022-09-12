@@ -2,7 +2,7 @@ import React, {ReactElement} from 'react';
 import { Typography } from '@mui/material';
 import useAuth from '../hooks/useAuth';
 
-export const MyLayout: React.FC<any> = (props): ReactElement => {
+export const MyLayout: React.FC = (): ReactElement => {
   const authCtx = useAuth();
   const Greating = `Welcome back ${authCtx.user?.name}`;
 
