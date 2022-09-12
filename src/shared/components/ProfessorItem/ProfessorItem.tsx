@@ -1,4 +1,3 @@
-import { Icon } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import CheckIcon from '@mui/icons-material/Check';
 export const ProfessorItem = () => {
