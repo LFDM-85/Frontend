@@ -8,7 +8,7 @@ export const ProfessorSection = () => {
     .then((res) => res.data)
     .then((data) => {      
       data.map((person: any) => {
-        if (person.role[0] === 'professor') console.log(person.user);
+        if (person.role[0] === 'professor') console.log(person);
       });
     }); 
   
