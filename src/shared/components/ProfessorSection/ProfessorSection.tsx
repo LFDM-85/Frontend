@@ -10,7 +10,7 @@ export const ProfessorSection = () => {
       .then((data) => {      
         data.map((person: any) => {
           if (person.role[0] === 'professor') {
-            return <ProfessorItem name={person.name} />;
+            return person.name;
                       
           }
         });
@@ -24,7 +24,7 @@ export const ProfessorSection = () => {
         Professor Management
       </Typography>
       <div>
-        {professorList}
+        <ProfessorItem name={professorList} />;
       </div>
       
     </>
