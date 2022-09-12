@@ -7,6 +7,6 @@ export const MyLayout: React.FC<any> = (props): ReactElement => {
   const userName = authCtx.user?.name;
 
   return <Typography ml={6} variant="h4" component="h4">
-    Welcome back {userName}
+    `Welcome back ${userName}`
   </Typography>;
 };
