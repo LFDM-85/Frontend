@@ -15,7 +15,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { signout } from '../../features/SignServices';
@@ -25,6 +25,39 @@ export const SideBar: React.FC<any> = (props) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const [roleUser, setRoleUser] = useState({
+    isProfessor: false,
+    isStudent: false,
+    isAdmin: false,
+  })
+
+  const role: string = authCtx.user.role[0];
+
+  switch (role) {
+  case 'professor':
+    setRoleUser({
+      ...roleUser,
+      isProfessor: true
+    });      
+    break;
+  case 'admin':
+    setRoleUser({
+      ...roleUser,
+      isAdmin: true
+    });
+    break;
+  case 'student':
+    setRoleUser({
+      ...roleUser,
+      isStudent: true
+    });
+    break;
+  
+  default:
+    setRoleUser({ ...roleUser });
+    break;
+  }
 
   const signOutHandler = async () => {
     await signout();
@@ -73,12 +106,12 @@ export const SideBar: React.FC<any> = (props) => {
                 </ListItemIcon>
                 <ListItemText secondary="Home"></ListItemText>
               </ListItemButton>
-              <ListItemButton>
+              {!roleUser.isAdmin && <ListItemButton>
                 <ListItemIcon>
                   <Groups />
                 </ListItemIcon>
                 <ListItemText secondary="Classes"></ListItemText>
-              </ListItemButton>
+              </ListItemButton>}
               <ListItemButton>
                 <ListItemIcon>
                   <SchoolIcon />
