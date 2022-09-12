@@ -59,6 +59,8 @@ export const SideBar: React.FC<any> = (props) => {
     break;
   }
 
+  console.log(role);
+
   const signOutHandler = async () => {
     await signout();
     authCtx.isSignedIn = false;
@@ -106,12 +108,12 @@ export const SideBar: React.FC<any> = (props) => {
                 </ListItemIcon>
                 <ListItemText secondary="Home"></ListItemText>
               </ListItemButton>
-              {!roleUser.isAdmin && <ListItemButton>
+              <ListItemButton>
                 <ListItemIcon>
                   <Groups />
                 </ListItemIcon>
                 <ListItemText secondary="Classes"></ListItemText>
-              </ListItemButton>}
+              </ListItemButton>
               <ListItemButton>
                 <ListItemIcon>
                   <SchoolIcon />
