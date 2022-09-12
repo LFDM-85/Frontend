@@ -17,7 +17,7 @@ export const ProfessorSection = () => {
   
   useEffect(() => { 
     professorList();    
-  }, []);
+  }, [professorList]);
   
  
   
