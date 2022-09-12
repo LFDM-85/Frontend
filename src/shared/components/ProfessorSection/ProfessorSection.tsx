@@ -25,7 +25,7 @@ export const ProfessorSection = () => {
         Professor Management
       </Typography>
       <div>
-        <ProfessorItem name={professorList} />
+        <ProfessorItem name={professorList()} />
       </div>
       
     </>
