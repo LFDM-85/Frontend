@@ -60,7 +60,7 @@ export const SideBar: React.FC<any> = (props) => {
             justifyContent="center"
           >
             <Typography variant="h5" component="h5">
-              {props.currUser}
+              {authCtx.user.name}
             </Typography>
           </Box>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, createContext } from 'react';
 
 interface IUser {
   email: string;
@@ -14,7 +14,7 @@ const initialUser = {
   role: [],
 };
 
-const AuthContext = React.createContext({
+const AuthContext = createContext({
   token: undefined,
   isSignedIn: false,
   user: initialUser,
@@ -26,7 +26,7 @@ const AuthContext = React.createContext({
   },
 });
 
-export const AuthContextProvider = (props: any) => {
+export const AuthContextProvider = ({children}: any) => {
   const [token, setToken] = useState();
   const [user, setUser] = useState(initialUser);
   const userIsSignedIn = !!token;
@@ -57,7 +57,7 @@ export const AuthContextProvider = (props: any) => {
 
   return (
     <AuthContext.Provider value={contextValue}>
-      {props.children}
+      {children}
     </AuthContext.Provider>
   );
 };
