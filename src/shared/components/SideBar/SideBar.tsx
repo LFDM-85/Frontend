@@ -31,11 +31,8 @@ export const SideBar: React.FC<any> = (props) => {
 
   const role: string = authCtx.user.role[0];
 
-  if (role === 'admin') {
-    return setIsAdmin(true);
-  } else {
-    setIsAdmin(false);
-  }
+  if (role === 'admin') setIsAdmin(true);
+  else setIsAdmin(false);
 
   const signOutHandler = async () => {
     await signout();
