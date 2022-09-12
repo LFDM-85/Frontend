@@ -24,7 +24,7 @@ export const ProfessorSection = () => {
         Professor Management
       </Typography>
       <div>
-        {professors.map((professor:any) => <ProfessorItem key={professor.id} name={professor.name} />)}
+        <ProfessorItem name={professors.name} />)
 
       </div>
       
