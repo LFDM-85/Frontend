@@ -3,8 +3,9 @@ import { useEffect } from 'react';
 import axios from '../../../interceptors/axios';
 import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 
-export const ProfessorSection = () =>{
-  let professor: any;
+export const ProfessorSection = () => {
+  
+  let person: any;
   
   useEffect(() => { 
     axios.get('auth/all')
@@ -12,9 +13,8 @@ export const ProfessorSection = () =>{
       .then((data) => {      
         data.map((person: any) => {
           if (person.role[0] === 'professor') {
-            professor = person.name;
-          
-            return professor;
+                      
+            return person;
                       
           }
         });
@@ -22,7 +22,7 @@ export const ProfessorSection = () =>{
   }, []);
   
  
-  console.log(professor);
+  console.log(person);
   
   
   return (
@@ -30,9 +30,9 @@ export const ProfessorSection = () =>{
       <Typography>
         Professor Management
       </Typography>
-      <div>
+      {/* <div>
         <ProfessorItem name={professor} />
-      </div>
+      </div> */}
       
     </>
   );
