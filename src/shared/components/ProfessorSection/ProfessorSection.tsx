@@ -23,10 +23,10 @@ export const ProfessorSection = () => {
       <Typography>
         Professor Management
       </Typography>
-      {/* <div>
-        <ProfessorItem name={professors.name} />)
+      <div>
+        <ProfessorItem name={professors.user.name} />)
 
-      </div> */}
+      </div>
       
     </>
   );
