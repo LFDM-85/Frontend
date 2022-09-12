@@ -10,9 +10,8 @@ export const ProfessorSection = () => {
       .then((data) => {      
         data.map((person: any) => {
           if (person.role[0] === 'professor') {
-            <ProfessorItem name={person.name} />;
-            return professor;
-          
+            return <ProfessorItem name={person.name} />;
+                      
           }
         });
       });
