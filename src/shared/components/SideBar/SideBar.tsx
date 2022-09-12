@@ -37,8 +37,8 @@ export const SideBar: React.FC<any> = (props) => {
     if (role === 'student') setRoleUser('student');
 
   }, []);
-  
-  console.log(role);
+
+  console.log(roleUser);
 
   const signOutHandler = async () => {
     await signout();
