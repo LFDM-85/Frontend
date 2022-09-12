@@ -78,24 +78,24 @@ export const SideBar: React.FC<any> = (props) => {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              <ListItemButton>
+              {!isAdmin && <ListItemButton>
                 <ListItemIcon>
                   <Home />
                 </ListItemIcon>
                 <ListItemText secondary="Home"></ListItemText>
-              </ListItemButton>
-              <ListItemButton>
+              </ListItemButton>}
+              {!isAdmin && <ListItemButton>
                 <ListItemIcon>
                   <Groups />
                 </ListItemIcon>
                 <ListItemText secondary="Classes"></ListItemText>
-              </ListItemButton>
-              <ListItemButton>
+              </ListItemButton>}
+              {!isAdmin && <ListItemButton>
                 <ListItemIcon>
                   <SchoolIcon />
                 </ListItemIcon>
                 <ListItemText secondary="Assessments"></ListItemText>
-              </ListItemButton>
+              </ListItemButton>}
               {isAdmin && <ListItemButton>
                 <ListItemIcon>
                   <ManageAccountsIcon />
