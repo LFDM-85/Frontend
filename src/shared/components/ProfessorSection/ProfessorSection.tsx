@@ -9,7 +9,7 @@ export const ProfessorSection = () => {
     .then((res) => res.data)
     .then((data) => {      
       data.map((person: any) => {
-        if (person.role[0] === 'professor') professors = [person];
+        if (person.role[0] === 'professor') professors = person;
         
         console.log(professors);
       });
@@ -24,6 +24,7 @@ export const ProfessorSection = () => {
         Professor Management
       </Typography>
       <div>
+        {professors.map((professor:any) => <ProfessorItem key={professor.id} name={professor.name} />)}
 
       </div>
       
