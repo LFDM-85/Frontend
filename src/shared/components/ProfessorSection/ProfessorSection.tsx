@@ -1,28 +1,25 @@
 import { Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 
 export const ProfessorSection = () => {
   
-  let person: any;
-  
-  useEffect(() => { 
+  const [professorName, setProfessorName] = useState();
+  const professorList = () => {
     axios.get('auth/all')
       .then((res) => res.data)
-      .then((data) => {      
-        data.map((person: any) => {
-          if (person.role[0] === 'professor') {
-                      
-            return person;
-                      
-          }
-        });
-      });
+      .then((data) => {
+        data.map((person: any) => setProfessorName(person.name));
+      }).catch(error => console.log(`Error: ${error}`));
+      
+  };
+  
+  useEffect(() => { 
+    professorList();    
   }, []);
   
  
-  console.log(person);
   
   
   return (
@@ -30,9 +27,9 @@ export const ProfessorSection = () => {
       <Typography>
         Professor Management
       </Typography>
-      {/* <div>
-        <ProfessorItem name={professor} />
-      </div> */}
+      <div>
+        <ProfessorItem name={professorName} />
+      </div>
       
     </>
   );
