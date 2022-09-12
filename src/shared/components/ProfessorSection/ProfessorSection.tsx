@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material';
+import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 
 export const ProfessorSection = () => {
   return (
@@ -6,7 +7,11 @@ export const ProfessorSection = () => {
       <Typography>
         Professor Management
       </Typography>
-
+      <ProfessorItem/>
+      <ProfessorItem/>
+      <ProfessorItem/>
+      <ProfessorItem/>
+      
     </>
   );
 };

@@ -1,5 +1,5 @@
 import useAuth from '../../hooks/useAuth';
-export const TeacherItem = () => {
+export const ProfessorItem = () => {
   const authCtx = useAuth();
 
   return (

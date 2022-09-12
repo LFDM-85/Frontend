@@ -4,13 +4,12 @@ import useAuth from '../hooks/useAuth';
 import { ManagementPage } from '../../pages/ManagementPage/ManagementPage';
 
 export const MyLayout: React.FC = (): ReactElement => {
-  const authCtx = useAuth();
-  const Greating = `Welcome back ${authCtx.user?.name}`;
+  const authCtx = useAuth();  
 
   return (
     <>
       <Typography ml={6} variant="h4" component="h4">
-        {Greating}
+        Welcome back {authCtx.user?.name}
       </Typography>;
       <ManagementPage/>
     </>
