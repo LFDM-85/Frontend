@@ -30,7 +30,7 @@ export const SideBar: React.FC<any> = (props) => {
     isProfessor: false,
     isStudent: false,
     isAdmin: false,
-  })
+  });
 
   const role: string = authCtx.user.role[0];
 
