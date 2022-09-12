@@ -26,19 +26,12 @@ export const SideBar: React.FC<any> = (props) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [roleUser, setRoleUser] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
 
   const role: string = authCtx.user.role[0];
 
-  useEffect(() => {
-    if (role === 'professor') setRoleUser('professor');
-    if (role === 'admin') setRoleUser('admin');
-    if (role === 'student') setRoleUser('student');
-
-  }, []);
-
-  console.log(roleUser);
+  if (role === 'admin') setIsAdmin(true);
 
   const signOutHandler = async () => {
     await signout();
@@ -99,12 +92,12 @@ export const SideBar: React.FC<any> = (props) => {
                 </ListItemIcon>
                 <ListItemText secondary="Assessments"></ListItemText>
               </ListItemButton>
-              <ListItemButton>
+              {isAdmin && <ListItemButton>
                 <ListItemIcon>
                   <ManageAccountsIcon />
                 </ListItemIcon>
                 <ListItemText secondary="Management"></ListItemText>
-              </ListItemButton>
+              </ListItemButton>}
               <ListItemButton onClick={signOutHandler}>
                 <ListItemIcon>
                   <LogoutIcon />
