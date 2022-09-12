@@ -17,6 +17,7 @@ export const ProfessorSection = () => {
       });
     });
  
+  console.log(professor);
   
   
   return (
