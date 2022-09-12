@@ -5,13 +5,11 @@ import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 
 export const ProfessorSection = () => {
   
-  const [professorName, setProfessorName] = useState();
+  const [professor, setProfessor] = useState();
   const professorList = () => {
     axios.get('auth/all')
-      .then((res) => res.data)
-      .then((data) => {
-        data.map((person: any) => setProfessorName(person.name));
-      }).catch(error => console.log(`Error: ${error}`));
+      .then((res) => setProfessor(res.data))
+      .catch(error => console.log(`Error: ${error}`));
       
   };
   
@@ -19,6 +17,7 @@ export const ProfessorSection = () => {
     professorList();    
   }, [professorList]);
   
+  console.log(professor);
  
   
   
@@ -27,9 +26,9 @@ export const ProfessorSection = () => {
       <Typography>
         Professor Management
       </Typography>
-      <div>
-        <ProfessorItem name={professorName} />
-      </div>
+      {/* <div>
+        <ProfessorItem name={professor} />
+      </div> */}
       
     </>
   );
