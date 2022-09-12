@@ -5,10 +5,10 @@ import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 
 export const ProfessorSection = () => {
   
-  const [professor, setProfessor] = useState();
+  const [professors, setProfessors] = useState <any[]>([]);
   const professorList = () => {
     axios.get('auth/all')
-      .then((res) => setProfessor(res.data))
+      .then((res) => setProfessors(res.data))
       .catch(error => console.log(`Error: ${error}`));      
   };
   
@@ -16,7 +16,7 @@ export const ProfessorSection = () => {
     professorList();    
   }, []);
   
-  console.log(professor);
+  console.log(professors);
  
   
   
@@ -25,6 +25,17 @@ export const ProfessorSection = () => {
       <Typography>
         Professor Management
       </Typography>
+      {professors ? 
+        professors.map(professor => {
+          if (professor.role === 'professor') {
+            return(
+              <ProfessorItem key={professor.id}>
+                         name={professor.name}
+              </ProfessorItem>
+            );
+          }
+                    
+        }) : <h3>No data yet</h3> }
       {/* <div>
         <ProfessorItem name={professor} />
       </div> */}
