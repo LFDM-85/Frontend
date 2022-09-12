@@ -10,7 +10,7 @@ export const MyLayout: React.FC = (): ReactElement => {
     <>
       <Typography ml={6} variant="h4" component="h4">
         Welcome back {authCtx.user?.name}
-      </Typography>;
+      </Typography>
       <ManagementPage/>
     </>
   );
