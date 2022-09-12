@@ -9,13 +9,12 @@ export const ProfessorSection = () => {
   const professorList = () => {
     axios.get('auth/all')
       .then((res) => setProfessor(res.data))
-      .catch(error => console.log(`Error: ${error}`));
-      
+      .catch(error => console.log(`Error: ${error}`));      
   };
   
   useEffect(() => { 
     professorList();    
-  }, [professorList]);
+  }, []);
   
   console.log(professor);
  
