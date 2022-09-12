@@ -15,7 +15,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { signout } from '../../features/SignServices';
@@ -26,39 +26,18 @@ export const SideBar: React.FC<any> = (props) => {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const [roleUser, setRoleUser] = useState({
-    isProfessor: false,
-    isStudent: false,
-    isAdmin: false,
-  });
+  const [roleUser, setRoleUser] = useState('');
+
 
   const role: string = authCtx.user.role[0];
 
-  switch (role) {
-  case 'professor':
-    setRoleUser({
-      ...roleUser,
-      isProfessor: true
-    });      
-    break;
-  case 'admin':
-    setRoleUser({
-      ...roleUser,
-      isAdmin: true
-    });
-    break;
-  case 'student':
-    setRoleUser({
-      ...roleUser,
-      isStudent: true
-    });
-    break;
-  
-  default:
-    setRoleUser({ ...roleUser });
-    break;
-  }
+  useEffect(() => {
+    if (role === 'professor') setRoleUser('professor');
+    if (role === 'admin') setRoleUser('admin');
+    if (role === 'student') setRoleUser('student');
 
+  }, []);
+  
   console.log(role);
 
   const signOutHandler = async () => {
