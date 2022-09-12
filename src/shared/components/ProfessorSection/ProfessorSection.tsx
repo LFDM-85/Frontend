@@ -5,19 +5,19 @@ import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 export const ProfessorSection = () => {
   let professor: any;
   
-  axios.get('auth/all')
+  const professorList = () => { axios.get('auth/all')
     .then((res) => res.data)
     .then((data) => {      
       data.map((person: any) => {
         if (person.role[0] === 'professor') {
-          professor = [person.name];
-          return professor;
+          
+          return person.name;
                       
         }
       });
-    });
+    });};
  
-  console.log(professor);
+  console.log(professorList());
   
   
   return (
@@ -26,7 +26,7 @@ export const ProfessorSection = () => {
         Professor Management
       </Typography>
       <div>
-        <ProfessorItem name={professor} />
+        <ProfessorItem name={professorList()} />
       </div>
       
     </>
