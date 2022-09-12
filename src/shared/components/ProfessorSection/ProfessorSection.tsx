@@ -3,8 +3,19 @@ import axios from '../../../interceptors/axios';
 import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 
 export const ProfessorSection = () => {
+  let professors: any;
 
-  axios.get('auth/all').then((res) => res.data).then((data) => console.log(data)); 
+  axios.get('auth/all')
+    .then((res) => res.data)
+    .then((data) => {      
+      data.map((person: any) => {
+        if (person.role[0] === 'professor') professors = person;
+        
+        console.log(professors);
+      });
+    }); 
+  
+  
 
 
   return (
@@ -12,10 +23,9 @@ export const ProfessorSection = () => {
       <Typography>
         Professor Management
       </Typography>
-      <ProfessorItem/>
-      <ProfessorItem/>
-      <ProfessorItem/>
-      <ProfessorItem/>
+      <div>
+
+      </div>
       
     </>
   );
