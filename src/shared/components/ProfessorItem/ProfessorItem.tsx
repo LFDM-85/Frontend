@@ -5,8 +5,9 @@ export const ProfessorItem = () => {
 
   return (
     <>
-      <div>{authCtx.user.name}</div>
-      <CheckIcon />
+      <div>{authCtx.user.name}      
+        <CheckIcon />
+      </div>
     </>
   );
 };
