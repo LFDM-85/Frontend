@@ -103,7 +103,7 @@ export function SignPage(): JSX.Element {
       if (inputs.password === inputs.confirmPassword) {
         setConfirmPassword(false);
         axios
-          .post(signRoute, { ...inputs, role: PROFESSOR_ROLE })
+          .post(signRoute, { ...inputs, role: PROFESSOR_ROLE, isValidated: false })
           .then((res) => {
             if (res.status === 201) {
               alert('User was created! Please Sign In');
