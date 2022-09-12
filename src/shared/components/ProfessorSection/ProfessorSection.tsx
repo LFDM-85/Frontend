@@ -9,7 +9,7 @@ export const ProfessorSection = () => {
     .then((res) => res.data)
     .then((data) => {      
       data.map((person: any) => {
-        if (person.role[0] === 'professor') professors = person;
+        if (person.role[0] === 'professor') professors = [person];
         
         console.log(professors);
       });
