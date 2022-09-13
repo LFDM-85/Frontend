@@ -10,13 +10,12 @@ type Props ={
   key: string,
   isValidated: boolean
 }
-const randomColor = Math.floor(Math.random()*16777215).toString(16);
 
 const useStyles = makeStyles({
   item: {
     height: '35px',
     alignItems: 'center',
-    backgroundColor: `${ randomColor }`,
+    backgroundColor: '#4BB7EA',
     border: '1px solid #000',
     borderRadius: '20px',
     margin: '5px 5px'
