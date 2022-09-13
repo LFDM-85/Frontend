@@ -38,8 +38,8 @@ export const ProfessorItem = ({ name, key, isValidated }: Props) => {
   };
 
   return (  
-    <ListItem className={classes.item} onClick={setValidationHandler}>
-      <ListItemText key={key}>{name}</ListItemText>      
+    <ListItem key={key} className={classes.item} onClick={setValidationHandler}>
+      <ListItemText >{name}</ListItemText>      
       {isValidated && <CheckIcon />}
     </ListItem>
     
