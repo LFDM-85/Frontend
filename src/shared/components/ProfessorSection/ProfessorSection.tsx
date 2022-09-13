@@ -12,7 +12,6 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     marginLeft: '10px',
     marginRight: '10px',
-    height: '500px'
     
   }
 });

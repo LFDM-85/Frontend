@@ -1,6 +1,8 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { ListItem, ListItemText } from '@mui/material';
 import {makeStyles} from '@mui/styles';
+import { useState } from 'react';
+import axios from '../../../interceptors/axios';
 // import axios from '../../../interceptors/axios';
 
 
@@ -14,7 +16,6 @@ type Props ={
 const useStyles = makeStyles({
   item: {
     height: '35px',
-    width: '250px',
     alignItems: 'center',
     backgroundColor: '#4BB7EA',
     border: '1px solid #000',
@@ -24,11 +25,22 @@ const useStyles = makeStyles({
 });
 export const ProfessorItem = ({ name, key, isValidated }: Props) => {
   const classes = useStyles();
+  const [validate, setValidate] = useState(isValidated);
+
+  const updateValidate = {
+    isValidated: setValidate(!isValidated)
+  };
+
+  const setValidationHandler = async () => {
+    await axios.patch(`/auth/${key}`, updateValidate)
+      .catch((error) => console.log('Error', error));
+    
+  };
 
   return (  
-    <ListItem className={classes.item}>
+    <ListItem className={classes.item} onClick={setValidationHandler}>
       <ListItemText key={key}>{name}</ListItemText>      
-      {isValidated && <CheckIcon />}
+      {validate && <CheckIcon />}
     </ListItem>
     
   );
