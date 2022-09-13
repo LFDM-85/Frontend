@@ -27,24 +27,20 @@ export const ProfessorItem = ({ name, key, isValidated }: Props) => {
   const classes = useStyles();
   const [validate, setValidate] = useState(isValidated);
 
-  const updateValidate = {
-    isValidated: setValidate(!isValidated)
-  };
-
   const setValidationHandler = async () => {
-    const response = await axios.patch(`/auth/${key}`, updateValidate)
+    setValidate(!isValidated)
+    const response = await axios.patch(`/auth/${key}`, {isValidated: validate})
       .catch((error) => console.log('Error', error));
     if (response && response.data) {
       console.log(response);
       console.log(response.data);
-    }
-    
+    }    
   };
 
   return (  
     <ListItem className={classes.item} onClick={setValidationHandler}>
       <ListItemText key={key}>{name}</ListItemText>      
-      {validate && <CheckIcon />}
+      {isValidated && <CheckIcon />}
     </ListItem>
     
   );
