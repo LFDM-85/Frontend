@@ -26,12 +26,13 @@ export const ProfessorSection = () => {
         Professor Management
       </Typography>
       {professors ? professors.map(professor => {
-        if(professor.role === 'professor') {
-          return (
-            <div key={professor.id}>
-              <h3>{professor.name}</h3>
-            </div>
-          );
+        if (professor.role === 'professor') {
+          console.log(professor);
+          // return (
+          //   <div key={professor.id}>
+          //     <h3>{professor.name}</h3>
+          //   </div>
+          // );
         }
       }): <h3>No data found</h3>}
       {/* <div>
