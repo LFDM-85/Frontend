@@ -1,17 +1,19 @@
-import { useState, createContext } from 'react';
+import React, { useState, createContext } from 'react';
 
 interface IUser {
   email: string;
   id: string;
   name: string;
-  role: [];
+  role: string[];
+  isValidated: boolean;
 }
 
-const initialUser = {
+const initialUser:IUser = {
   email: '',
   id: '',
   name: '',
   role: [],
+  isValidated: false
 };
 
 const AuthContext = createContext({
@@ -26,7 +28,7 @@ const AuthContext = createContext({
   },
 });
 
-export const AuthContextProvider = ({children}: any) => {
+export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState();
   const [user, setUser] = useState(initialUser);
   const userIsSignedIn = !!token;
@@ -39,6 +41,7 @@ export const AuthContextProvider = ({children}: any) => {
       id: user.id,
       name: user.name,
       role: user.role,
+      isValidated: user.isValidated
     });
   };
 

@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 import useAuth from '../hooks/useAuth';
 import { ManagementPage } from '../../pages/ManagementPage/ManagementPage';
 
-export const MyLayout: React.FC = (): ReactElement => {
+export const MyLayout = (): ReactElement => {
   const authCtx = useAuth();  
 
   return (

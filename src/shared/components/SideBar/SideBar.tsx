@@ -20,7 +20,11 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { signout } from '../../features/SignServices';
 
-export const SideBar: React.FC<any> = (props) => {
+type IProps = {
+  children: React.ReactNode
+}
+
+export const SideBar = ({children}: IProps) => {
   const authCtx = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -113,7 +117,7 @@ export const SideBar: React.FC<any> = (props) => {
         </Box>
       </Drawer>
       <Box height="100vh" marginLeft={smDown ? 0 : theme.spacing(28)}>
-        {props.children}
+        {children}
       </Box>
     </>
   );
