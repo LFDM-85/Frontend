@@ -7,7 +7,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   rootDiv: {
-    display: 'flex',
+    display: 'flexbox',
     flexDirection: 'column',
     justifyContent: 'center',
     marginLeft: '10px',
