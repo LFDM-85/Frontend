@@ -1,5 +1,6 @@
 import CheckIcon from '@mui/icons-material/Check';
-import { ListItem, ListItemText, makeStyles } from '@mui/material';
+import { ListItem, ListItemText } from '@mui/material';
+import {makeStyles} from '@mui/styles';
 // import axios from '../../../interceptors/axios';
 
 
@@ -11,11 +12,11 @@ type Props ={
 }
 const randomColor = Math.floor(Math.random()*16777215).toString(16);
 
-const useStyles: any = makeStyles({
+const useStyles = makeStyles({
   item: {
     height: '35px',
     alignItems: 'center',
-    backgroundColor: { randomColor },
+    backgroundColor: `${ randomColor }`,
     border: '1px solid #000',
     borderRadius: '20px',
     margin: '5px 5px'
