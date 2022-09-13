@@ -25,17 +25,13 @@ export const ProfessorSection = () => {
       <Typography>
         Professor Management
       </Typography>
-      {professors ? 
-        professors.map(professor => {
-          if (professor.role === 'professor') {
-            return(
-              <ProfessorItem key={professor.id}>
-                         name={professor.name}
-              </ProfessorItem>
-            );
-          }
-                    
-        }) : <h3>No data yet</h3> }
+      {professors ? professors.map(professor => {
+        return (
+          <div key={professor.id}>
+            <h3>{professor.name}</h3>
+          </div>
+        );
+      }): <h3>No data found</h3>}
       {/* <div>
         <ProfessorItem name={professor} />
       </div> */}
