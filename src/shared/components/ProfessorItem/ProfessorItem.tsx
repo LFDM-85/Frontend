@@ -32,8 +32,12 @@ export const ProfessorItem = ({ name, key, isValidated }: Props) => {
   };
 
   const setValidationHandler = async () => {
-    await axios.patch(`/auth/${key}`, updateValidate)
+    const response = await axios.patch(`/auth/${key}`, updateValidate)
       .catch((error) => console.log('Error', error));
+    if (response && response.data) {
+      console.log(response);
+      console.log(response.data);
+    }
     
   };
 
