@@ -14,12 +14,9 @@ export const ProfessorSection = () => {
   
   useEffect(() => { 
     getProfessorList();
-    
   }, []);
   
-  console.log(professors);
- 
-  
+  console.log(professors);  
   
   return (
     <>
@@ -33,9 +30,6 @@ export const ProfessorSection = () => {
           );
         }
       }): <h3>No data found</h3>}
-      {/* <div>
-        <ProfessorItem name={professor} />
-      </div> */}
       
     </>
   );
