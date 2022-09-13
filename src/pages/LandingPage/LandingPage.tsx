@@ -25,7 +25,7 @@ export const LandingPage = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Typography ml={6} variant="h1" component="h1">
+          <Typography ml={6} variant="h2" component="h2">
             E-le@rn School
           </Typography>
           <Typography mt={10} variant="h4" component="h4">

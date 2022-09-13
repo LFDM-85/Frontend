@@ -3,22 +3,11 @@ import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 import { IUser } from '../../interfaces/interfaces';
-import { makeStyles } from '@mui/styles';
+import { Box } from '@mui/system';
 
-const useStyles = makeStyles({
-  rootDiv: {
-    display: 'flexbox',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    marginLeft: '10px',
-    marginRight: '10px',
-    
-  }
-});
 
 export const ProfessorSection = () => {
 
-  const classes = useStyles();
   
   const [users, setUsers] = useState<IUser[]>([]);
   
@@ -32,22 +21,33 @@ export const ProfessorSection = () => {
     getUsersList();
   }, []);
   
-  console.log(users);  
-
-  
-  
   return (
-    <div className={classes.rootDiv}>
+    <div>
       <Typography component="h5" variant="h5">
         Professor Management Validation
       </Typography>
-      {users ? users.map(professor => {
-        if (professor.role.includes('professor')) {
-          return (
-            <ProfessorItem key={professor.id} name={professor.name} isValidated={professor.isValidated}/>
-          );
-        }
-      }): <h3>No data found</h3>}
+      <Box
+        sx={{
+          mb:2,
+          display: 'flex',
+          flexDirection: 'column',
+          height: 400,
+          width: 600, 
+          overflow: 'hidden',
+          overflowY: 'scroll',
+          padding: '15px',
+          margin: '5px'
+        }}
+      >
+        {users ? users.map(professor => {
+          if (professor.role.includes('professor')) {
+            return (
+              <ProfessorItem key={professor._id} id={professor._id} name={professor.name} isValidated={professor.isValidated}/>
+            );
+          }
+        }): <h3>No data found</h3>}
+      
+      </Box>
       
     </div>
   );

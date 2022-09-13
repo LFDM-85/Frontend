@@ -1,5 +1,5 @@
 import React, {ReactElement} from 'react';
-import { Typography } from '@mui/material';
+// import { Typography } from '@mui/material';
 import useAuth from '../hooks/useAuth';
 import { ManagementPage } from '../../pages/ManagementPage/ManagementPage';
 
@@ -8,10 +8,10 @@ export const MyLayout = (): ReactElement => {
 
   return (
     <>
-      <Typography ml={6} variant="h4" component="h4">
+      {/* <Typography ml={6} variant="h4" component="h4">
         Welcome back {authCtx.user?.name}
-      </Typography>
-      <ManagementPage/>
+      </Typography> */}
+      {authCtx.user.role.includes('admin') && <ManagementPage/>}
     </>
   );
  

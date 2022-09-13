@@ -1,13 +1,11 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { ListItem, ListItemText } from '@mui/material';
 import {makeStyles} from '@mui/styles';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
-// import axios from '../../../interceptors/axios';
 
-
-
-type Props ={
+type Props = {
+  id: string,
   name: string,
   key: string,
   isValidated: boolean
@@ -19,27 +17,28 @@ const useStyles = makeStyles({
     alignItems: 'center',
     backgroundColor: '#4BB7EA',
     border: '1px solid #000',
-    borderRadius: '20px',
-    margin: '5px 5px'
+    borderRadius: '5px',
+    margin: '5px 5px',
+    padding: '5px'
   }
 });
-export const ProfessorItem = ({ name, key, isValidated }: Props) => {
+export const ProfessorItem = ({ name,id, isValidated }: Props) => {
+
   const classes = useStyles();
   const [validate, setValidate] = useState(isValidated);
 
-  const setValidationHandler = async () => {
-    setValidate(!isValidated);    
-    // const response = await axios.patch(`/auth/${key}`, {key,name,isValidated: validate})
-    //   .catch((error) => console.log('Error', error));
-    // if (response && response.data) {
-    //   console.log(response);
-    //   console.log(response.data);
-    // }    
+  const setValidationHandler = () => {
+    setValidate(prevState => !prevState);
   };
 
+  useEffect(() => {
+    axios.patch(`/auth/${id}`, { 'isValidated': validate })
+      .catch((error) => console.log('Error', error));
+  }, [setValidationHandler]);
+
   return (  
-    <ListItem key={key} className={classes.item} onClick={setValidationHandler}>
-      <ListItemText >{name}</ListItemText>      
+    <ListItem className={classes.item} onClick={setValidationHandler}>
+      <ListItemText key={id} >{name}</ListItemText>      
       {validate && <CheckIcon />}
     </ListItem>
     
