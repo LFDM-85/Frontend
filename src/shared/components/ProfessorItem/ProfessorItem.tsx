@@ -29,12 +29,12 @@ export const ProfessorItem = ({ name, key, isValidated }: Props) => {
 
   const setValidationHandler = async () => {
     setValidate(!isValidated);    
-    const response = await axios.patch(`/auth/${key}`, {key,name,isValidated: validate})
-      .catch((error) => console.log('Error', error));
-    if (response && response.data) {
-      console.log(response);
-      console.log(response.data);
-    }    
+    // const response = await axios.patch(`/auth/${key}`, {key,name,isValidated: validate})
+    //   .catch((error) => console.log('Error', error));
+    // if (response && response.data) {
+    //   console.log(response);
+    //   console.log(response.data);
+    // }    
   };
 
   return (  
