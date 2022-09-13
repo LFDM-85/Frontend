@@ -17,7 +17,7 @@ export const ProfessorSection = () => {
     
   }, []);
   
-  // console.log(professors);
+  console.log(professors);
  
   
   
