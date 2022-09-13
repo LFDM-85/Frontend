@@ -28,8 +28,8 @@ export const ProfessorItem = ({ name, key, isValidated }: Props) => {
   const [validate, setValidate] = useState(isValidated);
 
   const setValidationHandler = async () => {
-    setValidate(!isValidated);
-    const response = await axios.patch(`/auth/${key}`, {isValidated: validate})
+    
+    const response = await axios.patch(`/auth/${key}`, {isValidated: setValidate(!isValidated)})
       .catch((error) => console.log('Error', error));
     if (response && response.data) {
       console.log(response);
@@ -40,7 +40,7 @@ export const ProfessorItem = ({ name, key, isValidated }: Props) => {
   return (  
     <ListItem key={key} className={classes.item} onClick={setValidationHandler}>
       <ListItemText >{name}</ListItemText>      
-      {isValidated && <CheckIcon />}
+      {validate && <CheckIcon />}
     </ListItem>
     
   );
