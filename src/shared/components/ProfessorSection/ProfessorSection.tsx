@@ -28,11 +28,8 @@ export const ProfessorSection = () => {
       </Typography>
       {professors ? professors.map(professor => {
         if (professor.role === 'professor') {
-          console.log(professor);
           return (
-            <ProfessorItem key={professor.id}>
-              <h3>{professor.name}</h3>
-            </ProfessorItem>
+            <ProfessorItem key={professor.id} name={professor.name}/>
           );
         }
       }): <h3>No data found</h3>}
