@@ -29,14 +29,12 @@ export const ProfessorSection = () => {
       <Box
         sx={{
           mb:2,
-          display: 'flex',
-          flexDirection: 'column',
+          // flexDirection: 'column',
           height: 400,
-          width: 600, 
           overflow: 'hidden',
           overflowY: 'scroll',
           padding: '15px',
-          margin: '5px'
+          margin: '15px'
         }}
       >
         {users ? users.map(professor => {
