@@ -18,16 +18,18 @@ export const ProfessorSection = () => {
   }, []);
   
   console.log(users);  
+
+  
   
   return (
     <>
-      <Typography>
-        Professor Management
+      <Typography component="h3" variant="h3">
+        Professor Management Validation
       </Typography>
       {users ? users.map(professor => {
         if (professor.role.includes('professor')) {
           return (
-            <ProfessorItem key={professor.id} name={professor.name} isValidated={professor.isValidated} />
+            <ProfessorItem key={professor.id} name={professor.name} isValidated={professor.isValidated}/>
           );
         }
       }): <h3>No data found</h3>}

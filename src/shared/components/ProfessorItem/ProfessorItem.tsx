@@ -14,6 +14,7 @@ type Props ={
 const useStyles = makeStyles({
   item: {
     height: '35px',
+    width: '250px',
     alignItems: 'center',
     backgroundColor: '#4BB7EA',
     border: '1px solid #000',
@@ -23,10 +24,6 @@ const useStyles = makeStyles({
 });
 export const ProfessorItem = ({ name, key, isValidated }: Props) => {
   const classes = useStyles();
-
-  // const changeIsValidatedHandler = () => { };
-
-
 
   return (  
     <ListItem className={classes.item}>
