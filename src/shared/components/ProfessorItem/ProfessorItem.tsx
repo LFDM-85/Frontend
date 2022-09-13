@@ -1,12 +1,16 @@
 import CheckIcon from '@mui/icons-material/Check';
-export const ProfessorItem = (props: any) => {
 
-  return (
-    <>
-      <div>{props.name}      
-        <CheckIcon />
-      </div>
-    </>
+type Props ={
+  name: string,
+  key: string,
+}
+export const ProfessorItem = ({name, key}: Props) => {
+
+  return (    
+    <div key={key}>{name}      
+      <CheckIcon />
+    </div>
+    
   );
 };
 

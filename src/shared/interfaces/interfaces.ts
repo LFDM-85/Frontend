@@ -5,7 +5,7 @@ export interface IUser {
     name: string;
     email: string;
     role: string[];
-    token: string;
+    isValidated: boolean;
 }
 export interface IState {
     isAuthenticated: boolean;

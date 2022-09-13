@@ -2,10 +2,11 @@ import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
+import { IUser } from '../../interfaces/interfaces';
 
 export const ProfessorSection = () => {
   
-  const [users, setUsers] = useState <any[]>([]);
+  const [users, setUsers] = useState <IUser[]>([]);
   const getUsersList = () => {
     axios.get('auth/all')
       .then((res) => setUsers(res.data))
