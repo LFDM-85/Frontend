@@ -5,25 +5,25 @@ import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 
 export const ProfessorSection = () => {
   
-  const [professors, setProfessors] = useState <any[]>([]);
-  const getProfessorList = () => {
+  const [users, setUsers] = useState <any[]>([]);
+  const getUsersList = () => {
     axios.get('auth/all')
-      .then((res) => setProfessors(res.data))
+      .then((res) => setUsers(res.data))
       .catch(error => console.log(`Error: ${error}`));      
   };
   
   useEffect(() => { 
-    getProfessorList();
+    getUsersList();
   }, []);
   
-  console.log(professors);  
+  console.log(users);  
   
   return (
     <>
       <Typography>
         Professor Management
       </Typography>
-      {professors ? professors.map(professor => {
+      {users ? users.map(professor => {
         if (professor.role.includes('professor')) {
           return (
             <ProfessorItem key={professor.id} name={professor.name}/>
