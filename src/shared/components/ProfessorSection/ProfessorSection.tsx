@@ -28,9 +28,9 @@ export const ProfessorSection = () => {
       {professors ? professors.map(professor => {
         if(professor.role === 'professor') {
           return (
-              <div key={professor.id}>
-                <h3>{professor.name}</h3>
-              </div>
+            <div key={professor.id}>
+              <h3>{professor.name}</h3>
+            </div>
           );
         }
       }): <h3>No data found</h3>}
