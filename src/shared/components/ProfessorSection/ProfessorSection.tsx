@@ -3,10 +3,25 @@ import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 import { IUser } from '../../interfaces/interfaces';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  rootDiv: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    marginLeft: '10px',
+    marginRight: '10px',
+    
+  }
+});
 
 export const ProfessorSection = () => {
+
+  const classes = useStyles();
   
-  const [users, setUsers] = useState <IUser[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
+  
   const getUsersList = () => {
     axios.get('auth/all')
       .then((res) => setUsers(res.data))
@@ -22,8 +37,8 @@ export const ProfessorSection = () => {
   
   
   return (
-    <>
-      <Typography component="h3" variant="h3">
+    <div className={classes.rootDiv}>
+      <Typography component="h5" variant="h5">
         Professor Management Validation
       </Typography>
       {users ? users.map(professor => {
@@ -34,6 +49,6 @@ export const ProfessorSection = () => {
         }
       }): <h3>No data found</h3>}
       
-    </>
+    </div>
   );
 };
