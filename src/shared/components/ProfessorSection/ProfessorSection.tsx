@@ -27,7 +27,7 @@ export const ProfessorSection = () => {
         Professor Management
       </Typography>
       {professors ? professors.map(professor => {
-        if (professor.role === 'professor') {
+        if (professor.role[0] === 'professor') {
           return (
             <ProfessorItem key={professor.id} name={professor.name}/>
           );
