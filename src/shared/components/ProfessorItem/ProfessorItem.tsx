@@ -11,7 +11,7 @@ type Props ={
 }
 const randomColor = Math.floor(Math.random()*16777215).toString(16);
 
-const useStyles = makeStyles({
+const useStyles: any = makeStyles({
   item: {
     height: '35px',
     alignItems: 'center',
@@ -20,9 +20,9 @@ const useStyles = makeStyles({
     borderRadius: '20px',
     margin: '5px 5px'
   }
-})
+});
 export const ProfessorItem = ({ name, key, isValidated }: Props) => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   // const changeIsValidatedHandler = () => { };
 
