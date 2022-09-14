@@ -4,13 +4,15 @@ import axios from '../../../interceptors/axios';
 import { StudentItem } from '../StudentItem/StudentItem';
 import { IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
-import { Add} from '@mui/icons-material';
+import { Add } from '@mui/icons-material';
+import NewUserModal from '../Modals/NewUserModal/NewUserModal';
 
 
 export const StudentSection = () => {
 
   
   const [users, setUsers] = useState<IUser[]>([]);
+  const [open, setOpen] = useState(false);
 
   
   const getUsersList = () => {
@@ -30,13 +32,18 @@ export const StudentSection = () => {
   const deleteHandler = (id: string) => {
     axios.delete(`/auth/${id}`)
       .catch((error) => console.log('Error', error));
+    getUsersList();
+  };
+
+  const addHandler = () => {
+    setOpen(true);
   };
   
 
   useEffect(() => { 
     getUsersList();
     
-  }, [deleteHandler]);
+  }, []);
   
   
   return (
@@ -80,9 +87,10 @@ export const StudentSection = () => {
        
         
         }}>
-          <Button variant="contained" startIcon={<Add/>} >ADD</Button>
+          <Button variant="contained" startIcon={<Add/>} onClick={addHandler} >ADD</Button>
         </Box>
       </Box>
+      <NewUserModal open={open} onClose={() => { setOpen(false), getUsersList(); }} />
     </div>
   );
 };
