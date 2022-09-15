@@ -71,7 +71,7 @@ export const StudentSection = () => {
         
         
           {users ? users.map(student => {
-            if (student.role.includes('student')) {
+            if (student.roles.includes('student')) {
               return (
                 <div onClick={()=> deleteHandler(student._id)} >
                   <StudentItem key={student._id} id={student._id} name={student.name} />

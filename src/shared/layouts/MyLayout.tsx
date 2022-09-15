@@ -11,7 +11,7 @@ export const MyLayout = (): ReactElement => {
       {/* <Typography ml={6} variant="h4" component="h4">
         Welcome back {authCtx.user?.name}
       </Typography> */}
-      {authCtx.user.role.includes('admin') && <ManagementPage/>}
+      {authCtx.user.roles.includes('admin') && <ManagementPage/>}
     </>
   );
  

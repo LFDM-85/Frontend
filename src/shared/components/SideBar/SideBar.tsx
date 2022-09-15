@@ -33,7 +33,7 @@ export const SideBar = ({children}: IProps) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
 
-  const role: string = authCtx.user.role[0];
+  const role: string = authCtx.user.roles[0];
 
   useEffect(() => {
     if (role === 'admin') setIsAdmin(true);
