@@ -38,7 +38,7 @@ export const ProfessorSection = () => {
         }}
       >
         {users ? users.map(professor => {
-          if (professor.role.includes('professor')) {
+          if (professor.roles.includes('professor')) {
             return (
               <ProfessorItem key={professor._id} id={professor._id} name={professor.name} isValidated={professor.isValidated}/>
             );
