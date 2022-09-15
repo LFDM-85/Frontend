@@ -4,7 +4,7 @@ interface IUser {
   email: string;
   id: string;
   name: string;
-  role: string[];
+  roles: string[];
   isValidated: boolean;
 }
 
@@ -12,7 +12,7 @@ const initialUser:IUser = {
   email: '',
   id: '',
   name: '',
-  role: [],
+  roles: [],
   isValidated: false
 };
 
@@ -40,7 +40,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
       email: user.email,
       id: user.id,
       name: user.name,
-      role: user.role,
+      roles: user.roles,
       isValidated: user.isValidated
     });
   };

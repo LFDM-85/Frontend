@@ -4,7 +4,7 @@ export interface IUser {
     _id: string;
     name: string;
     email: string;
-    role: string[];
+    roles: string[];
     isValidated: boolean;
 }
 export interface IState {
