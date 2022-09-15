@@ -55,7 +55,7 @@ const NewUserModal = ({ open, onClose}: any) => {
 
     const STUDENT_ROLE = ['student'];
 
-    axios.post('auth/signup', { ...inputs, role: STUDENT_ROLE, isValidated: true }).then((res) => {
+    axios.post('auth/signup', { ...inputs, roles: STUDENT_ROLE, isValidated: true }).then((res) => {
       if (res.status === 201) {
         alert('Student was created');
         return;

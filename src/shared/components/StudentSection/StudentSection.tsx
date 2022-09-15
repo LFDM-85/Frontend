@@ -20,14 +20,6 @@ export const StudentSection = () => {
       .then((res) => setUsers(res.data))
       .catch(error => console.log(`Error: ${error}`));      
   };
-  
-  // const deleteStudentHandler = () => {
-             
-  //       axios.delete(`/auth/${student._id}`)
-  //         .catch((error) => console.log('Error', error));
-  //     }
-  //   });
-  // };
 
   const deleteHandler = (id: string) => {
     axios.delete(`/auth/${id}`)
@@ -90,7 +82,9 @@ export const StudentSection = () => {
           <Button variant="contained" startIcon={<Add/>} onClick={addHandler} >ADD</Button>
         </Box>
       </Box>
-      <NewUserModal open={open} onClose={() => { setOpen(false), getUsersList(); }} />
+      <NewUserModal open={open} onClose={() => {
+        setOpen(false)
+        getUsersList(); }} />
     </div>
   );
 };
