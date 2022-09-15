@@ -83,7 +83,7 @@ export const StudentSection = () => {
         </Box>
       </Box>
       <NewUserModal open={open} onClose={() => {
-        setOpen(false)
+        setOpen(false),
         getUsersList(); }} />
     </div>
   );
