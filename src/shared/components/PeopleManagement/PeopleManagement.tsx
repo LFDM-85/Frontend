@@ -5,7 +5,7 @@ import { StudentSection } from '../StudentSection/StudentSection';
 export const PeopleManagement = () => {
   return (
     <>
-      <Typography variant="h4" component="h4">People Management</Typography>
+      {/* <Typography variant="h4" component="h4">People Management</Typography> */}
       <Box sx={{
         display: 'flex',
         flexDirection: 'column',

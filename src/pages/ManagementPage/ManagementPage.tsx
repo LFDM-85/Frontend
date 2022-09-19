@@ -9,6 +9,7 @@ export const ManagementPage = () => {
     <>  
       <Box sx={{
         display: 'flex',
+        margin: 'auto'
       }}>
         <Box
           sx={{

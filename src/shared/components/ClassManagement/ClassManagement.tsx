@@ -4,7 +4,7 @@ import { ClassSection } from '../ClassSection/ClassSection';
 export const ClassManagement = () => {
   return (
     <>
-      <Typography variant="h4" component="h4">People Management</Typography>
+      {/* <Typography variant="h4" component="h4">People Management</Typography> */}
       <Box sx={{
         display: 'flex',
         flexDirection: 'column',
