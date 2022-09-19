@@ -1,5 +1,13 @@
 import React from 'react';
 
+
+export interface IClass {
+    _id: string;
+    nameClass: string;
+    open: boolean
+}
+
+
 export interface IUser {
     _id: string;
     name: string;
