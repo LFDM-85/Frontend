@@ -1,11 +1,12 @@
 import { Box, Typography } from '@mui/material';
+import { PeopleSection } from '../PeopleSection/PeopleSection';
 import { ProfessorSection } from '../ProfessorSection/ProfessorSection';
 import { StudentSection } from '../StudentSection/StudentSection';
 
 export const PeopleManagement = () => {
   return (
     <>
-      {/* <Typography variant="h4" component="h4">People Management</Typography> */}
+     
       <Box sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -13,8 +14,9 @@ export const PeopleManagement = () => {
       
       
       }}>
-        <ProfessorSection />
-        <StudentSection/>
+        {/* <ProfessorSection /> */}
+        {/* <StudentSection/> */}
+        <PeopleSection/>
       </Box>
     </>
   );

@@ -9,7 +9,7 @@ import NewUserModal from '../Modals/NewUserModal/NewUserModal';
 import DataTable from '../common/DataTable/DataTable';
 
 
-export const StudentSection = () => {
+export const PeopleSection = () => {
 
   
   const [users, setUsers] = useState<IUser[]>([]);
@@ -40,53 +40,21 @@ export const StudentSection = () => {
   
   
   return (
-    <div>
+    <div style={{height: '100vh'}}>
       <Typography component="h4" variant="h4">
         Users Details
       </Typography>
-      <DataTable/>
-      {/* <Box sx={{
-        mb: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        height: 400,
-        
-        
-      }}>      
-        <Box sx={{
-          mb:2,
-          // flexDirection: 'column',
-          height: 400,
-          overflow: 'hidden',
-          overflowY: 'scroll',
-          padding: '15px',
-          margin: '15px'
-        }}>
-        
-        
-          {users ? users.map(student => {
-            if (student.roles.includes('student')) {
-              return (
-                <div onClick={()=> deleteHandler(student._id)} >
-                  <StudentItem key={student._id} id={student._id} name={student.name} />
-                  
-                </div>
-              );
-            }
-          }): <h3>No data found</h3>}
-      
-        </Box>
-        <Box sx={{
-          margin: 'auto',
-       
-        
-        }}>
-        </Box>
-      </Box> */}
-      <Button variant="contained" startIcon={<Add/>} onClick={addHandler} >ADD Student</Button>
-      <NewUserModal open={open} onClose={() => {
+      <DataTable />
+
+
+      <Box sx={{
+        margin: 'auto',
+      }}>
+        <Button variant="contained" startIcon={<Add />} onClick={addHandler}>ADD Student</Button>
+      </Box><NewUserModal open={open} onClose={() => {
         setOpen(false),
-        getUsersList(); }} />
+        getUsersList();
+      } } />
     </div>
   );
 };

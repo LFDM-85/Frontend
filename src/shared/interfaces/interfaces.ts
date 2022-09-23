@@ -11,6 +11,7 @@ export interface IClass {
 export interface IUser {
     _id: string;
     name: string;
+    image: string;
     email: string;
     roles: string[];
     isValidated: boolean;
