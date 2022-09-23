@@ -1,7 +1,7 @@
 import axios from 'axios';
 // Vercel site
-// const BASE_URL = 'https://backend-two-gamma.vercel.app/';
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'https://backend-two-gamma.vercel.app/';
+// const BASE_URL = 'http://localhost:5000';
 
 
 
