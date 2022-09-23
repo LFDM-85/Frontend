@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {DataGrid} from '@mui/x-data-grid';
 import axios from '../../../../interceptors/axios';
 import { IUser } from '../../../interfaces/interfaces';
@@ -7,17 +7,16 @@ import { Avatar } from '@mui/material';
 
 
 
-const columns = useMemo(
-  () => [
-    { field: 'image', headerName: 'Avatar', width: 70, sortable: false, renderCell:() => <Avatar /> ,filterable: false },
-    {field: 'id', headerName: 'User Id', width: 250 },
-    { field: 'name', headerName: 'User Name', width: 250 },
-    { field: 'email', headerName: 'User Email' , width: 250},
-    { field: 'roles', headerName: 'User Roles' , width: 250},
-    { field: 'isValidated', headerName: 'Validation', type: 'boolean', editable: true },
-    { field: 'actions', headerName: 'Save', type: 'actions' },
-    { field: 'actions', headerName: 'Delete', type: 'actions' }
-  ], []);
+const columns = [
+  { field: 'image', headerName: 'Avatar', width: 70, sortable: false, renderCell:() => <Avatar /> ,filterable: false },
+  {field: 'id', headerName: 'User Id', width: 250 },
+  { field: 'name', headerName: 'User Name', width: 250 },
+  { field: 'email', headerName: 'User Email' , width: 250},
+  { field: 'roles', headerName: 'User Roles' , width: 250},
+  { field: 'isValidated', headerName: 'Validation', type: 'boolean', editable: true },
+  { field: 'actions', headerName: 'Save', type: 'actions' },
+  { field: 'actions', headerName: 'Delete', type: 'actions' }
+];
 
 const DataTable = () => {
   const [data, setData] = useState<IUser[]>([]);
