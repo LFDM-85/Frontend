@@ -1,9 +1,6 @@
-import { Delete, Edit } from '@mui/icons-material';
-import CheckIcon from '@mui/icons-material/Check';
+import { Delete} from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import {makeStyles} from '@mui/styles';
-import { useEffect, useState } from 'react';
-import axios from '../../../interceptors/axios';
 
 type Props = {
   id: string,

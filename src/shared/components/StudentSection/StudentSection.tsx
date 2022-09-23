@@ -23,8 +23,8 @@ export const StudentSection = () => {
 
   const deleteHandler = (id: string) => {
     axios.delete(`/auth/${id}`)
+      .then(() => getUsersList())
       .catch((error) => console.log('Error', error));
-    getUsersList();
   };
 
   const addHandler = () => {

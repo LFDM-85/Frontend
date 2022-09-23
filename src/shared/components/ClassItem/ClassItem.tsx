@@ -1,8 +1,6 @@
-import CheckIcon from '@mui/icons-material/Check';
+import { Delete, Edit } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import {makeStyles} from '@mui/styles';
-import { useEffect, useState } from 'react';
-import axios from '../../../interceptors/axios';
 
 type Props = {
   
@@ -24,21 +22,13 @@ const useStyles = makeStyles({
 export const ClassItem = ({ name }: Props) => {
 
   const classes = useStyles();
-  // const [open, setOpen] = useState(isOpen);
-
-  // const setOpenHandler = () => {
-  //   setOpen(prevState => !prevState);
-  // };
-
-  // useEffect(() => {
-  //   axios.patch(`/auth/${id}`, { 'isValidated': validate })
-  //     .catch((error) => console.log('Error', error));
-  // }, [setValidationHandler]);
+  
 
   return (  
     <ListItem className={classes.item} >
-      <ListItemText>{name}</ListItemText>      
-      
+      <ListItemText>{name}</ListItemText>
+      <Edit/>
+      <Delete/>
     </ListItem>
     
   );

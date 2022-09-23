@@ -5,7 +5,7 @@ import { ClassItem } from '../ClassItem/ClassItem';
 import { IClass } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import { Add } from '@mui/icons-material';
-
+import { NewClassModal } from '../Modals/NewClassModal/NewClassModal';
 
 export const ClassSection = () => {
 
@@ -19,14 +19,20 @@ export const ClassSection = () => {
       .catch(error => console.log(`Error: ${error}`));      
   };
 
+  const deleteHandler = (classeName: string) => {
+    axios.delete(`/class/${classeName}`)
+      .then(() => getClassesList())
+      .catch((error) => console.log('Error', error));
+  };
+
   const addHandler = () => {
     setOpen(true);
   };
-  
+
   useEffect(() => { 
     getClassesList();
+    
   }, []);
-  
   return (
     <div>
       <Typography component="h5" variant="h5">
@@ -45,7 +51,9 @@ export const ClassSection = () => {
       >
         {classes ? classes.map(aclass => {          
           return (
-            <ClassItem key={aclass._id } name={aclass.nameClass} />
+            <div key={aclass._id } onClick={()=> deleteHandler(aclass.nameClass)} >
+              <ClassItem key={aclass._id} name={aclass.nameClass} />
+            </div>
           );
           
         }): <h3>No data found</h3>}
@@ -57,9 +65,14 @@ export const ClassSection = () => {
         <Button variant="contained" startIcon={<Add/>} onClick={addHandler} >ADD</Button>
       </Box>
       
-      
+      <NewClassModal open={open} onClose={() => {
+        setOpen(false),
+        getClassesList();
+      }} />
       
       
     </div>
   );
 };
+
+
