@@ -13,7 +13,6 @@ const columns = [
     renderCell: () => <Avatar />,
     filterable: false,
   },
-  { field: 'id', headerName: 'User Id', width: 250 },
   { field: 'name', headerName: 'User Name', width: 250 },
   { field: 'email', headerName: 'User Email', width: 250 },
   { field: 'roles', headerName: 'User Roles', width: 250 },
@@ -23,6 +22,7 @@ const columns = [
     type: 'boolean',
     editable: true,
   },
+  { field: 'id', headerName: 'User Id', width: 250 },
   // { field: 'actions', headerName: 'Save', type: 'actions' },
   // { field: 'actions', headerName: 'Delete', type: 'actions' }
 ];

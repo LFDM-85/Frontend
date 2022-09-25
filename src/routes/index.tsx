@@ -10,9 +10,7 @@ import { MyPageRoute } from '../shared/components/MyPageRoute/MyPageRoute';
 export const AppRoutes = () => {
   const [signedUser, setSignedUser] = useState(false);
   const navigate = useNavigate();
-  // const MyPage = lazy(() =>
-  //   import('../pages/MyPage/MyPage').then(({ MyPage }) => ({ default: MyPage }))
-  // );
+
   const SignPage = lazy(() =>
     import('../pages/SignPage/SignPage').then(({ SignPage }) => ({
       default: SignPage,
@@ -20,29 +18,30 @@ export const AppRoutes = () => {
   );
 
   useEffect(() => {
+    axios
+      .get('auth/whoami', {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res.data);
+        console.log(res.status);
+        if (res.status === 200) {
+          setSignedUser(true);
+          navigate('/my', { replace: true });
+          return res.data;
+        }
+        // const signUser = res.data;
 
-
-    const isAuthenticated = localStorage.getItem('isAuthenticated');
-    if (isAuthenticated) {
-      axios
-        .get('auth/whoami', {
-          // headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
-        })
-        .then((res) => {
-          console.log(res.data);
-          const signUser = res.data;
-
-          if (signUser) {
-            setSignedUser(true);
-            navigate('/my', { replace: true });
-          }
-          if (!signUser) navigate('/', { replace: true });
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
+        // if (signUser) {
+        //   setSignedUser(true);
+        //   navigate('/my', { replace: true });
+        // }
+        // if (!signUser) navigate('/', { replace: true });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }, []);
 
   return (
