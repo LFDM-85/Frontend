@@ -13,9 +13,9 @@ export const PeopleManagement = () => {
           padding: '20px',
         }}
       >
-        <ProfessorSection />
-        <StudentSection />
-        {/* <PeopleSection/> */}
+        {/* <ProfessorSection />
+        <StudentSection /> */}
+        <PeopleSection />
       </Box>
     </>
   );

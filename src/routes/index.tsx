@@ -32,7 +32,6 @@ export const AppRoutes = () => {
           return res.data;
         }
         // const signUser = res.data;
-
         // if (signUser) {
         //   setSignedUser(true);
         //   navigate('/my', { replace: true });
