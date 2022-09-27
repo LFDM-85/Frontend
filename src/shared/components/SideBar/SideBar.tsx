@@ -21,10 +21,10 @@ import useAuth from '../../hooks/useAuth';
 import { signout } from '../../features/SignServices';
 
 type IProps = {
-  children: React.ReactNode
-}
+  children: React.ReactNode;
+};
 
-export const SideBar = ({children}: IProps) => {
+export const SideBar = ({ children }: IProps) => {
   const authCtx = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -32,14 +32,12 @@ export const SideBar = ({children}: IProps) => {
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-
   const role: string = authCtx.user.roles[0];
 
   useEffect(() => {
     if (role === 'admin') setIsAdmin(true);
     else setIsAdmin(false);
   }, []);
- 
 
   const signOutHandler = async () => {
     await signout();
@@ -82,30 +80,38 @@ export const SideBar = ({children}: IProps) => {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              {!isAdmin && <ListItemButton>
-                <ListItemIcon>
-                  <Home />
-                </ListItemIcon>
-                <ListItemText secondary="Home"></ListItemText>
-              </ListItemButton>}
-              {!isAdmin && <ListItemButton>
-                <ListItemIcon>
-                  <Groups />
-                </ListItemIcon>
-                <ListItemText secondary="Classes"></ListItemText>
-              </ListItemButton>}
-              {!isAdmin && <ListItemButton>
-                <ListItemIcon>
-                  <SchoolIcon />
-                </ListItemIcon>
-                <ListItemText secondary="Assessments"></ListItemText>
-              </ListItemButton>}
-              {isAdmin && <ListItemButton>
-                <ListItemIcon>
-                  <ManageAccountsIcon />
-                </ListItemIcon>
-                <ListItemText secondary="Management"></ListItemText>
-              </ListItemButton>}
+              {!isAdmin && (
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Home />
+                  </ListItemIcon>
+                  <ListItemText secondary="Home"></ListItemText>
+                </ListItemButton>
+              )}
+              {!isAdmin && (
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Groups />
+                  </ListItemIcon>
+                  <ListItemText secondary="Classes"></ListItemText>
+                </ListItemButton>
+              )}
+              {!isAdmin && (
+                <ListItemButton>
+                  <ListItemIcon>
+                    <SchoolIcon />
+                  </ListItemIcon>
+                  <ListItemText secondary="Assessments"></ListItemText>
+                </ListItemButton>
+              )}
+              {isAdmin && (
+                <ListItemButton>
+                  <ListItemIcon>
+                    <ManageAccountsIcon />
+                  </ListItemIcon>
+                  <ListItemText secondary="Management"></ListItemText>
+                </ListItemButton>
+              )}
               <ListItemButton onClick={signOutHandler}>
                 <ListItemIcon>
                   <LogoutIcon />

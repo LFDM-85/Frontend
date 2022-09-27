@@ -6,17 +6,16 @@ import { StudentSection } from '../StudentSection/StudentSection';
 export const PeopleManagement = () => {
   return (
     <>
-     
-      <Box sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '20px',
-      
-      
-      }}>
-        {/* <ProfessorSection /> */}
-        {/* <StudentSection/> */}
-        <PeopleSection/>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: '20px',
+        }}
+      >
+        <ProfessorSection />
+        <StudentSection />
+        {/* <PeopleSection/> */}
       </Box>
     </>
   );
