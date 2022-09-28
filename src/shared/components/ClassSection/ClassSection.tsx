@@ -2,77 +2,60 @@ import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import { ClassItem } from '../ClassItem/ClassItem';
-import { IClass } from '../../interfaces/interfaces';
+import { IClass, IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
-import { Add } from '@mui/icons-material';
-import { NewClassModal } from '../Modals/NewClassModal/NewClassModal';
+import useAuth from '../../hooks/useAuth';
 
 export const ClassSection = () => {
+  const authCtx = useAuth();
 
-  
   const [classes, setClasses] = useState<IClass[]>([]);
-  const [open, setOpen] = useState(false);
-  
-  const getClassesList = () => {
-    axios.get('class/all')
-      .then((res) => setClasses(res.data))
-      .catch(error => console.log(`Error: ${error}`));      
-  };
 
-  const deleteHandler = (classeName: string) => {
-    axios.delete(`/class/${classeName}`)
-      .then(() => getClassesList())
-      .catch((error) => console.log('Error', error));
-  };
+  useEffect(() => {
+    axios
+      .get(`auth/${authCtx.user.email}`)
+      .then((res) => {
+        const getclasses = res.data.classes;
 
-  const addHandler = () => {
-    setOpen(true);
-  };
-
-  useEffect(() => { 
-    getClassesList();
-    
+        setClasses(getclasses);
+        console.log(classes);
+      })
+      .catch((error) => console.log(`Error: ${error}`));
   }, []);
+
+  const lectureHandler = (aclass: any) => {
+    console.log(aclass);
+    console.log('searching for lectures');
+  };
+
   return (
     <div>
       <Typography component="h5" variant="h5">
-        Class Management 
+        My Classes
       </Typography>
       <Box
         sx={{
-          mb:2,
+          mb: 2,
           // flexDirection: 'column',
           height: 400,
           overflow: 'hidden',
           overflowY: 'scroll',
           padding: '15px',
-          margin: '15px'
+          margin: '15px',
         }}
       >
-        {classes ? classes.map(aclass => {          
-          return (
-            <div key={aclass._id } onClick={()=> deleteHandler(aclass.nameClass)} >
-              <ClassItem key={aclass._id} name={aclass.nameClass} />
-            </div>
-          );
-          
-        }): <h3>No data found</h3>}
-      
+        {classes ? (
+          classes.map((aclass: any) => {
+            return (
+              <div key={Math.random()} onClick={() => lectureHandler(aclass)}>
+                <ClassItem name={aclass} />
+              </div>
+            );
+          })
+        ) : (
+          <h3>No data found</h3>
+        )}
       </Box>
-      <Box sx={{
-        margin: 'auto',
-      }}>
-        <Button variant="contained" startIcon={<Add/>} onClick={addHandler} >ADD</Button>
-      </Box>
-      
-      <NewClassModal open={open} onClose={() => {
-        setOpen(false),
-        getClassesList();
-      }} />
-      
-      
     </div>
   );
 };
-
-

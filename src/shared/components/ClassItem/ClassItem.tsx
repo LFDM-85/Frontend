@@ -1,12 +1,10 @@
-import { Delete, Edit } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
-import {makeStyles} from '@mui/styles';
+import CastForEducationIcon from '@mui/icons-material/CastForEducation';
+import { makeStyles } from '@mui/styles';
 
 type Props = {
-  
-  name: string,
-  
-}
+  name: string;
+};
 
 const useStyles = makeStyles({
   item: {
@@ -16,21 +14,16 @@ const useStyles = makeStyles({
     border: '1px solid #000',
     borderRadius: '5px',
     margin: '5px 5px',
-    padding: '5px'
-  }
+    padding: '5px',
+  },
 });
 export const ClassItem = ({ name }: Props) => {
-
   const classes = useStyles();
-  
 
-  return (  
-    <ListItem className={classes.item} >
+  return (
+    <ListItem className={classes.item}>
       <ListItemText>{name}</ListItemText>
-      <Edit/>
-      <Delete/>
+      <CastForEducationIcon />
     </ListItem>
-    
   );
 };
-

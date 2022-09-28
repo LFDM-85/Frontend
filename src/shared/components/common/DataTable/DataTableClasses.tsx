@@ -4,7 +4,7 @@ import { Avatar, Button } from '@mui/material';
 import { Add } from '@mui/icons-material';
 import NewUserModal from '../../Modals/NewUserModal/NewUserModal';
 import { useEffect, useMemo, useState } from 'react';
-import EditActions from './UsersActions/EditActions';
+import EditActionsClass from './UsersActions/EditActionsClass';
 import DeleteActions from './UsersActions/DeleteActions';
 import useGetAllClassesData from '../../../hooks/useGetAllClassesData';
 import { NewClassModal } from '../../Modals/NewClassModal/NewClassModal';
@@ -48,7 +48,7 @@ const DataTableClasses = () => {
         headerName: 'Edit',
         type: 'actions',
         renderCell: (params: any) => (
-          <EditActions {...{ params, rowId, setRowId }} />
+          <EditActionsClass {...{ params, rowId, setRowId }} />
         ),
       },
       {
