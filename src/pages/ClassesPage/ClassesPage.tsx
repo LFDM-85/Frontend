@@ -6,7 +6,7 @@ import { IUser } from '../../shared/interfaces/interfaces';
 const ClassesPage = () => {
   return (
     <>
-      {/* <ClassSection /> */}
+      <ClassSection />
       <AssessmentsSection />
     </>
   );

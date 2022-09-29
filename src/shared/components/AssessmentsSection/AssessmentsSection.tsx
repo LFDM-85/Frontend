@@ -54,7 +54,7 @@ export const AssessmentsSection = () => {
             console.log(aclass);
             return (
               <>
-                <div key={Math.random()}>
+                <div key={aclass._id}>
                   <ClassItem name={aclass.nameClass} />
                   {aclass.lecture ? (
                     aclass.lecture.map((lecture: ILectures) => {
