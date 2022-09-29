@@ -1,8 +1,10 @@
-import React from 'react';
-import DataTableAssessment from '../../shared/components/common/DataTable/DataTableAssessment';
+// import DataTableAssessment from '../../shared/components/common/DataTable/DataTableAssessment';
 
 const AssessmentsPage = () => {
-  return <DataTableAssessment />;
+  return (
+    <div>Assessments</div>
+    // <DataTableAssessment />
+  );
 };
 
 export default AssessmentsPage;
