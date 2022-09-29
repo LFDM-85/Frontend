@@ -1,38 +1,37 @@
 import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
-import { IAssessment, IClass, IUser } from '../../interfaces/interfaces';
+import {
+  IAssessment,
+  IClass,
+  ILectures,
+  IUser,
+} from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../../hooks/useAuth';
-import { AssessmentItem } from '../AssessmentItem/AssessmentItem';
+import { LectureItem } from '../LectureItem/LectureItem';
 import { ClassItem } from '../ClassItem/ClassItem';
 
 export const AssessmentsSection = () => {
   const authCtx = useAuth();
 
   const [classes, setClasses] = useState<IClass[]>([]);
-  const [assessment, setAssessments] = useState<IAssessment[]>([]);
+  // const [lectures, setLectures] = useState<ILectures[]>([]);
 
   useEffect(() => {
     axios
       .get(`auth/${authCtx.user.email}`)
       .then((res) => {
-        const getClasses = res.data.classes;
-        const getAssessments = res.data.assessment;
-        console.log(res.data);
-
-        setClasses(getClasses);
-
-        setAssessments(getAssessments);
-        console.log(assessment);
+        const classData = res.data.classes;
+        const lecturesData = res.data.classes.lecture;
+        setClasses(classData);
+        // setLectures(lecturesData);
       })
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
 
-  const lectureHandler = (aclass: any) => {
-    console.log(aclass);
-    console.log('searching for lectures');
-  };
+  console.log(classes);
+  // console.log(lectures);
 
   return (
     <div>
@@ -51,21 +50,22 @@ export const AssessmentsSection = () => {
         }}
       >
         {classes ? (
-          classes.map((aclass: any) => {
+          classes.map((aclass: IClass) => {
+            console.log(aclass);
             return (
               <>
-                <div>
-                  <ClassItem name={aclass} />
-
-                  {assessment ? (
-                    assessment.map((assessment: any) => {
+                <div key={Math.random()}>
+                  <ClassItem name={aclass.nameClass} />
+                  {aclass.lecture ? (
+                    aclass.lecture.map((lecture: ILectures) => {
+                      console.log('lecture', lecture);
                       return (
-                        <div
-                          key={Math.random()}
-                          onClick={() => lectureHandler(assessment)}
-                        >
-                          <AssessmentItem name={assessment} />
-                        </div>
+                        <>
+                          <LectureItem
+                            key={lecture._id}
+                            name={lecture.summary}
+                          />
+                        </>
                       );
                     })
                   ) : (
@@ -78,20 +78,6 @@ export const AssessmentsSection = () => {
         ) : (
           <h3>No data found</h3>
         )}
-        {/* {assessment ? (
-          assessment.map((assessment: any) => {
-            return (
-              <div
-                key={Math.random()}
-                onClick={() => lectureHandler(assessment)}
-              >
-                <AssessmentItem name={assessment} />
-              </div>
-            );
-          })
-        ) : (
-          <h3>No data found</h3>
-        )} */}
       </Box>
     </div>
   );

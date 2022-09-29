@@ -4,6 +4,15 @@ export interface IClass {
   _id: string;
   nameClass: string;
   open: boolean;
+  lecture: ILectures[];
+}
+
+export interface ILectures {
+  _id: string;
+  summary: string;
+  description: string;
+  finished: boolean;
+  assessment: IAssessment;
 }
 
 export interface IAssessment {

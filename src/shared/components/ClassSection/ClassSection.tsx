@@ -9,24 +9,21 @@ import useAuth from '../../hooks/useAuth';
 export const ClassSection = () => {
   const authCtx = useAuth();
 
-  const [classes, setClasses] = useState<IClass[]>([]);
+  // const [classes, setClasses] = useState<IClass[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   useEffect(() => {
     axios
       .get(`auth/${authCtx.user.email}`)
-      .then((res) => {
-        const getclasses = res.data.classes;
-
-        setClasses(getclasses);
-        console.log(classes);
-      })
+      .then((res) => setUsers(res.data))
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
 
-  const lectureHandler = (aclass: any) => {
-    console.log(aclass);
-    console.log('searching for lectures');
-  };
+  console.log(users);
+  // const lectureHandler = (aclass: any) => {
+  //   console.log(aclass);
+  //   console.log('searching for lectures');
+  // };
 
   return (
     <div>
@@ -44,7 +41,7 @@ export const ClassSection = () => {
           margin: '15px',
         }}
       >
-        {classes ? (
+        {/* {classes ? (
           classes.map((aclass: any) => {
             return (
               <div key={Math.random()} onClick={() => lectureHandler(aclass)}>
@@ -54,7 +51,7 @@ export const ClassSection = () => {
           })
         ) : (
           <h3>No data found</h3>
-        )}
+        )} */}
       </Box>
     </div>
   );
