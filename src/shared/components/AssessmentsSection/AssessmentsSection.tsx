@@ -65,6 +65,11 @@ export const AssessmentsSection = () => {
                             description={lecture.description}
                             // assessment={lecture.assessment}
                           />
+                          {lecture.assessment ? (
+                            <h3>{lecture.assessment.assessmentValue}</h3>
+                          ) : (
+                            <h3>No assessment found</h3>
+                          )}
                         </>
                       );
                     })
