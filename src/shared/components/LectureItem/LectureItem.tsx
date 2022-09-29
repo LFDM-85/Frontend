@@ -1,9 +1,12 @@
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
+import { IAssessment } from '../../interfaces/interfaces';
 
 type Props = {
-  name: string;
+  summary: string;
+  description: string;
+  // assessment: IAssessment;
 };
 
 const useStyles = makeStyles({
@@ -17,12 +20,15 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const LectureItem = ({ name }: Props) => {
+export const LectureItem = ({ summary, description }: Props) => {
   const classes = useStyles();
+  // console.log(assessment.assessmentValue);
 
   return (
     <ListItem className={classes.item}>
-      <ListItemText>{name}</ListItemText>
+      <ListItemText>{summary}</ListItemText>
+      <ListItemText>{description}</ListItemText>
+      {/* <ListItemText>{assessment.assessmentValue}</ListItemText> */}
       <DeveloperBoardIcon />
     </ListItem>
   );

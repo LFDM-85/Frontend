@@ -51,19 +51,19 @@ export const AssessmentsSection = () => {
       >
         {classes ? (
           classes.map((aclass: IClass) => {
-            console.log(aclass);
             return (
               <>
                 <div key={aclass._id}>
-                  <ClassItem name={aclass.nameClass} />
+                  <ClassItem key={aclass._id} name={aclass.nameClass} />
                   {aclass.lecture ? (
                     aclass.lecture.map((lecture: ILectures) => {
-                      console.log('lecture', lecture);
                       return (
                         <>
                           <LectureItem
                             key={lecture._id}
-                            name={lecture.summary}
+                            summary={lecture.summary}
+                            description={lecture.description}
+                            // assessment={lecture.assessment}
                           />
                         </>
                       );
