@@ -59,17 +59,25 @@ export const AssessmentsSection = () => {
                     aclass.lecture.map((lecture: ILectures) => {
                       return (
                         <>
-                          <LectureItem
-                            key={lecture._id}
-                            summary={lecture.summary}
-                            description={lecture.description}
-                            // assessment={lecture.assessment}
-                          />
-                          {lecture.assessment ? (
-                            <h3>{lecture.assessment.assessmentValue}</h3>
-                          ) : (
-                            <h3>No assessment found</h3>
-                          )}
+                          <Box
+                            sx={{
+                              mb: 2,
+                              ml: 2,
+                            }}
+                          >
+                            <LectureItem
+                              key={lecture._id}
+                              summary={lecture.summary}
+                              description={lecture.description}
+                            />
+                            {lecture.assessment ? (
+                              <h3>
+                                Assessment: {lecture.assessment.assessmentValue}
+                              </h3>
+                            ) : (
+                              <h3>No assessment found</h3>
+                            )}
+                          </Box>
                         </>
                       );
                     })

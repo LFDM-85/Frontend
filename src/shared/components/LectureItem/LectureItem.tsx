@@ -28,7 +28,6 @@ export const LectureItem = ({ summary, description }: Props) => {
     <ListItem className={classes.item}>
       <ListItemText>{summary}</ListItemText>
       <ListItemText>{description}</ListItemText>
-      {/* <ListItemText>{assessment.assessmentValue}</ListItemText> */}
       <DeveloperBoardIcon />
     </ListItem>
   );

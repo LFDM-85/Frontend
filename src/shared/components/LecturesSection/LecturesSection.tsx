@@ -1,28 +1,23 @@
 import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
-import {
-  IAssessment,
-  IClass,
-  ILectures,
-  IUser,
-} from '../../interfaces/interfaces';
+import { IClass, ILectures } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../../hooks/useAuth';
 import { LectureItem } from '../LectureItem/LectureItem';
-import { ClassItem } from '../ClassItem/ClassItem';
-import { Add, PlusOne } from '@mui/icons-material';
-import NewUserModal from '../Modals/NewUserModal/NewUserModal';
-import ListUserModal from '../Modals/ListUserModal/ListUserModal';
+import { PlusOne } from '@mui/icons-material';
+import NewLectureModal from '../Modals/NewLectureModal/NewLectureModal';
 
 export const LecturesSection = () => {
   const authCtx = useAuth();
   const [open, setOpen] = useState(false);
 
-  const [classes, setClasses] = useState<IClass[]>([]);
+  const [classes, setClasses] = useState<IClass[]>(() => []);
+  const [aclass, setAclass] = useState<string>();
 
-  const addHandler = () => {
+  const addHandler = (id: string) => {
     setOpen(true);
+    setAclass(id);
   };
 
   useEffect(() => {
@@ -35,9 +30,6 @@ export const LecturesSection = () => {
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
 
-  console.log(classes);
-  // console.log(lectures);
-
   return (
     <div>
       <Typography component="h5" variant="h5">
@@ -46,7 +38,6 @@ export const LecturesSection = () => {
       <Box
         sx={{
           mb: 2,
-          // flexDirection: 'column',
           height: 400,
           overflow: 'hidden',
           overflowY: 'scroll',
@@ -56,12 +47,21 @@ export const LecturesSection = () => {
       >
         {classes ? (
           classes.map((aclass: IClass) => {
+            // setAclass(aclass);
             return (
               <>
                 <div key={aclass._id}>
                   <Typography component="h5" variant="h5">
                     {aclass.nameClass}
                   </Typography>
+                  <Button
+                    style={{ margin: 15 }}
+                    variant="contained"
+                    startIcon={<PlusOne />}
+                    onClick={() => addHandler(aclass._id)}
+                  >
+                    Add Lecture
+                  </Button>
                   {aclass.lecture ? (
                     aclass.lecture.map((lecture: ILectures) => {
                       return (
@@ -85,15 +85,9 @@ export const LecturesSection = () => {
           <h3>No data found</h3>
         )}
       </Box>
-      <Button
-        style={{ margin: 15 }}
-        variant="contained"
-        startIcon={<PlusOne />}
-        onClick={addHandler}
-      >
-        Add Lecture
-      </Button>
-      <ListUserModal
+
+      <NewLectureModal
+        classId={aclass}
         open={open}
         onClose={() => {
           setOpen(false);

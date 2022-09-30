@@ -1,13 +1,10 @@
-import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import BasicModal from '../../common/BasicModal/BasicModal';
 import { useForm } from 'react-hook-form';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from '../../../../interceptors/axios';
-import { IUser } from '../../../interfaces/interfaces';
-import { StudentItem } from '../../StudentItem/StudentItem';
 
-const NewUserModal = ({ open, onClose }: any) => {
+const NewLectureModal = ({ open, onClose, classId }: any) => {
   const {
     register,
     handleSubmit,
@@ -16,18 +13,7 @@ const NewUserModal = ({ open, onClose }: any) => {
     defaultValues: { summary: '', description: '' },
   });
 
-  const [users, setUsers] = useState<IUser[]>([]);
-
-  const getUsersList = () => {
-    axios
-      .get('auth/all')
-      .then((res) => setUsers(res.data))
-      .catch((error) => console.log(`Error: ${error}`));
-  };
-
-  useEffect(() => {
-    getUsersList();
-  }, []);
+  const [data, setData] = useState();
 
   const modalStyles = {
     inputFields: {
@@ -40,9 +26,47 @@ const NewUserModal = ({ open, onClose }: any) => {
       },
     },
   };
+  const addLecture = (inputs: any) => {
+    axios
+      .post('lectures/create', { ...inputs, finished: false })
+      .then((res) => {
+        console.log(res.data._id);
+        // setData(res.data._id);
+        if (res.status === 201) {
+          console.log('Lecture was created');
+          axios
+            .patch(`/class/${res.data._id}/add-lecture/${classId}`)
+            .then((res) => {
+              if (res.status === 201) console.log('Lecture added to the class');
+            })
+            .catch(function (error) {
+              alert('Lecture already added!');
+              console.log(error.message);
+              return;
+            });
+          return;
+        }
+      })
+      .catch(function (error) {
+        alert('Lectures already exists!');
+        console.log(error.message);
+        return;
+      });
+  };
 
-  const submitHandler = () => {
-    console.log('submited');
+  const submitHandler = async ({
+    summary,
+    description,
+  }: {
+    summary: string;
+    description: string;
+  }) => {
+    const inputs = {
+      summary,
+      description,
+    };
+
+    addLecture(inputs);
   };
 
   const getContent = () => (
@@ -92,27 +116,6 @@ const NewUserModal = ({ open, onClose }: any) => {
         error={!!errors?.description}
         helperText={errors?.description ? errors.description.message : null}
       />
-      {users ? (
-        users.map((student) => {
-          if (student.roles.includes('student')) {
-            return (
-              <div
-                onClick={() => {
-                  console.log(student.name);
-                }}
-              >
-                <StudentItem
-                  key={student._id}
-                  id={student._id}
-                  name={student.name}
-                />
-              </div>
-            );
-          }
-        })
-      ) : (
-        <h3>No data found</h3>
-      )}
     </Box>
   );
 
@@ -128,4 +131,4 @@ const NewUserModal = ({ open, onClose }: any) => {
   );
 };
 
-export default NewUserModal;
+export default NewLectureModal;
