@@ -13,6 +13,13 @@ export interface ILectures {
   description: string;
   finished: boolean;
   assessment: IAssessment;
+  works: IWorks[];
+  // attendance: IAttendance
+}
+
+export interface IWorks {
+  _id: string;
+  filename: string;
 }
 
 export interface IAssessment {
