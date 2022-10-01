@@ -5,14 +5,18 @@ import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import useAuth from '../../hooks/useAuth';
 import { IClass, ILectures, IWorks } from '../../interfaces/interfaces';
+import NewWorkModal from '../Modals/NewWorkModal/NewWorkModal';
 import { WorkItem } from '../WorkItem/WorkItem';
 
 export const WorkSection = () => {
   const authCtx = useAuth();
   const [classes, setClasses] = useState<IClass[]>(() => []);
+  const [open, setOpen] = useState(false);
+  const [lectureId, setLectureId] = useState<string>();
 
   const addHandler = (id: string) => {
-    console.log('Add file', id);
+    setOpen(true);
+    setLectureId(id);
   };
 
   useEffect(() => {
@@ -42,10 +46,10 @@ export const WorkSection = () => {
                       <>
                         <Button
                           size="small"
+                          key={work._id}
                           style={{ margin: 15 }}
                           variant="contained"
                           startIcon={<PlusOne />}
-                          component="span"
                           onClick={() => addHandler(lecture._id)}
                         >
                           Add Work
@@ -58,24 +62,15 @@ export const WorkSection = () => {
                   <>
                     <Box sx={{ display: 'flex', alignContent: 'flex-start' }}>
                       <h3>No work found for this lecture</h3>
-                      <label htmlFor="upload-photo">
-                        <input
-                          style={{ display: 'none' }}
-                          id="upload-photo"
-                          name="upload-photo"
-                          type="file"
-                        />
-                        <Button
-                          size="small"
-                          style={{ margin: 15 }}
-                          variant="contained"
-                          startIcon={<PlusOne />}
-                          component="span"
-                          onClick={() => addHandler(lecture._id)}
-                        >
-                          Add Work
-                        </Button>
-                      </label>
+                      <Button
+                        size="small"
+                        style={{ margin: 15 }}
+                        variant="contained"
+                        startIcon={<PlusOne />}
+                        onClick={() => addHandler(lecture._id)}
+                      >
+                        Add Work
+                      </Button>
                     </Box>
                   </>
                 )}
@@ -107,6 +102,13 @@ export const WorkSection = () => {
           <Box>Assessment</Box>
         </Container>
       </div>
+      <NewWorkModal
+        lectureId={lectureId}
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      />
     </>
   );
 };

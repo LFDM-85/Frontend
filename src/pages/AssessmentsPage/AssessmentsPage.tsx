@@ -1,9 +1,10 @@
-// import DataTableAssessment from '../../shared/components/common/DataTable/DataTableAssessment';
+import { AssessmentsSection } from '../../shared/components/AssessmentsSection/AssessmentsSection';
 
 const AssessmentsPage = () => {
   return (
-    <div>Assessments</div>
-    // <DataTableAssessment />
+    <>
+      <AssessmentsSection />
+    </>
   );
 };
 

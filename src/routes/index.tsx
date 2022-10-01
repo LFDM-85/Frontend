@@ -7,6 +7,12 @@ import RequireAuth from '../shared/features/RequireAuth';
 import axios from '../interceptors/axios';
 import { Loading } from '../shared/components/Loading/Loading';
 import { MyPageRoute } from '../shared/components/MyPageRoute/MyPageRoute';
+import ClassesPage from '../pages/ClassesPage/ClassesPage';
+import LecturesPage from '../pages/LecturesPage/LecturesPage';
+import WorkPage from '../pages/WorkPage/WorkPage';
+import AssessmentsPage from '../pages/AssessmentsPage/AssessmentsPage';
+import { ManagementPage } from '../pages/ManagementPage/ManagementPage';
+import { MyLayout } from '../shared/layouts/MyLayout';
 export const AppRoutes = () => {
   const [signedUser, setSignedUser] = useState(false);
   const navigate = useNavigate();
@@ -85,7 +91,15 @@ export const AppRoutes = () => {
             <RequireAuth allowedRoles={['admin', 'student', 'professor']} />
           }
         >
-          <Route path="/my" element={<MyPageRoute />} />
+          <Route path="/my" element={<MyPageRoute />}>
+            <Route element={<MyLayout />}>
+              <Route path="classes" element={<ClassesPage />} />
+              <Route path="lecture" element={<LecturesPage />} />
+              <Route path="work" element={<WorkPage />} />
+              <Route path="assessment" element={<AssessmentsPage />} />
+              <Route path="management" element={<ManagementPage />} />
+            </Route>
+          </Route>
         </Route>
 
         {/* catch all */}

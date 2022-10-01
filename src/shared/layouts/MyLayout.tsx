@@ -4,18 +4,21 @@ import useAuth from '../hooks/useAuth';
 import { ManagementPage } from '../../pages/ManagementPage/ManagementPage';
 import AssessmentsPage from '../../pages/AssessmentsPage/AssessmentsPage';
 import ClassesPage from '../../pages/ClassesPage/ClassesPage';
+import { Outlet } from 'react-router-dom';
 
 export const MyLayout = (): ReactElement => {
   const authCtx = useAuth();
 
   return (
     <>
-      <Typography ml={6} variant="h4" component="h4">
+      {/* <Typography ml={6} variant="h4" component="h4">
         Welcome back {authCtx.user?.name}
-      </Typography>
-      {!authCtx.user.roles.includes('admin') && <ClassesPage />}
+      </Typography> */}
+      <Outlet />
+
+      {/* {!authCtx.user.roles.includes('admin') && <ClassesPage />}
       {authCtx.user.roles.includes('admin') && <ManagementPage />}
-      {/* {authCtx.user.roles.includes('student') && <AssessmentsPage />} */}
+      {authCtx.user.roles.includes('student') && <AssessmentsPage />} */}
     </>
   );
 };

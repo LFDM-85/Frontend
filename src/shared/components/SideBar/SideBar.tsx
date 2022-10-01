@@ -1,4 +1,4 @@
-import { Groups, Home } from '@mui/icons-material';
+import { Groups, Home, LocalLibrary, Work } from '@mui/icons-material';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import SchoolIcon from '@mui/icons-material/School';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { signout } from '../../features/SignServices';
 
@@ -24,11 +24,14 @@ type IProps = {
   children: React.ReactNode;
 };
 
-export const SideBar = ({ children }: IProps) => {
+const SideBar = ({ children }: IProps) => {
   const authCtx = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const path = location.pathname;
 
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -81,7 +84,11 @@ export const SideBar = ({ children }: IProps) => {
           <Box flex={1}>
             <List component="nav">
               {!isAdmin && (
-                <ListItemButton>
+                <ListItemButton
+                  component={Link}
+                  to={'/my'}
+                  selected={'/my' === path}
+                >
                   <ListItemIcon>
                     <Home />
                   </ListItemIcon>
@@ -89,7 +96,11 @@ export const SideBar = ({ children }: IProps) => {
                 </ListItemButton>
               )}
               {!isAdmin && (
-                <ListItemButton>
+                <ListItemButton
+                  component={Link}
+                  to={'/my/classes'}
+                  selected={'/my/classes' === path}
+                >
                   <ListItemIcon>
                     <Groups />
                   </ListItemIcon>
@@ -97,7 +108,35 @@ export const SideBar = ({ children }: IProps) => {
                 </ListItemButton>
               )}
               {!isAdmin && (
-                <ListItemButton>
+                <ListItemButton
+                  component={Link}
+                  to={'/my/lecture'}
+                  selected={'/my/lecture' === path}
+                >
+                  <ListItemIcon>
+                    <LocalLibrary />
+                  </ListItemIcon>
+                  <ListItemText secondary="Lectures"></ListItemText>
+                </ListItemButton>
+              )}
+              {!isAdmin && (
+                <ListItemButton
+                  component={Link}
+                  to={'/my/work'}
+                  selected={'/my/work' === path}
+                >
+                  <ListItemIcon>
+                    <Work />
+                  </ListItemIcon>
+                  <ListItemText secondary="Works"></ListItemText>
+                </ListItemButton>
+              )}
+              {!isAdmin && (
+                <ListItemButton
+                  component={Link}
+                  to={'/my/assessment'}
+                  selected={'/my/assessment' === path}
+                >
                   <ListItemIcon>
                     <SchoolIcon />
                   </ListItemIcon>
@@ -105,7 +144,11 @@ export const SideBar = ({ children }: IProps) => {
                 </ListItemButton>
               )}
               {isAdmin && (
-                <ListItemButton>
+                <ListItemButton
+                  component={Link}
+                  to={'/my/management'}
+                  selected={'/my/management' === path}
+                >
                   <ListItemIcon>
                     <ManageAccountsIcon />
                   </ListItemIcon>
@@ -128,3 +171,4 @@ export const SideBar = ({ children }: IProps) => {
     </>
   );
 };
+export default SideBar;
