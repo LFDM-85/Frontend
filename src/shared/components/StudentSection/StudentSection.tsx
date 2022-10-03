@@ -68,6 +68,7 @@ export const StudentSection = () => {
                       key={student._id}
                       id={student._id}
                       name={student.name}
+                      icontoggle={false}
                     />
                   </div>
                 );

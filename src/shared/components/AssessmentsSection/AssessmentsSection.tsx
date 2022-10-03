@@ -42,7 +42,7 @@ export const AssessmentsSection = () => {
         sx={{
           mb: 2,
           // flexDirection: 'column',
-          height: 400,
+          height: '80vh',
           overflow: 'hidden',
           overflowY: 'scroll',
           padding: '15px',

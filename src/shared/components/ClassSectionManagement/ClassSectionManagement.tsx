@@ -1,18 +1,17 @@
 import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import axios from '../../../interceptors/axios';
 import { ClassItem } from '../ClassItem/ClassItem';
 import { IClass, IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetAllClassesData from '../../hooks/useGetAllClassesData';
 import { NewClassModal } from '../Modals/NewClassModal/NewClassModal';
 import { Add } from '@mui/icons-material';
+import { EditClassItem } from '../EditClassItem/EditClassItem';
 
 export const ClassSectionManagement = () => {
   const { data } = useGetAllClassesData();
   const [open, setOpen] = useState(false);
 
-  // const [classes, setClasses] = useState<IClass[]>([]);
   const addHandler = () => {
     setOpen(true);
   };
@@ -20,13 +19,6 @@ export const ClassSectionManagement = () => {
   useEffect(() => {
     data;
   }, []);
-
-  console.log(data);
-
-  const lectureHandler = (aclass: any) => {
-    console.log(aclass);
-    console.log('searching for lectures');
-  };
 
   return (
     <div>
@@ -36,10 +28,8 @@ export const ClassSectionManagement = () => {
       <Box
         sx={{
           mb: 2,
-          // flexDirection: 'column',
-          height: 400,
-          overflow: 'hidden',
-          overflowY: 'scroll',
+          height: '80vh',
+
           padding: '15px',
           margin: '15px',
         }}
@@ -52,11 +42,12 @@ export const ClassSectionManagement = () => {
         >
           ADD Class
         </Button>
+
         {data ? (
           data.map((aclass: IClass) => {
             return (
-              <div key={aclass._id} onClick={() => lectureHandler(aclass)}>
-                <ClassItem name={aclass.nameClass} />
+              <div key={aclass._id}>
+                <EditClassItem name={aclass.nameClass} id={aclass._id} />
               </div>
             );
           })

@@ -3,9 +3,10 @@ import BasicModal from '../../common/BasicModal/BasicModal';
 import { useForm } from 'react-hook-form';
 import axios from '../../../../interceptors/axios';
 import useGetAllUsersData from '../../../hooks/useGetAllUsersData';
-import { StudentItem } from '../../StudentItem/StudentItem';
+
 export const NewClassModal = ({ open, onClose }: any) => {
   const { data } = useGetAllUsersData();
+
   const {
     register,
     handleSubmit,
@@ -25,12 +26,6 @@ export const NewClassModal = ({ open, onClose }: any) => {
     },
   };
 
-  const deleteHandler = (id: string) => {
-    axios
-      .delete(`/auth/${id}`)
-      .then(() => data)
-      .catch((error) => console.log('Error', error));
-  };
   const submitHandler = async ({
     nameClass,
     open,
@@ -59,6 +54,7 @@ export const NewClassModal = ({ open, onClose }: any) => {
         return;
       });
   };
+
   const getContent = () => (
     <Box sx={modalStyles.inputFields}>
       <TextField
@@ -84,36 +80,6 @@ export const NewClassModal = ({ open, onClose }: any) => {
         helperText={errors?.nameClass ? errors.nameClass.message : null}
         inputProps={{ maxLength: 25 }}
       />
-      <Box
-        sx={{
-          mb: 2,
-          // flexDirection: 'column',
-          height: 400,
-          overflow: 'hidden',
-          overflowY: 'scroll',
-        }}
-      >
-        {data ? (
-          data.map((people) => {
-            if (
-              people.roles.includes('student') ||
-              people.roles.includes('professor')
-            ) {
-              return (
-                <div onClick={() => deleteHandler(people._id)}>
-                  <StudentItem
-                    key={people._id}
-                    id={people._id}
-                    name={people.name}
-                  />
-                </div>
-              );
-            }
-          })
-        ) : (
-          <h3>No data found</h3>
-        )}
-      </Box>
     </Box>
   );
   return (

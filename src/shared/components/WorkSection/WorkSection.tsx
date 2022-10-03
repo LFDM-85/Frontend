@@ -19,6 +19,7 @@ export const WorkSection = () => {
   const [classes, setClasses] = useState<IClass[]>(() => []);
   const [open, setOpen] = useState(false);
   const [lectureId, setLectureId] = useState<string>();
+  const [attendance, setAttendance] = useState<string>();
 
   const addHandler = (id: string) => {
     setOpen(true);
@@ -40,16 +41,18 @@ export const WorkSection = () => {
     axios
       .post('attendance/create', { attendance: false, validation: false })
       .then((res) => {
+        if (res.status === 200) {
+          setAttendance(res.data._id);
+        }
         axios
-          .patch(`/auth/${authCtx.user.id}/add-attendance/${res.data._id}`, {
+          .patch(`/auth/${authCtx.user.id}/add-attendance/${attendance}`, {
             attendance: true,
           })
-          .then((res) => {
-            axios
-              .patch(`/lectures/${res.data._id}/add-attendance/${lectureId}`, {
-                attendance: true,
-              })
-              .catch((error) => console.log('Error', error));
+          .catch((error) => console.log('Error', error));
+
+        axios
+          .patch(`/lectures/${res.data._id}/add-attendance/${lectureId}`, {
+            attendance: true,
           })
           .catch((error) => console.log('Error', error));
       })
