@@ -61,14 +61,16 @@ export const LecturesSection = () => {
                   <Typography component="h5" variant="h5">
                     {aclass.nameClass}
                   </Typography>
-                  <Button
-                    style={{ margin: 15 }}
-                    variant="contained"
-                    startIcon={<PlusOne />}
-                    onClick={() => addHandler(aclass._id)}
-                  >
-                    Add Lecture
-                  </Button>
+                  {authCtx.user.roles.includes('professor') && (
+                    <Button
+                      style={{ margin: 15 }}
+                      variant="contained"
+                      startIcon={<PlusOne />}
+                      onClick={() => addHandler(aclass._id)}
+                    >
+                      Add Lecture
+                    </Button>
+                  )}
                   {aclass.lecture ? (
                     aclass.lecture.map((lecture: ILectures) => {
                       return (
@@ -78,14 +80,16 @@ export const LecturesSection = () => {
                             summary={lecture.summary}
                             description={lecture.description}
                           />
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                onClick={() => finishHandler(lecture._id)}
-                              />
-                            }
-                            label="Finish Lecture"
-                          />
+                          {authCtx.user.roles.includes('professor') && (
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  onClick={() => finishHandler(lecture._id)}
+                                />
+                              }
+                              label="Finish Lecture"
+                            />
+                          )}
                         </>
                       );
                     })
