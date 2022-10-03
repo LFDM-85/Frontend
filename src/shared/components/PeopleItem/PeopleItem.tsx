@@ -20,12 +20,20 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const PeopleItem = ({ name, id, icontoggle, classToggle }: any) => {
+export const PeopleItem = ({
+  name,
+  id,
+  icontoggle,
+  role,
+  classToggle,
+}: any) => {
   const classes = useStyles();
 
   return (
     <ListItem className={classes.item} onClick={classToggle}>
-      <ListItemText key={id}>{name}</ListItemText>
+      <ListItemText key={id}>
+        {name} - {role}
+      </ListItemText>
       {icontoggle && <Delete />}
       {!icontoggle && <Add />}
     </ListItem>

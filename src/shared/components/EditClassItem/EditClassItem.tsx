@@ -68,6 +68,7 @@ export const EditClassItem = ({ name, id, toggle }: any) => {
                   key={people._id}
                   id={people._id}
                   name={people.name}
+                  role={people.roles}
                   icontoggle={people.classes.find(
                     (item) => item.nameClass === name
                   )}
