@@ -1,4 +1,4 @@
-import { Button, Typography } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import { IClass, ILectures } from '../../interfaces/interfaces';
@@ -20,6 +20,13 @@ export const LecturesSection = () => {
     setAclass(id);
   };
 
+  const finishHandler = (lectureId: string) => {
+    axios
+      .patch(`lectures/${lectureId}`, { finished: true })
+      .then((res) => res.data)
+      .catch((error) => console.log('Error', error));
+  };
+
   useEffect(() => {
     axios
       .get(`auth/${authCtx.user.email}`)
@@ -38,7 +45,7 @@ export const LecturesSection = () => {
       <Box
         sx={{
           mb: 2,
-          height: 400,
+          height: '80vh',
           overflow: 'hidden',
           overflowY: 'scroll',
           padding: '15px',
@@ -70,6 +77,14 @@ export const LecturesSection = () => {
                             key={lecture._id}
                             summary={lecture.summary}
                             description={lecture.description}
+                          />
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                onClick={() => finishHandler(lecture._id)}
+                              />
+                            }
+                            label="Finish Lecture"
                           />
                         </>
                       );

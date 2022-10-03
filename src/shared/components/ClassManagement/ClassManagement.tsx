@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { ClassSection } from '../ClassSection/ClassSection';
+import { ClassSectionManagement } from '../ClassSectionManagement/ClassSectionManagement';
 import DataTableClasses from '../common/DataTable/DataTableClasses';
 
 export const ClassManagement = () => {
@@ -13,8 +13,8 @@ export const ClassManagement = () => {
           padding: '20px',
         }}
       >
-        {/* <ClassSection /> */}
-        <DataTableClasses />
+        <ClassSectionManagement />
+        {/* <DataTableClasses /> */}
       </Box>
     </>
   );

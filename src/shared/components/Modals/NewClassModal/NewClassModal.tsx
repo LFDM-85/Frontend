@@ -2,8 +2,10 @@ import { Box, TextField } from '@mui/material';
 import BasicModal from '../../common/BasicModal/BasicModal';
 import { useForm } from 'react-hook-form';
 import axios from '../../../../interceptors/axios';
-
+import useGetAllUsersData from '../../../hooks/useGetAllUsersData';
+import { StudentItem } from '../../StudentItem/StudentItem';
 export const NewClassModal = ({ open, onClose }: any) => {
+  const { data } = useGetAllUsersData();
   const {
     register,
     handleSubmit,
@@ -19,38 +21,43 @@ export const NewClassModal = ({ open, onClose }: any) => {
       marginBottom: '15px',
       '.MuiInput-root': {
         marginBottom: '20px',
-      }
+      },
+    },
+  };
 
-    }
+  const deleteHandler = (id: string) => {
+    axios
+      .delete(`/auth/${id}`)
+      .then(() => data)
+      .catch((error) => console.log('Error', error));
   };
   const submitHandler = async ({
     nameClass,
     open,
-    
   }: {
     nameClass: string;
     open: boolean;
   }) => {
-    
-    
     const inputs = {
       nameClass,
       open,
     };
-    
+
     console.log(inputs);
 
-
-    axios.post('class/create', { ...inputs, open: true }).then((res) => {
-      if (res.status === 201) {
-        alert('Class was created');
+    axios
+      .post('class/create', { ...inputs, open: true })
+      .then((res) => {
+        if (res.status === 201) {
+          alert('Class was created');
+          return;
+        }
+      })
+      .catch(function (error) {
+        alert('Class already exists!');
+        console.log(error.message);
         return;
-      }
-    }).catch(function (error) {
-      alert('Class already exists!');
-      console.log(error.message);
-      return;
-    });
+      });
   };
   const getContent = () => (
     <Box sx={modalStyles.inputFields}>
@@ -64,8 +71,7 @@ export const NewClassModal = ({ open, onClose }: any) => {
           required: 'Class Name is required!',
           minLength: {
             value: 3,
-            message:
-                      'Invalid name, must have between 3 to 25 characters',
+            message: 'Invalid name, must have between 3 to 25 characters',
           },
           maxLength: {
             value: 25,
@@ -78,20 +84,46 @@ export const NewClassModal = ({ open, onClose }: any) => {
         helperText={errors?.nameClass ? errors.nameClass.message : null}
         inputProps={{ maxLength: 25 }}
       />
+      <Box
+        sx={{
+          mb: 2,
+          // flexDirection: 'column',
+          height: 400,
+          overflow: 'hidden',
+          overflowY: 'scroll',
+        }}
+      >
+        {data ? (
+          data.map((people) => {
+            if (
+              people.roles.includes('student') ||
+              people.roles.includes('professor')
+            ) {
+              return (
+                <div onClick={() => deleteHandler(people._id)}>
+                  <StudentItem
+                    key={people._id}
+                    id={people._id}
+                    name={people.name}
+                  />
+                </div>
+              );
+            }
+          })
+        ) : (
+          <h3>No data found</h3>
+        )}
+      </Box>
     </Box>
   );
   return (
     <BasicModal
       open={open}
       onClose={onClose}
-      title='New Class'
-      subTitle='Add new class to school'
+      title="New Class"
+      subTitle="Add new class to school"
       content={getContent()}
       onSubmit={handleSubmit(submitHandler)}
-
     ></BasicModal>
   );
-
-
-
 };

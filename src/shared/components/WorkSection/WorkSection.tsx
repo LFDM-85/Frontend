@@ -1,5 +1,11 @@
 import { PlusOne } from '@mui/icons-material';
-import { Box, Button, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Typography,
+} from '@mui/material';
 import { Container } from '@mui/system';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
@@ -30,6 +36,26 @@ export const WorkSection = () => {
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
 
+  const addAttendanceHandle = (lectureId: string) => {
+    axios
+      .post('attendance/create', { attendance: false, validation: false })
+      .then((res) => {
+        axios
+          .patch(`/auth/${authCtx.user.id}/add-attendance/${res.data._id}`, {
+            attendance: true,
+          })
+          .then((res) => {
+            axios
+              .patch(`/lectures/${res.data._id}/add-attendance/${lectureId}`, {
+                attendance: true,
+              })
+              .catch((error) => console.log('Error', error));
+          })
+          .catch((error) => console.log('Error', error));
+      })
+      .catch((error) => console.log(`Error: ${error} `));
+  };
+
   const getWorks = classes ? (
     classes.map((aclass: IClass) => {
       return aclass.lecture ? (
@@ -37,9 +63,19 @@ export const WorkSection = () => {
           return (
             <>
               <Box>
-                <Typography component="h6" variant="h6">
-                  {lecture.summary}
-                </Typography>
+                <Box>
+                  <Typography component="h6" variant="h6">
+                    {lecture.summary}
+                  </Typography>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={() => addAttendanceHandle(lecture._id)}
+                      />
+                    }
+                    label="Attendance"
+                  />
+                </Box>
                 {lecture.works ? (
                   lecture.works.map((work: IWorks) => {
                     return (
@@ -94,10 +130,9 @@ export const WorkSection = () => {
         </Typography>
         <Container sx={{ display: 'flex' }}>
           <Box>
-            <Box>works</Box>
             <Box>{getWorks}</Box>
           </Box>
-          <Box>Attendance</Box>
+          <Box></Box>
 
           <Box>Assessment</Box>
         </Container>
