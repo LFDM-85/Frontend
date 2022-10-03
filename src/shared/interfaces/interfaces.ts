@@ -34,6 +34,7 @@ export interface IUser {
   email: string;
   roles: string[];
   isValidated: boolean;
+  classes: IClass[];
 }
 export interface IState {
   isAuthenticated: boolean;
