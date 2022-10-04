@@ -9,6 +9,7 @@ import { PeopleItem } from '../PeopleItem/PeopleItem';
 
 type Props = {
   name: string;
+  id: string;
 };
 
 const useStyles = makeStyles({
@@ -22,37 +23,33 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const EditClassItem = ({ name, id, toggle }: any) => {
+export const EditClassItem = ({ name, id }: Props) => {
   const { data } = useGetAllUsersData();
   const classes = useStyles();
 
-  console.log('allusers', data);
-
-  const toggleHandler = (people: IUser, name: IClass) => {
-    console.log('people', people);
-
-    if (people.classes.includes(name)) {
-      people.classes.map((aclass: IClass) => {
-        if (aclass._id === id) {
-          axios.patch(`auth/${people._id}/remove-class/${id}`).then((res) => {
-            console.log('User removed from class');
-          });
-        } else {
-          axios.patch(`auth/${people._id}/add-class/${id}`).then((res) => {
-            console.log('User added to class');
-          });
-        }
-      });
-    } else {
-      axios.patch(`auth/${people._id}/add-class/${id}`).then((res) => {
-        console.log('User added to class');
-      });
+  const toggleHandler = (people: IUser) => {
+    {
+      people.classes &&
+        people.classes.map((aclass: IClass) => {
+          if (aclass._id === id) {
+            axios.patch(`auth/${people._id}/remove-class/${id}`).then((res) => {
+              console.log('User removed from class');
+            });
+          } else {
+            axios.patch(`auth/${people._id}/add-class/${id}`).then((res) => {
+              console.log('User added to class');
+            });
+          }
+        });
+    }
+    {
+      !people.classes && <h3>No classes found to add people</h3>;
     }
   };
 
   return (
     <>
-      <ListItem className={classes.item} onClick={toggle}>
+      <ListItem className={classes.item}>
         <ListItemText>{name}</ListItemText>
         <CastForEducationIcon />
       </ListItem>
@@ -72,7 +69,7 @@ export const EditClassItem = ({ name, id, toggle }: any) => {
                   icontoggle={people.classes.find(
                     (item) => item.nameClass === name
                   )}
-                  classToggle={() => toggleHandler(people, name)}
+                  classToggle={() => toggleHandler(people)}
                 />
               </div>
             );
