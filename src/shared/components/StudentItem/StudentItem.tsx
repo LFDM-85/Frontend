@@ -7,6 +7,7 @@ type Props = {
   name: string;
   key: string;
   icontoggle: boolean;
+  deleteShow: boolean;
 };
 
 const useStyles = makeStyles({
@@ -20,13 +21,13 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const StudentItem = ({ name, id }: Props) => {
+export const StudentItem = ({ name, id, deleteShow }: Props) => {
   const classes = useStyles();
 
   return (
     <ListItem className={classes.item}>
       <ListItemText key={id}>{name}</ListItemText>
-      <Delete />
+      {deleteShow && <Delete />}
     </ListItem>
   );
 };

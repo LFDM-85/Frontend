@@ -33,15 +33,6 @@ const SideBar = ({ children }: IProps) => {
 
   const path = location.pathname;
 
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  const role: string = authCtx.user.roles[0];
-
-  useEffect(() => {
-    if (role === 'admin') setIsAdmin(true);
-    else setIsAdmin(false);
-  }, []);
-
   const signOutHandler = async () => {
     await signout();
     authCtx.isSignedIn = false;
@@ -83,7 +74,7 @@ const SideBar = ({ children }: IProps) => {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              {!isAdmin && (
+              {!authCtx.user.roles.includes('admin') && (
                 <ListItemButton
                   component={Link}
                   to={'/my'}
@@ -95,7 +86,7 @@ const SideBar = ({ children }: IProps) => {
                   <ListItemText secondary="Home"></ListItemText>
                 </ListItemButton>
               )}
-              {!isAdmin && (
+              {!authCtx.user.roles.includes('admin') && (
                 <ListItemButton
                   component={Link}
                   to={'/my/classes'}
@@ -107,7 +98,7 @@ const SideBar = ({ children }: IProps) => {
                   <ListItemText secondary="Classes"></ListItemText>
                 </ListItemButton>
               )}
-              {!isAdmin && (
+              {!authCtx.user.roles.includes('admin') && (
                 <ListItemButton
                   component={Link}
                   to={'/my/lecture'}
@@ -119,7 +110,7 @@ const SideBar = ({ children }: IProps) => {
                   <ListItemText secondary="Lectures"></ListItemText>
                 </ListItemButton>
               )}
-              {!isAdmin && (
+              {!authCtx.user.roles.includes('admin') && (
                 <ListItemButton
                   component={Link}
                   to={'/my/work'}
@@ -131,7 +122,7 @@ const SideBar = ({ children }: IProps) => {
                   <ListItemText secondary="Works"></ListItemText>
                 </ListItemButton>
               )}
-              {!isAdmin && (
+              {authCtx.user.roles.includes('student') && (
                 <ListItemButton
                   component={Link}
                   to={'/my/assessment'}
@@ -143,7 +134,7 @@ const SideBar = ({ children }: IProps) => {
                   <ListItemText secondary="Assessments"></ListItemText>
                 </ListItemButton>
               )}
-              {isAdmin && (
+              {authCtx.user.roles.includes('admin') && (
                 <ListItemButton
                   component={Link}
                   to={'/my/management'}
