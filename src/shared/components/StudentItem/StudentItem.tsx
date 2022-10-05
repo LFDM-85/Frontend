@@ -12,7 +12,7 @@ type Props = {
 
 const useStyles = makeStyles({
   item: {
-    height: '35px',
+    height: '50px',
     alignItems: 'center',
     backgroundColor: '#e8c792',
     border: '1px solid #000',

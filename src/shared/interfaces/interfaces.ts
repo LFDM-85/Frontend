@@ -14,7 +14,14 @@ export interface ILectures {
   finished: boolean;
   assessment: IAssessment;
   works: IWorks[];
-  // attendance: IAttendance
+  attendance: IAttendance;
+}
+
+export interface IAttendance {
+  _id: string;
+  attendance: boolean;
+  validation: boolean;
+  filename: string;
 }
 
 export interface IWorks {

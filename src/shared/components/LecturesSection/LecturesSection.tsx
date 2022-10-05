@@ -20,10 +20,10 @@ export const LecturesSection = () => {
     setAclass(id);
   };
 
-  const finishHandler = (lectureId: string) => {
+  const finishHandler = (lecture: ILectures) => {
     axios
-      .patch(`lectures/${lectureId}`, { finished: true })
-      .then((res) => res.data)
+      .patch(`lectures/${lecture._id}`, { ...lecture, finished: true })
+      .then((res) => console.log(res.data))
       .catch((error) => console.log('Error', error));
   };
 
@@ -85,7 +85,7 @@ export const LecturesSection = () => {
                               control={
                                 <Checkbox
                                   key={lecture._id}
-                                  onClick={() => finishHandler(lecture._id)}
+                                  onClick={() => finishHandler(lecture)}
                                 />
                               }
                               label="Finish Lecture"

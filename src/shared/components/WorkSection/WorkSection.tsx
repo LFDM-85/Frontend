@@ -1,16 +1,16 @@
-import { PlusOne } from '@mui/icons-material';
+import { PlusOne, Send } from '@mui/icons-material';
 import {
   Box,
   Button,
   Checkbox,
   FormControlLabel,
+  TextField,
   Typography,
 } from '@mui/material';
-import { Container } from '@mui/system';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import useAuth from '../../hooks/useAuth';
-import { IClass, ILectures, IUser, IWorks } from '../../interfaces/interfaces';
+import { IClass, ILectures, IWorks } from '../../interfaces/interfaces';
 import NewWorkModal from '../Modals/NewWorkModal/NewWorkModal';
 import { WorkItem } from '../WorkItem/WorkItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
@@ -61,6 +61,38 @@ export const WorkSection = () => {
       .catch((error) => console.log(`Error: ${error} `));
   };
 
+  const addAssessments = data ? (
+    data.map((student) => {
+      if (student.roles.includes('student')) {
+        return (
+          <div
+            style={{ display: 'flex' }}
+            key={student._id}
+            onClick={() => addAssessmentHandler(student._id)}
+          >
+            <StudentItem
+              key={student._id}
+              id={student._id}
+              name={student.name}
+              icontoggle={false}
+              deleteShow={false}
+            />
+            <TextField
+              id="outlined-number"
+              label="Number"
+              type="number"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </div>
+        );
+      }
+    })
+  ) : (
+    <h3>No data found</h3>
+  );
+
   const getWorks = classes ? (
     classes.map((aclass: IClass) => {
       return aclass.lecture ? (
@@ -72,6 +104,7 @@ export const WorkSection = () => {
                   <Typography component="h6" variant="h6">
                     {lecture.summary}
                   </Typography>
+                  {!authCtx.user.roles.includes('student') && addAssessments}
                   {authCtx.user.roles.includes('student') && (
                     <FormControlLabel
                       control={
@@ -133,48 +166,67 @@ export const WorkSection = () => {
     <h3>No class found</h3>
   );
 
-  const addAssessments = data ? (
-    data.map((student) => {
-      if (student.roles.includes('student')) {
-        return (
-          <div
-            key={student._id}
-            onClick={() => addAssessmentHandler(student._id)}
-          >
-            <StudentItem
-              key={student._id}
-              id={student._id}
-              name={student.name}
-              icontoggle={false}
-              deleteShow={false}
-            />
-          </div>
-        );
-      }
-    })
-  ) : (
-    <h3>No data found</h3>
-  );
-
-  const addAssessmentHandler = (id: string) => {
-    console.log('assessment added');
+  const addAssessmentHandler = (userId: string) => {
+    console.log(userId);
+    // const isAttended = data ? (
+    //   data.map((user) => {
+    //     if (user._id !== userId) {
+    //       return;
+    //     }
+    //     if (user._id === userId) {
+    //       return user.classes.map((aclass) => {
+    //         return aclass.lecture.map((lecture) => {
+    //           if (lecture._id === lectureId) {
+    //             if (lecture.attendance) {
+    //               console.log('esteve presente');
+    //               return lecture.attendance;
+    //             } else {
+    //               console.log('nao esteve presente');
+    //             }
+    //           }
+    //           if (lecture._id !== lectureId) console.log('erro');
+    //         });
+    //       });
+    //     }
+    //   })
+    // ) : (
+    //   <h3>Erro</h3>
+    // );
   };
 
   return (
     <>
       <div>
-        <Typography component="h5" variant="h5">
-          Works & Attendance
-        </Typography>
-
         <Box>
-          <Box>{getWorks}</Box>
-        </Box>
-        <Box></Box>
+          <Typography component="h5" variant="h5">
+            {authCtx.user.roles.includes('student')
+              ? 'Works & Attendance'
+              : 'Works'}
+          </Typography>
 
-        {authCtx.user.roles.includes('professor') && (
-          <Box>{addAssessments}</Box>
-        )}
+          <Box>
+            <Box>{getWorks}</Box>
+          </Box>
+        </Box>
+        <Box>
+          <Typography component="h5" variant="h5">
+            Attendance & Assessment
+          </Typography>
+
+          {/* {authCtx.user.roles.includes('professor') && (
+            <Box sx={{ display: 'flex' }}>
+              <Box sx={{ width: 470 }}>{addAssessments}</Box>
+            </Box>
+          )} */}
+          <Button
+            style={{ margin: 15 }}
+            variant="contained"
+            startIcon={<Send />}
+            onClick={() => console.log('clicked')}
+          >
+            Submit
+          </Button>
+        </Box>
       </div>
       <NewWorkModal
         lectureId={lectureId}
