@@ -1,6 +1,5 @@
 import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ClassItem } from '../ClassItem/ClassItem';
 import { IClass, IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetAllClassesData from '../../hooks/useGetAllClassesData';

@@ -4,7 +4,6 @@ import { makeStyles } from '@mui/styles';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 import axios from '../../../interceptors/axios';
 import { IClass, IUser } from '../../interfaces/interfaces';
-import { useState } from 'react';
 import { PeopleItem } from '../PeopleItem/PeopleItem';
 
 type Props = {

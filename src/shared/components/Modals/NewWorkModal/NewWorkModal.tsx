@@ -26,7 +26,7 @@ const NewWorkModal = ({ open, onClose, lectureId }: any) => {
       };
 
       axios
-        .post('work/uploadFile', file, config)
+        .post('work/uploadfile', file, config)
         .then((res) => {
           console.log(res.data._id);
           if (res.status === 201) {
