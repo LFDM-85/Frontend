@@ -1,24 +1,31 @@
-import { Box } from '@mui/material';
 import BasicModal from '../../common/BasicModal/BasicModal';
-import { useForm } from 'react-hook-form';
 import axios from '../../../../interceptors/axios';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
-const NewWorkModal = ({ open, onClose, lectureId }: any) => {
-  const [file, setFile] = useState(null);
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+  lectureId: string | undefined;
+}
 
-  function handleChange(event: any) {
-    setFile(event.target.files[0]);
+const NewWorkModal = ({ open, onClose, lectureId }: IProps) => {
+  const [file, setFile] = useState<File>();
+
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    if (event.target.files === null) {
+      return;
+    }
+    const fileEvent = event.target.files[0];
+    if (file) setFile(fileEvent);
   }
 
-  function handleSubmit(event: any) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const formData = new FormData();
 
     if (file != undefined) {
       formData.append('file', file);
       console.log(file);
-      // formData.append('filename', file.name);
       const config = {
         headers: {
           'content-type': 'multipart/form-data',

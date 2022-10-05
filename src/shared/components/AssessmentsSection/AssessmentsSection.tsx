@@ -1,12 +1,7 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
-import {
-  IAssessment,
-  IClass,
-  ILectures,
-  IUser,
-} from '../../interfaces/interfaces';
+import { IClass, ILectures } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../../hooks/useAuth';
 import { LectureItem } from '../LectureItem/LectureItem';
@@ -16,22 +11,16 @@ export const AssessmentsSection = () => {
   const authCtx = useAuth();
 
   const [classes, setClasses] = useState<IClass[]>([]);
-  // const [lectures, setLectures] = useState<ILectures[]>([]);
 
   useEffect(() => {
     axios
       .get(`auth/${authCtx.user.email}`)
       .then((res) => {
         const classData = res.data.classes;
-        const lecturesData = res.data.classes.lecture;
         setClasses(classData);
-        // setLectures(lecturesData);
       })
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
-
-  console.log(classes);
-  // console.log(lectures);
 
   return (
     <div>
@@ -41,7 +30,6 @@ export const AssessmentsSection = () => {
       <Box
         sx={{
           mb: 2,
-          // flexDirection: 'column',
           height: '80vh',
           overflow: 'hidden',
           overflowY: 'scroll',
@@ -60,6 +48,7 @@ export const AssessmentsSection = () => {
                       return (
                         <>
                           <Box
+                            key={lecture._id}
                             sx={{
                               mb: 2,
                               ml: 2,

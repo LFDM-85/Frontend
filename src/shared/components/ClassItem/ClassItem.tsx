@@ -4,6 +4,7 @@ import { makeStyles } from '@mui/styles';
 
 type Props = {
   name: string;
+  toggle: () => void;
 };
 
 const useStyles = makeStyles({

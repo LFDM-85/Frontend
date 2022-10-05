@@ -54,7 +54,6 @@ export const LecturesSection = () => {
       >
         {classes ? (
           classes.map((aclass: IClass) => {
-            // setAclass(aclass);
             return (
               <>
                 <div key={aclass._id}>
@@ -63,6 +62,7 @@ export const LecturesSection = () => {
                   </Typography>
                   {authCtx.user.roles.includes('professor') && (
                     <Button
+                      key={aclass._id}
                       style={{ margin: 15 }}
                       variant="contained"
                       startIcon={<PlusOne />}
@@ -84,6 +84,7 @@ export const LecturesSection = () => {
                             <FormControlLabel
                               control={
                                 <Checkbox
+                                  key={lecture._id}
                                   onClick={() => finishHandler(lecture._id)}
                                 />
                               }

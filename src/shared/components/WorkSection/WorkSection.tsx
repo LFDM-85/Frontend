@@ -30,7 +30,6 @@ export const WorkSection = () => {
     axios
       .get(`auth/${authCtx.user.email}`)
       .then((res) => {
-        console.log(res.data);
         const classData = res.data.classes;
         setClasses(classData);
       })

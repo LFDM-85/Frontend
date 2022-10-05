@@ -1,6 +1,6 @@
 import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { IClass, IUser } from '../../interfaces/interfaces';
+import { IClass } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetAllClassesData from '../../hooks/useGetAllClassesData';
 import { NewClassModal } from '../Modals/NewClassModal/NewClassModal';

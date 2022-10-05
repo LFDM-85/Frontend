@@ -5,6 +5,7 @@ import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 import axios from '../../../interceptors/axios';
 import { IClass, IUser } from '../../interfaces/interfaces';
 import { PeopleItem } from '../PeopleItem/PeopleItem';
+import { useState } from 'react';
 
 type Props = {
   name: string;
@@ -25,24 +26,31 @@ const useStyles = makeStyles({
 export const EditClassItem = ({ name, id }: Props) => {
   const { data } = useGetAllUsersData();
   const classes = useStyles();
+  const [addIcon, setAddIcon] = useState<boolean>();
 
   const toggleHandler = (people: IUser) => {
     {
-      people.classes &&
+      people &&
+        people.classes.length != 0 &&
         people.classes.map((aclass: IClass) => {
           if (aclass._id === id) {
             axios.patch(`auth/${people._id}/remove-class/${id}`).then((res) => {
+              setAddIcon(true);
               console.log('User removed from class');
             });
           } else {
             axios.patch(`auth/${people._id}/add-class/${id}`).then((res) => {
+              setAddIcon(false);
               console.log('User added to class');
             });
           }
         });
-    }
-    {
-      !people.classes && <h3>No classes found to add people</h3>;
+      people &&
+        people.classes.length == 0 &&
+        axios.patch(`auth/${people._id}/add-class/${id}`).then((res) => {
+          console.log('User added to class');
+        });
+      !people && <h3>Person does not exist!</h3>;
     }
   };
 

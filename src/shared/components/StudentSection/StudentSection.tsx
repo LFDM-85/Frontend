@@ -6,7 +6,6 @@ import { IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import { Add } from '@mui/icons-material';
 import NewUserModal from '../Modals/NewUserModal/NewUserModal';
-import DataTable from '../common/DataTable/DataTable';
 
 export const StudentSection = () => {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -39,7 +38,6 @@ export const StudentSection = () => {
       <Typography component="h4" variant="h4">
         Students Details
       </Typography>
-      {/* <DataTable/> */}
       <Box
         sx={{
           mb: 2,
@@ -51,7 +49,6 @@ export const StudentSection = () => {
         <Box
           sx={{
             mb: 2,
-            // flexDirection: 'column',
             height: 400,
             overflow: 'hidden',
             overflowY: 'scroll',
@@ -63,7 +60,10 @@ export const StudentSection = () => {
             users.map((student) => {
               if (student.roles.includes('student')) {
                 return (
-                  <div onClick={() => deleteHandler(student._id)}>
+                  <div
+                    key={student._id}
+                    onClick={() => deleteHandler(student._id)}
+                  >
                     <StudentItem
                       key={student._id}
                       id={student._id}

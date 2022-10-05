@@ -5,8 +5,12 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useState } from 'react';
 import axios from '../../../../interceptors/axios';
 
-const NewUserModal = ({ open, onClose}: any) => {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+}
 
+const NewUserModal = ({ open, onClose }: IProps) => {
   const {
     register,
     handleSubmit,
@@ -29,9 +33,8 @@ const NewUserModal = ({ open, onClose}: any) => {
       marginBottom: '15px',
       '.MuiInput-root': {
         marginBottom: '20px',
-      }
-
-    }
+      },
+    },
   };
 
   const submitHandler = async ({
@@ -42,29 +45,34 @@ const NewUserModal = ({ open, onClose}: any) => {
     name: string;
     email: string;
     password: string;
-    }) => {
-    
-    
+  }) => {
     const inputs = {
       name,
       email,
       password,
     };
-    
+
     console.log(inputs);
 
     const STUDENT_ROLE = ['student'];
 
-    axios.post('auth/signup', { ...inputs, roles: STUDENT_ROLE, isValidated: true }).then((res) => {
-      if (res.status === 201) {
-        alert('Student was created');
+    axios
+      .post('auth/signup', {
+        ...inputs,
+        roles: STUDENT_ROLE,
+        isValidated: true,
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          alert('Student was created');
+          return;
+        }
+      })
+      .catch(function (error) {
+        alert('Email already exists!');
+        console.log(error.message);
         return;
-      }
-    }).catch(function (error) {
-      alert('Email already exists!');
-      console.log(error.message);
-      return;
-    });  
+      });
   };
 
   const getContent = () => (
@@ -79,8 +87,7 @@ const NewUserModal = ({ open, onClose}: any) => {
           required: 'Name is required!',
           minLength: {
             value: 3,
-            message:
-                      'Invalid name, must have between 3 to 25 characters',
+            message: 'Invalid name, must have between 3 to 25 characters',
           },
           maxLength: {
             value: 25,
@@ -119,13 +126,11 @@ const NewUserModal = ({ open, onClose}: any) => {
           required: 'Password is required!',
           minLength: {
             value: 8,
-            message:
-                    'Invalid password, must have between 8 to 25 characters',
+            message: 'Invalid password, must have between 8 to 25 characters',
           },
           maxLength: {
             value: 25,
-            message:
-                    'Invalid password, must have less then 25 characters',
+            message: 'Invalid password, must have less then 25 characters',
           },
         })}
         label="Password"
@@ -143,11 +148,7 @@ const NewUserModal = ({ open, onClose}: any) => {
                 aria-label="toggle password"
                 edge="end"
               >
-                {showFields ? (
-                  <VisibilityOff />
-                ) : (
-                  <Visibility />
-                )}
+                {showFields ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
           ),
@@ -156,21 +157,16 @@ const NewUserModal = ({ open, onClose}: any) => {
     </Box>
   );
 
-
-
   return (
     <BasicModal
       open={open}
       onClose={onClose}
-      title='New Student'
-      subTitle='Add new student to school'
+      title="New Student"
+      subTitle="Add new student to school"
       content={getContent()}
       onSubmit={handleSubmit(submitHandler)}
-
     ></BasicModal>
   );
 };
 
 export default NewUserModal;
-
-

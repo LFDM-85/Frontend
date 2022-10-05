@@ -4,7 +4,12 @@ import { useForm } from 'react-hook-form';
 import axios from '../../../../interceptors/axios';
 import useGetAllUsersData from '../../../hooks/useGetAllUsersData';
 
-export const NewClassModal = ({ open, onClose }: any) => {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+export const NewClassModal = ({ open, onClose }: IProps) => {
   const { data } = useGetAllUsersData();
 
   const {

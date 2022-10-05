@@ -2,13 +2,6 @@ import { Add, Delete, Remove } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-type Props = {
-  id: string;
-  name: string;
-  key: string;
-  icontoggle: boolean;
-};
-
 const useStyles = makeStyles({
   item: {
     height: '35px',
@@ -20,13 +13,21 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
+
+interface IProps {
+  name: string;
+  id: string;
+  icontoggle: any;
+  role: string[];
+  classToggle: () => void;
+}
 export const PeopleItem = ({
   name,
   id,
   icontoggle,
   role,
   classToggle,
-}: any) => {
+}: IProps) => {
   const classes = useStyles();
 
   return (

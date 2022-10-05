@@ -1,5 +1,4 @@
-import { Box, Typography } from '@mui/material';
-import { PeopleSection } from '../PeopleSection/PeopleSection';
+import { Box } from '@mui/material';
 import { ProfessorSection } from '../ProfessorSection/ProfessorSection';
 import { StudentSection } from '../StudentSection/StudentSection';
 
@@ -15,7 +14,6 @@ export const PeopleManagement = () => {
       >
         <ProfessorSection />
         <StudentSection />
-        {/* <PeopleSection /> */}
       </Box>
     </>
   );

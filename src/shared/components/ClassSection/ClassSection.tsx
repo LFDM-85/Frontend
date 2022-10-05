@@ -1,8 +1,8 @@
-import { Button, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import { ClassItem } from '../ClassItem/ClassItem';
-import { IClass, IUser } from '../../interfaces/interfaces';
+import { IClass } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../../hooks/useAuth';
 
@@ -17,11 +17,6 @@ export const ClassSection = () => {
       .then((res) => setClasses(res.data.classes))
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
-
-  const lectureHandler = (aclass: any) => {
-    console.log(aclass);
-    console.log('searching for lectures');
-  };
 
   return (
     <div>
@@ -42,7 +37,7 @@ export const ClassSection = () => {
         {classes ? (
           classes.map((aclass: IClass) => {
             return (
-              <div key={aclass._id} onClick={() => lectureHandler(aclass)}>
+              <div key={aclass._id}>
                 <ClassItem name={aclass.nameClass} />
               </div>
             );

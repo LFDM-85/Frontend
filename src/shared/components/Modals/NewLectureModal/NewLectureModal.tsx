@@ -1,10 +1,16 @@
 import { Box, TextField } from '@mui/material';
 import BasicModal from '../../common/BasicModal/BasicModal';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
 import axios from '../../../../interceptors/axios';
 
-const NewLectureModal = ({ open, onClose, classId }: any) => {
+interface IProps {
+  open: boolean;
+  onClose: () => void;
+
+  classId: string | undefined;
+}
+
+const NewLectureModal = ({ open, onClose, classId }: IProps) => {
   const {
     register,
     handleSubmit,
@@ -12,8 +18,6 @@ const NewLectureModal = ({ open, onClose, classId }: any) => {
   } = useForm({
     defaultValues: { summary: '', description: '' },
   });
-
-  const [data, setData] = useState();
 
   const modalStyles = {
     inputFields: {
@@ -26,7 +30,7 @@ const NewLectureModal = ({ open, onClose, classId }: any) => {
       },
     },
   };
-  const addLecture = (inputs: any) => {
+  const addLecture = (inputs: { summary: string; description: string }) => {
     axios
       .post('lectures/create', { ...inputs, finished: false })
       .then((res) => {
