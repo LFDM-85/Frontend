@@ -6,21 +6,64 @@ import { Box } from '@mui/system';
 import useAuth from '../../hooks/useAuth';
 import { LectureItem } from '../LectureItem/LectureItem';
 import { ClassItem } from '../ClassItem/ClassItem';
+import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 
 export const AssessmentsSection = () => {
   const authCtx = useAuth();
+  const { data } = useGetAllUsersData();
 
-  const [classes, setClasses] = useState<IClass[]>([]);
-
-  useEffect(() => {
-    axios
-      .get(`auth/${authCtx.user.email}`)
-      .then((res) => {
-        const classData = res.data.classes;
-        setClasses(classData);
+  const getUserId = data
+    ? data.map((user) => {
+        return user._id;
       })
-      .catch((error) => console.log(`Error: ${error}`));
-  }, []);
+    : 'error';
+
+  const compare = authCtx.user.id === getUserId;
+
+  const renderAssessment = data ? (
+    data.map((user) => {
+      if (compare) {
+        return user.classes.map((aclass: IClass) => {
+          return (
+            <>
+              <div key={aclass._id}>
+                <ClassItem key={aclass._id} name={aclass.nameClass} />
+                {aclass &&
+                  aclass.lecture.map((lecture: ILectures) => {
+                    return (
+                      <>
+                        <Box
+                          key={lecture._id}
+                          sx={{
+                            mb: 2,
+                            ml: 2,
+                          }}
+                        >
+                          <LectureItem
+                            key={lecture._id}
+                            summary={lecture.summary}
+                            description={lecture.description}
+                          />
+                          {lecture.assessment ? (
+                            <h3 key={lecture.assessment._id}>
+                              Assessment: {lecture.assessment.assessmentValue}
+                            </h3>
+                          ) : (
+                            <h3> No assessment found</h3>
+                          )}
+                        </Box>
+                      </>
+                    );
+                  })}
+              </div>
+            </>
+          );
+        });
+      }
+    })
+  ) : (
+    <h3>No data found</h3>
+  );
 
   return (
     <div>
@@ -37,49 +80,7 @@ export const AssessmentsSection = () => {
           margin: '15px',
         }}
       >
-        {classes ? (
-          classes.map((aclass: IClass) => {
-            return (
-              <>
-                <div key={aclass._id}>
-                  <ClassItem key={aclass._id} name={aclass.nameClass} />
-                  {aclass.lecture ? (
-                    aclass.lecture.map((lecture: ILectures) => {
-                      return (
-                        <>
-                          <Box
-                            key={lecture._id}
-                            sx={{
-                              mb: 2,
-                              ml: 2,
-                            }}
-                          >
-                            <LectureItem
-                              key={lecture._id}
-                              summary={lecture.summary}
-                              description={lecture.description}
-                            />
-                            {lecture.assessment ? (
-                              <h3>
-                                Assessment: {lecture.assessment.assessmentValue}
-                              </h3>
-                            ) : (
-                              <h3>No assessment found</h3>
-                            )}
-                          </Box>
-                        </>
-                      );
-                    })
-                  ) : (
-                    <h3>No data found</h3>
-                  )}
-                </div>
-              </>
-            );
-          })
-        ) : (
-          <h3>No data found</h3>
-        )}
+        {renderAssessment}
       </Box>
     </div>
   );

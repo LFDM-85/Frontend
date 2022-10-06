@@ -24,29 +24,22 @@ export const AppRoutes = () => {
   );
 
   useEffect(() => {
-    axios
-      .get('auth/whoami', {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res.data);
-        console.log(res.status);
-        if (res.status === 200) {
-          setSignedUser(true);
-          navigate('/my', { replace: true });
-          return res.data;
-        }
-        // const signUser = res.data;
-        // if (signUser) {
-        //   setSignedUser(true);
-        //   navigate('/my', { replace: true });
-        // }
-        // if (!signUser) navigate('/', { replace: true });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios
+    //   .get('auth/whoami', {
+    //     headers: { 'Content-Type': 'application/json' },
+    //     withCredentials: true,
+    //   })
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     if (res.status === 200) {
+    //       setSignedUser(true);
+    //       navigate('/my', { replace: true });
+    //       return res.data;
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
   }, []);
 
   return (

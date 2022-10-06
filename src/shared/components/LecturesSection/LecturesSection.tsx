@@ -57,7 +57,7 @@ export const LecturesSection = () => {
             return (
               <>
                 <div key={aclass._id}>
-                  <Typography component="h5" variant="h5">
+                  <Typography key={aclass._id} component="h5" variant="h5">
                     {aclass.nameClass}
                   </Typography>
                   {authCtx.user.roles.includes('professor') && (
