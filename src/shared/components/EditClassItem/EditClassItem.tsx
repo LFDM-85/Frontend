@@ -5,7 +5,6 @@ import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 import axios from '../../../interceptors/axios';
 import { IClass, IUser } from '../../interfaces/interfaces';
 import { PeopleItem } from '../PeopleItem/PeopleItem';
-import { useState } from 'react';
 
 type Props = {
   name: string;
@@ -26,7 +25,7 @@ const useStyles = makeStyles({
 export const EditClassItem = ({ name, id }: Props) => {
   const { data } = useGetAllUsersData();
   const classes = useStyles();
-  const [addIcon, setAddIcon] = useState<boolean>();
+  // const [addIcon, setAddIcon] = useState<boolean>();
 
   const toggleHandler = (people: IUser) => {
     {
@@ -34,13 +33,15 @@ export const EditClassItem = ({ name, id }: Props) => {
         people.classes.length != 0 &&
         people.classes.map((aclass: IClass) => {
           if (aclass._id === id) {
-            axios.patch(`auth/${people._id}/remove-class/${id}`).then((res) => {
-              setAddIcon(true);
-              console.log('User removed from class');
-            });
+            axios
+              .patch(`auth/${people._id}/remove-class/${id}`)
+              .then((_res) => {
+                // setAddIcon(true);
+                console.log('User removed from class');
+              });
           } else {
-            axios.patch(`auth/${people._id}/add-class/${id}`).then((res) => {
-              setAddIcon(false);
+            axios.patch(`auth/${people._id}/add-class/${id}`).then((_res) => {
+              // setAddIcon(false);
               console.log('User added to class');
             });
           }
@@ -54,37 +55,39 @@ export const EditClassItem = ({ name, id }: Props) => {
     }
   };
 
+  const renderPeople = data ? (
+    data.map((people) => {
+      if (
+        people.roles.includes('student') ||
+        people.roles.includes('professor')
+      ) {
+        return (
+          <div>
+            <PeopleItem
+              key={people._id}
+              id={people._id}
+              name={people.name}
+              role={people.roles}
+              icontoggle={people.classes.find(
+                (item) => item.nameClass === name
+              )}
+              classToggle={() => toggleHandler(people)}
+            />
+          </div>
+        );
+      }
+    })
+  ) : (
+    <h3>No data found</h3>
+  );
+
   return (
     <>
       <ListItem className={classes.item}>
         <ListItemText>{name}</ListItemText>
         <CastForEducationIcon />
       </ListItem>
-      {data ? (
-        data.map((people) => {
-          if (
-            people.roles.includes('student') ||
-            people.roles.includes('professor')
-          ) {
-            return (
-              <div>
-                <PeopleItem
-                  key={people._id}
-                  id={people._id}
-                  name={people.name}
-                  role={people.roles}
-                  icontoggle={people.classes.find(
-                    (item) => item.nameClass === name
-                  )}
-                  classToggle={() => toggleHandler(people)}
-                />
-              </div>
-            );
-          }
-        })
-      ) : (
-        <h3>No data found</h3>
-      )}
+      {renderPeople}
     </>
   );
 };

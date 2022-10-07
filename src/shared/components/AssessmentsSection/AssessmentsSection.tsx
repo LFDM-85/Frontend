@@ -12,18 +12,20 @@ export const AssessmentsSection = () => {
   const authCtx = useAuth();
   const { data } = useGetAllUsersData();
 
-  const getUserId = data
-    ? data.map((user) => {
-        return user._id;
-      })
-    : 'error';
-
-  const compare = authCtx.user.id === getUserId;
+  // const getUserId = data
+  //   ? data.map((user) => {
+  //       return user._id;
+  //     })
+  //   : 'error';
+  console.log(authCtx.user._id);
 
   const renderAssessment = data ? (
     data.map((user) => {
-      if (compare) {
-        return user.classes.map((aclass: IClass) => {
+      console.log(user._id);
+      const isUser = user._id.includes(authCtx.user._id);
+      console.log(isUser);
+      if (isUser) {
+        return authCtx.user.classes.map((aclass: IClass) => {
           return (
             <>
               <div key={aclass._id}>
@@ -59,6 +61,8 @@ export const AssessmentsSection = () => {
             </>
           );
         });
+      } else {
+        return <h3>Error</h3>;
       }
     })
   ) : (

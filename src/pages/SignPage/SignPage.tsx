@@ -103,7 +103,11 @@ export function SignPage(): JSX.Element {
       if (inputs.password === inputs.confirmPassword) {
         setConfirmPassword(false);
         axios
-          .post(signRoute, { ...inputs, roles: PROFESSOR_ROLE, isValidated: false })
+          .post(signRoute, {
+            ...inputs,
+            roles: PROFESSOR_ROLE,
+            isValidated: false,
+          })
           .then((res) => {
             if (res.status === 201) {
               alert('User was created! Please Sign In');
@@ -132,10 +136,9 @@ export function SignPage(): JSX.Element {
         })
         .then((res) => {
           const accessToken = res.data.token;
-          const user = res.data.user;
           console.log(res.data);
 
-          authCtx.signin(accessToken, user);
+          authCtx.signin(accessToken, res.data.user);
           authCtx.isSignedIn = true;
 
           console.log('User logged In');

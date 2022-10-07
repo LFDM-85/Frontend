@@ -1,19 +1,22 @@
 import React, { useState, createContext } from 'react';
+import { IUser } from '../interfaces/interfaces';
 
-interface IUser {
-  email: string;
-  id: string;
-  name: string;
-  roles: string[];
-  isValidated: boolean;
-}
+// interface IUser {
+//   email: string;
+//   id: string;
+//   name: string;
+//   roles: string[];
+//   isValidated: boolean;
+// }
 
-const initialUser:IUser = {
+const initialUser: IUser = {
   email: '',
-  id: '',
+  _id: '',
   name: '',
   roles: [],
-  isValidated: false
+  isValidated: false,
+  image: '',
+  classes: [],
 };
 
 const AuthContext = createContext({
@@ -28,7 +31,11 @@ const AuthContext = createContext({
   },
 });
 
-export const AuthContextProvider = ({ children }: { children: React.ReactNode }) => {
+export const AuthContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [token, setToken] = useState();
   const [user, setUser] = useState(initialUser);
   const userIsSignedIn = !!token;
@@ -38,10 +45,12 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
     // setToken(token);
     setUser({
       email: user.email,
-      id: user.id,
+      _id: user._id,
       name: user.name,
       roles: user.roles,
-      isValidated: user.isValidated
+      isValidated: user.isValidated,
+      image: user.image,
+      classes: user.classes,
     });
   };
 
@@ -59,9 +68,7 @@ export const AuthContextProvider = ({ children }: { children: React.ReactNode })
   };
 
   return (
-    <AuthContext.Provider value={contextValue}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 };
 

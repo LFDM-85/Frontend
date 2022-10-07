@@ -23,6 +23,11 @@ export const WorkSection = () => {
   const [lectureId, setLectureId] = useState<string>();
   const [attendance, setAttendance] = useState<string>();
   const { data } = useGetAllUsersData();
+  const [numberInput, setNumberInput] = useState('');
+
+  const handleNumberInputChange = (event: any) => {
+    console.log(numberInput);
+  };
 
   const addHandler = (id: string) => {
     setOpen(true);
@@ -47,7 +52,7 @@ export const WorkSection = () => {
           setAttendance(res.data._id);
         }
         axios
-          .patch(`/auth/${authCtx.user.id}/add-attendance/${attendance}`, {
+          .patch(`/auth/${authCtx.user._id}/add-attendance/${attendance}`, {
             attendance: true,
           })
           .catch((error) => console.log('Error', error));
@@ -65,11 +70,7 @@ export const WorkSection = () => {
     data.map((student) => {
       if (student.roles.includes('student')) {
         return (
-          <div
-            style={{ display: 'flex' }}
-            key={student._id}
-            onClick={() => addAssessmentHandler(student._id)}
-          >
+          <div style={{ display: 'flex' }} key={Math.random()}>
             <StudentItem
               key={student._id}
               id={student._id}
@@ -81,10 +82,22 @@ export const WorkSection = () => {
               id="outlined-number"
               label="Number"
               type="number"
+              value={numberInput}
               InputLabelProps={{
                 shrink: true,
               }}
+              onChange={(event) => {
+                setNumberInput(event.target.value);
+              }}
             />
+            <Button
+              style={{ margin: 15 }}
+              variant="contained"
+              startIcon={<Send />}
+              onClick={handleNumberInputChange}
+            >
+              Submit
+            </Button>
           </div>
         );
       }
@@ -166,34 +179,6 @@ export const WorkSection = () => {
     <h3>No class found</h3>
   );
 
-  const addAssessmentHandler = (userId: string) => {
-    console.log(userId);
-    // const isAttended = data ? (
-    //   data.map((user) => {
-    //     if (user._id !== userId) {
-    //       return;
-    //     }
-    //     if (user._id === userId) {
-    //       return user.classes.map((aclass) => {
-    //         return aclass.lecture.map((lecture) => {
-    //           if (lecture._id === lectureId) {
-    //             if (lecture.attendance) {
-    //               console.log('esteve presente');
-    //               return lecture.attendance;
-    //             } else {
-    //               console.log('nao esteve presente');
-    //             }
-    //           }
-    //           if (lecture._id !== lectureId) console.log('erro');
-    //         });
-    //       });
-    //     }
-    //   })
-    // ) : (
-    //   <h3>Erro</h3>
-    // );
-  };
-
   return (
     <>
       <div>
@@ -218,14 +203,6 @@ export const WorkSection = () => {
               <Box sx={{ width: 470 }}>{addAssessments}</Box>
             </Box>
           )} */}
-          <Button
-            style={{ margin: 15 }}
-            variant="contained"
-            startIcon={<Send />}
-            onClick={() => console.log('clicked')}
-          >
-            Submit
-          </Button>
         </Box>
       </div>
       <NewWorkModal

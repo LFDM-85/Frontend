@@ -11,7 +11,7 @@ const useGetAssessmentsUserIdData = () => {
     const getAssessmentsUserIdData = async () => {
       try {
         const { data: response } = await axios.get(
-          `auth/${authCtx.user.id}/assessments`
+          `auth/${authCtx.user._id}/assessments`
         );
         setData(response);
       } catch (error) {
