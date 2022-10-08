@@ -11,13 +11,14 @@ import NewLectureModal from '../Modals/NewLectureModal/NewLectureModal';
 export const LecturesSection = () => {
   const authCtx = useAuth();
   const [open, setOpen] = useState(false);
+  const [isFinished, setIsFinished] = useState<boolean>(false);
 
   const [classes, setClasses] = useState<IClass[]>(() => []);
-  const [aclass, setAclass] = useState<string>();
+  const [aclassId, setAclassId] = useState<string>();
 
   const addHandler = (id: string) => {
     setOpen(true);
-    setAclass(id);
+    setAclassId(id);
   };
 
   const finishHandler = (lecture: ILectures) => {
@@ -35,6 +36,18 @@ export const LecturesSection = () => {
         setClasses(classData);
       })
       .catch((error) => console.log(`Error: ${error}`));
+
+    function checkIsFinished() {
+      classes.map((aclass: IClass) => {
+        const findLectureFinished = aclass.lecture.find(
+          (lecture: ILectures) => {
+            lecture.finished === true;
+          }
+        );
+        if (findLectureFinished) setIsFinished(true);
+        else setIsFinished(false);
+      });
+    }
   }, []);
 
   return (
@@ -53,26 +66,26 @@ export const LecturesSection = () => {
         }}
       >
         {classes ? (
-          classes.map((aclass: IClass) => {
+          classes.map((aclassId: IClass) => {
             return (
               <>
-                <div key={aclass._id}>
-                  <Typography key={aclass._id} component="h5" variant="h5">
-                    {aclass.nameClass}
+                <div key={aclassId._id}>
+                  <Typography key={Math.random()} component="h5" variant="h5">
+                    {aclassId.nameClass}
                   </Typography>
                   {authCtx.user.roles.includes('professor') && (
                     <Button
-                      key={aclass._id}
+                      key={aclassId._id}
                       style={{ margin: 15 }}
                       variant="contained"
                       startIcon={<PlusOne />}
-                      onClick={() => addHandler(aclass._id)}
+                      onClick={() => addHandler(aclassId._id)}
                     >
                       Add Lecture
                     </Button>
                   )}
-                  {aclass.lecture ? (
-                    aclass.lecture.map((lecture: ILectures) => {
+                  {aclassId.lecture ? (
+                    aclassId.lecture.map((lecture: ILectures) => {
                       return (
                         <>
                           <LectureItem
@@ -84,8 +97,10 @@ export const LecturesSection = () => {
                             <FormControlLabel
                               control={
                                 <Checkbox
-                                  key={lecture._id}
+                                  key={Math.random()}
                                   onClick={() => finishHandler(lecture)}
+                                  checked={isFinished ? true : false}
+                                  disabled={isFinished ? true : false}
                                 />
                               }
                               label="Finish Lecture"
@@ -107,7 +122,7 @@ export const LecturesSection = () => {
       </Box>
 
       <NewLectureModal
-        classId={aclass}
+        classId={aclassId}
         open={open}
         onClose={() => {
           setOpen(false);
