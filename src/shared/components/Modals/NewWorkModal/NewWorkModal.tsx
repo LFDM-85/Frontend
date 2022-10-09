@@ -9,61 +9,73 @@ interface IProps {
 }
 
 const NewWorkModal = ({ open, onClose, lectureId }: IProps) => {
-  const [file, setFile] = useState<File>();
+  const [fileInput, setFileInput] = useState<File>();
+  const [selectedFile, setSelectedFile] = useState<File>();
+  const [previewSource, setPreviewSource] = useState<any>();
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     if (event.target.files === null) {
       return;
     }
-    const fileEvent = event.target.files[0];
-    if (file) setFile(fileEvent);
+    const file = event.target.files[0];
+    previewFile(file);
   }
 
+  const previewFile = (file: File) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader?.result);
+    };
+  };
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData();
-
-    if (file != undefined) {
-      formData.append('file', file);
-      console.log(file);
-      const config = {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-      };
-
-      axios
-        .post('work/uploadfile', file, config)
-        .then((res) => {
-          console.log(res.data._id);
-          if (res.status === 201) {
-            console.log('Lecture was created');
-            axios
-              .patch(`/lectures/${res.data._id}/add-lecture/${lectureId}`)
-              .then((res) => {
-                if (res.status === 201)
-                  console.log('Lecture added to the class');
-              })
-              .catch(function (error) {
-                alert('Lecture already added!');
-                console.log(error.message);
-                return;
-              });
-            return;
-          }
-        })
-        .catch(function (error) {
-          alert('Lectures already exists!');
-          console.log(error.message);
-          return;
-        });
-    }
+    // event.preventDefault();
+    // const formData = new FormData();
+    // console.log(file);
+    // if (file != undefined) {
+    //   formData.append('file', file);
+    //   console.log(file);
+    //   const config = {
+    //     headers: {
+    //       'content-type': 'multipart/form-data',
+    //     },
+    //   };
+    //   axios
+    //     .post('work/uploadfile', file, config)
+    //     .then((res) => {
+    //       console.log(res.data._id);
+    //       if (res.status === 201) {
+    //         console.log('Lecture was created');
+    //         axios
+    //           .patch(`/lectures/${res.data._id}/add-lecture/${lectureId}`)
+    //           .then((res) => {
+    //             if (res.status === 201)
+    //               console.log('Lecture added to the class');
+    //           })
+    //           .catch(function (error) {
+    //             alert('Lecture already added!');
+    //             console.log(error.message);
+    //             return;
+    //           });
+    //         return;
+    //       }
+    //     })
+    //     .catch(function (error) {
+    //       alert('Lectures already exists!');
+    //       console.log(error.message);
+    //       return;
+    //     });
+    // }
   }
 
   const getContent = () => (
-    <form method="post">
-      <input type="file" onChange={handleChange} />
-    </form>
+    <>
+      <form method="post">
+        <input type="file" name="file" onChange={handleChange} />
+      </form>
+      {previewSource && <embed src={previewSource} />}
+    </>
   );
 
   return (

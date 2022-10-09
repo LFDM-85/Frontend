@@ -24,7 +24,7 @@ export const LecturesSection = () => {
   const finishHandler = (lecture: ILectures) => {
     axios
       .patch(`lectures/${lecture._id}`, { ...lecture, finished: true })
-      .then((res) => console.log(res.data))
+      .then((res) => setIsFinished(true))
       .catch((error) => console.log('Error', error));
   };
 
