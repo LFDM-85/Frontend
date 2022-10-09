@@ -1,4 +1,4 @@
-import { PlusOne, Send } from '@mui/icons-material';
+import { FilePresent, PlusOne, Send } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -12,6 +12,7 @@ import axios from '../../../interceptors/axios';
 import useAuth from '../../hooks/useAuth';
 import { IClass, ILectures, IWorks } from '../../interfaces/interfaces';
 import NewWorkModal from '../Modals/NewWorkModal/NewWorkModal';
+import NewJustificationModal from '../Modals/NewJustificationModal/NewJustificationModal';
 import { WorkItem } from '../WorkItem/WorkItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 import { StudentItem } from '../StudentItem/StudentItem';
@@ -23,6 +24,7 @@ export const WorkSection = () => {
   const [lectureId, setLectureId] = useState<string>();
   const { data } = useGetAllUsersData();
   const [numberInput, setNumberInput] = useState('');
+  const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
 
   const handleNumberInputChange = (event: any) => {
     console.log(numberInput);
@@ -107,71 +109,101 @@ export const WorkSection = () => {
 
   const getWorks = classes ? (
     classes.map((aclass: IClass) => {
-      return aclass.lecture ? (
-        aclass.lecture.map((lecture: ILectures) => {
-          return (
-            <>
-              <Box>
-                <Box>
-                  <Typography component="h6" variant="h6">
-                    {lecture.summary}
-                  </Typography>
-                  {!authCtx.user.roles.includes('student') && addAssessments}
-                  {authCtx.user.roles.includes('student') && (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          onChange={() => addAttendanceHandle(lecture._id)}
-                        />
-                      }
-                      label="Attendance"
-                    />
-                  )}
-                </Box>
-                {lecture.works ? (
-                  lecture.works.map((work: IWorks) => {
-                    return (
-                      <>
-                        <Button
-                          size="small"
-                          key={work._id}
-                          style={{ margin: 15 }}
-                          variant="contained"
-                          startIcon={<PlusOne />}
-                          onClick={() => addHandler(lecture._id)}
-                        >
-                          {authCtx.user.roles.includes('student')
-                            ? 'Submit Work'
-                            : 'Add Work'}
-                        </Button>
-                        <WorkItem key={work._id} filename={work.filename} />
-                      </>
-                    );
-                  })
-                ) : (
-                  <>
-                    <Box sx={{ display: 'flex', alignContent: 'flex-start' }}>
-                      <h3>No work found for this lecture</h3>
-                      <Button
-                        size="small"
-                        style={{ margin: 15 }}
-                        variant="contained"
-                        startIcon={<PlusOne />}
-                        onClick={() => addHandler(lecture._id)}
-                      >
-                        {authCtx.user.roles.includes('student')
-                          ? 'Submit Work'
-                          : 'Add Work'}
-                      </Button>
+      return (
+        <>
+          <Typography component="h6" variant="h6">
+            {aclass.nameClass}
+          </Typography>
+
+          {aclass.lecture ? (
+            aclass.lecture.map((lecture: ILectures) => {
+              return (
+                <>
+                  <Box>
+                    <Box>
+                      <Typography component="h6" variant="h6">
+                        {lecture.summary}
+                      </Typography>
+                      {!authCtx.user.roles.includes('student') &&
+                        addAssessments}
+                      {authCtx.user.roles.includes('student') && (
+                        <>
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                onChange={() =>
+                                  addAttendanceHandle(lecture._id)
+                                }
+                              />
+                            }
+                            label="Attendance"
+                          />
+                          <Button
+                            size="small"
+                            style={{ margin: 15 }}
+                            variant="contained"
+                            startIcon={<FilePresent />}
+                            onClick={() => {
+                              setIsWorkFile(false);
+                              addHandler(lecture._id);
+                            }}
+                          >
+                            Justifications
+                          </Button>
+                        </>
+                      )}
                     </Box>
-                  </>
-                )}
-              </Box>
-            </>
-          );
-        })
-      ) : (
-        <h3>No lecture found</h3>
+                    {lecture.works ? (
+                      lecture.works.map((work: IWorks) => {
+                        return (
+                          <>
+                            <Button
+                              size="small"
+                              key={work._id}
+                              style={{ margin: 15 }}
+                              variant="contained"
+                              startIcon={<PlusOne />}
+                              onClick={() => {
+                                setIsWorkFile(true);
+                                addHandler(lecture._id);
+                              }}
+                            >
+                              {authCtx.user.roles.includes('student')
+                                ? 'Submit Work'
+                                : 'Add Work'}
+                            </Button>
+                            <WorkItem key={work._id} filename={work.filename} />
+                          </>
+                        );
+                      })
+                    ) : (
+                      <>
+                        <Box
+                          sx={{ display: 'flex', alignContent: 'flex-start' }}
+                        >
+                          <h3>No work found for this lecture</h3>
+                          <Button
+                            size="small"
+                            style={{ margin: 15 }}
+                            variant="contained"
+                            startIcon={<PlusOne />}
+                            onClick={() => addHandler(lecture._id)}
+                          >
+                            {authCtx.user.roles.includes('student')
+                              ? 'Submit Work'
+                              : 'Add Work'}
+                          </Button>
+                        </Box>
+                      </>
+                    )}
+                  </Box>
+                </>
+              );
+            })
+          ) : (
+            <h3>No lecture found</h3>
+          )}
+        </>
       );
     })
   ) : (
@@ -192,25 +224,25 @@ export const WorkSection = () => {
             <Box>{getWorks}</Box>
           </Box>
         </Box>
-        <Box>
-          <Typography component="h5" variant="h5">
-            Attendance & Assessment
-          </Typography>
-
-          {/* {authCtx.user.roles.includes('professor') && (
-            <Box sx={{ display: 'flex' }}>
-              <Box sx={{ width: 470 }}>{addAssessments}</Box>
-            </Box>
-          )} */}
-        </Box>
+        <Box></Box>
       </div>
-      <NewWorkModal
-        lectureId={lectureId}
-        open={open}
-        onClose={() => {
-          setOpen(false);
-        }}
-      />
+      {isWorkFile ? (
+        <NewWorkModal
+          lectureId={lectureId}
+          open={open}
+          onClose={() => {
+            setOpen(false);
+          }}
+        />
+      ) : (
+        <NewJustificationModal
+          lectureId={lectureId}
+          open={open}
+          onClose={() => {
+            setOpen(false);
+          }}
+        />
+      )}
     </>
   );
 };
