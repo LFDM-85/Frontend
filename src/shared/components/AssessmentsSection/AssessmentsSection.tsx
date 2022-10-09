@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
-import { IClass, ILectures } from '../../interfaces/interfaces';
+import { IClass, ILectures, IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../../hooks/useAuth';
 import { LectureItem } from '../LectureItem/LectureItem';
@@ -11,21 +11,26 @@ import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 export const AssessmentsSection = () => {
   const authCtx = useAuth();
   const { data } = useGetAllUsersData();
+  // const [currUser, setCurrUser] = useState<IUser[] | string>();
 
-  // const getUserId = data
-  //   ? data.map((user) => {
-  //       return user._id;
-  //     })
-  //   : 'error';
-  console.log(authCtx.user._id);
+  // useEffect(() => {
+
+  //   const dataUser = data
+  //     ? data.filter((user) => {
+  //         user.email === signUser.email;
+  //         return user;
+  //       })
+  //     : 'Not Found';
+  //   setCurrUser(dataUser);
+  // }, [authCtx.user]);
+
+  const signUser = authCtx.user;
+  console.log('Current User', signUser);
 
   const renderAssessment = data ? (
     data.map((user) => {
-      console.log(user._id);
-      const isUser = user._id.includes(authCtx.user._id);
-      console.log(isUser);
-      if (isUser) {
-        return authCtx.user.classes.map((aclass: IClass) => {
+      if (user.email === signUser.email) {
+        return user.classes.map((aclass: IClass) => {
           return (
             <>
               <div key={aclass._id}>
@@ -61,8 +66,6 @@ export const AssessmentsSection = () => {
             </>
           );
         });
-      } else {
-        return <h3>Error</h3>;
       }
     })
   ) : (
