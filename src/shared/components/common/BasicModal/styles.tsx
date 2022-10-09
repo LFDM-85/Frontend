@@ -21,6 +21,6 @@ export const modalStyles = {
   buttons: {
     display: 'flex',
     justifyContent: 'center',
-    padding: '10px'
-  }
+    padding: '10px',
+  },
 };

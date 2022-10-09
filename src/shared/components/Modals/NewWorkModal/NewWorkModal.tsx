@@ -1,6 +1,8 @@
 import BasicModal from '../../common/BasicModal/BasicModal';
 import axios from '../../../../interceptors/axios';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { margin } from '@mui/system';
+import { UploadFile } from '@mui/icons-material';
 
 interface IProps {
   open: boolean;
@@ -9,72 +11,32 @@ interface IProps {
 }
 
 const NewWorkModal = ({ open, onClose, lectureId }: IProps) => {
-  const [fileInput, setFileInput] = useState<File>();
-  const [selectedFile, setSelectedFile] = useState<File>();
-  const [previewSource, setPreviewSource] = useState<any>();
+  const [file, setFile] = useState<any>();
 
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    if (event.target.files === null) {
-      return;
+  const handleChange = (file: ChangeEvent) => {
+    const { files } = file.target as HTMLInputElement;
+    if (files && files.length !== 0) {
+      setFile(files[0]);
     }
-    const file = event.target.files[0];
-    previewFile(file);
-  }
-
-  const previewFile = (file: File) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader?.result);
-    };
   };
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    // event.preventDefault();
-    // const formData = new FormData();
-    // console.log(file);
-    // if (file != undefined) {
-    //   formData.append('file', file);
-    //   console.log(file);
-    //   const config = {
-    //     headers: {
-    //       'content-type': 'multipart/form-data',
-    //     },
-    //   };
-    //   axios
-    //     .post('work/uploadfile', file, config)
-    //     .then((res) => {
-    //       console.log(res.data._id);
-    //       if (res.status === 201) {
-    //         console.log('Lecture was created');
-    //         axios
-    //           .patch(`/lectures/${res.data._id}/add-lecture/${lectureId}`)
-    //           .then((res) => {
-    //             if (res.status === 201)
-    //               console.log('Lecture added to the class');
-    //           })
-    //           .catch(function (error) {
-    //             alert('Lecture already added!');
-    //             console.log(error.message);
-    //             return;
-    //           });
-    //         return;
-    //       }
-    //     })
-    //     .catch(function (error) {
-    //       alert('Lectures already exists!');
-    //       console.log(error.message);
-    //       return;
-    //     });
-    // }
-  }
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const upload = await axios({
+      url: '/work/uploadfile',
+      method: 'post',
+      data: formData,
+    }).then((r) => r);
+
+    console.log(upload);
+  };
 
   const getContent = () => (
     <>
-      <form method="post">
-        <input type="file" name="file" onChange={handleChange} />
+      <form onSubmit={(e) => e.preventDefault()}>
+        <input type="file" onChange={handleChange} />
       </form>
-      {previewSource && <embed src={previewSource} />}
     </>
   );
 
