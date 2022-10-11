@@ -22,16 +22,6 @@ const useStyles = makeStyles({
 });
 export const WorkItem = (work: Props) => {
   const classes = useStyles();
-
-  // const handleDownload = (url: string, filename: string) => {
-  //   axios
-  //     .get(url, {
-  //       responseType: 'blob',
-  //     })
-  //     .then((res) => {
-  //       res.data, filename;
-  //     });
-  // };
   return (
     <>
       <ListItem className={classes.item}>

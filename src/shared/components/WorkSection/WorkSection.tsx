@@ -134,28 +134,34 @@ export const WorkSection = () => {
                       {lecture.summary}
                     </Typography>
                     {!authCtx.user.roles.includes('student') && addAssessments}
-                    {authCtx.user.roles.includes('student') && (
+                    {authCtx.user && (
                       <>
-                        <FormControlLabel
-                          control={
-                            <Checkbox
-                              onChange={() => addAttendanceHandle(lecture._id)}
-                            />
-                          }
-                          label="Attendance"
-                        />
-                        <Button
-                          size="small"
-                          style={{ margin: 15 }}
-                          variant="contained"
-                          startIcon={<FilePresent />}
-                          onClick={() => {
-                            setIsWorkFile(false);
-                            addHandler(lecture._id, authCtx.user.email);
-                          }}
-                        >
-                          Justifications
-                        </Button>
+                        {authCtx.user.roles.includes('student') && (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                onChange={() =>
+                                  addAttendanceHandle(lecture._id)
+                                }
+                              />
+                            }
+                            label="Attendance"
+                          />
+                        )}
+                        {authCtx.user.roles.includes('student') && (
+                          <Button
+                            size="small"
+                            style={{ margin: 15 }}
+                            variant="contained"
+                            startIcon={<FilePresent />}
+                            onClick={() => {
+                              setIsWorkFile(false);
+                              addHandler(lecture._id, authCtx.user.email);
+                            }}
+                          >
+                            Justifications
+                          </Button>
+                        )}
                         <Button
                           size="small"
                           key={lecture._id}

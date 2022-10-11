@@ -42,22 +42,22 @@ export const LecturesSection = () => {
       })
       .catch((error) => console.log(`Error: ${error}`));
 
-    function checkIsFinished() {
-      classes.map((aclass: IClass) => {
-        const findLectureFinished = aclass.lecture.find(
-          (lecture: ILectures) => {
-            lecture.finished === true;
-          }
-        );
-        if (findLectureFinished) setIsFinished(true);
-        else setIsFinished(false);
+    classes.map((aclass: IClass) => {
+      const findLectureFinished = aclass.lecture.find((lecture: ILectures) => {
+        lecture.finished === true;
       });
-    }
+      if (findLectureFinished) setIsFinished(true);
+      else setIsFinished(false);
+    });
+
     data &&
       data.map((user) => {
         const theuser = user;
 
-        if (theuser.roles.includes('professor')) {
+        if (
+          !theuser.roles.includes('professor') &&
+          authCtx.user.roles.includes('professor')
+        ) {
           setIsProfessor(true);
         } else {
           setIsProfessor(false);
@@ -108,7 +108,7 @@ export const LecturesSection = () => {
                             summary={lecture.summary}
                             description={lecture.description}
                           />
-                          {isProfessor && (
+                          {authCtx.user.roles.includes('professor') && (
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -121,9 +121,11 @@ export const LecturesSection = () => {
                               label="Finish Lecture"
                             />
                           )}
-                          {!isProfessor && <h3>Works submitted by students</h3>}
+                          {authCtx.user.roles.includes('professor') && (
+                            <h3>Works submitted by students</h3>
+                          )}
 
-                          {!isProfessor &&
+                          {authCtx.user.roles.includes('professor') &&
                             lecture.work &&
                             lecture.work.map((work: IWorks) => {
                               return (
@@ -137,10 +139,10 @@ export const LecturesSection = () => {
                                 </>
                               );
                             })}
-                          {!isProfessor && (
+                          {authCtx.user.roles.includes('professor') && (
                             <h3>Justifications submitted by students</h3>
                           )}
-                          {!isProfessor && lecture.attendance && (
+                          {authCtx.user.roles.includes('professor') && (
                             <JustificationItem
                               key={Math.random()}
                               filename={lecture.attendance.filename}
