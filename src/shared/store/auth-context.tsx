@@ -17,6 +17,7 @@ const initialUser: IUser = {
   isValidated: false,
   image: '',
   classes: [],
+  assessment: [],
 };
 
 const AuthContext = createContext({
@@ -51,6 +52,7 @@ export const AuthContextProvider = ({
       isValidated: user.isValidated,
       image: user.image,
       classes: user.classes,
+      assessment: user.assessment,
     });
   };
 

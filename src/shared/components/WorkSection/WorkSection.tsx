@@ -22,17 +22,19 @@ export const WorkSection = () => {
   const [classes, setClasses] = useState<IClass[]>(() => []);
   const [open, setOpen] = useState(false);
   const [lectureId, setLectureId] = useState<string>();
+  const [userEmail, setUserEmail] = useState<string>();
   const { data } = useGetAllUsersData();
   const [numberInput, setNumberInput] = useState('');
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
 
   const handleNumberInputChange = (event: any) => {
-    console.log(numberInput);
+    // console.log(numberInput);
   };
 
-  const addHandler = (id: string) => {
+  const addHandler = (id: string, userEmail: string) => {
     setOpen(true);
     setLectureId(id);
+    setUserEmail(userEmail);
   };
 
   useEffect(() => {
@@ -40,25 +42,32 @@ export const WorkSection = () => {
       .get(`auth/${authCtx.user.email}`)
       .then((res) => {
         const classData = res.data.classes;
+        // console.log(classData);
         setClasses(classData);
       })
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
 
-  console.log('User:', authCtx.user._id);
+  // console.log('User:', authCtx.user);
+
   const addAttendanceHandle = (lectureId: string) => {
     axios
-      .post('attendance/create', { attendance: false, validation: false })
+      .post('attendance/create', { attendance: true, validation: false })
       .then((res) => {
+        // console.log(res.data);
+        const attendanceId: string = res.data._id;
         if (res.status === 200) {
           axios
-            .patch(`/auth/${authCtx.user._id}/add-attendance/${res.data._id}`, {
-              attendance: true,
-            })
+            .patch(
+              `/auth/${authCtx.user.email}/add-attendance/${res.data._id}`,
+              {
+                attendance: true,
+              }
+            )
             .catch((error) => console.log('Error', error));
 
           axios
-            .patch(`/lectures/${res.data._id}/add-attendance/${lectureId}`, {
+            .patch(`/lectures/${attendanceId}/add-attendance/${lectureId}`, {
               attendance: true,
             })
             .catch((error) => console.log('Error', error));
@@ -145,10 +154,25 @@ export const WorkSection = () => {
                             startIcon={<FilePresent />}
                             onClick={() => {
                               setIsWorkFile(false);
-                              addHandler(lecture._id);
+                              addHandler(lecture._id, authCtx.user.email);
                             }}
                           >
                             Justifications
+                          </Button>
+                          <Button
+                            size="small"
+                            key={lecture._id}
+                            style={{ margin: 15 }}
+                            variant="contained"
+                            startIcon={<PlusOne />}
+                            onClick={() => {
+                              setIsWorkFile(true);
+                              addHandler(lecture._id, authCtx.user.email);
+                            }}
+                          >
+                            {authCtx.user.roles.includes('student')
+                              ? 'Submit Work'
+                              : 'Add Work'}
                           </Button>
                         </>
                       )}
@@ -157,22 +181,7 @@ export const WorkSection = () => {
                       lecture.works.map((work: IWorks) => {
                         return (
                           <>
-                            <Button
-                              size="small"
-                              key={work._id}
-                              style={{ margin: 15 }}
-                              variant="contained"
-                              startIcon={<PlusOne />}
-                              onClick={() => {
-                                setIsWorkFile(true);
-                                addHandler(lecture._id);
-                              }}
-                            >
-                              {authCtx.user.roles.includes('student')
-                                ? 'Submit Work'
-                                : 'Add Work'}
-                            </Button>
-                            <WorkItem key={work._id} filename={work.filename} />
+                            <WorkItem key={work._id} filename={work.filename} filepath={work.filepath} owner={work.owner} />
                           </>
                         );
                       })
@@ -182,17 +191,7 @@ export const WorkSection = () => {
                           sx={{ display: 'flex', alignContent: 'flex-start' }}
                         >
                           <h3>No work found for this lecture</h3>
-                          <Button
-                            size="small"
-                            style={{ margin: 15 }}
-                            variant="contained"
-                            startIcon={<PlusOne />}
-                            onClick={() => addHandler(lecture._id)}
-                          >
-                            {authCtx.user.roles.includes('student')
-                              ? 'Submit Work'
-                              : 'Add Work'}
-                          </Button>
+                          
                         </Box>
                       </>
                     )}
@@ -215,12 +214,10 @@ export const WorkSection = () => {
       <div>
         <Box>
           <Typography component="h5" variant="h5">
-            {authCtx.user.roles.includes('student')
-              ? 'Works & Attendance'
-              : 'Works'}
+            Works & Attendance
           </Typography>
 
-          <Box>
+          <Box sx={{margin: '20px'}}>
             <Box>{getWorks}</Box>
           </Box>
         </Box>
@@ -228,6 +225,8 @@ export const WorkSection = () => {
       </div>
       {isWorkFile ? (
         <NewWorkModal
+          userEmail={userEmail}
+
           lectureId={lectureId}
           open={open}
           onClose={() => {
@@ -236,6 +235,7 @@ export const WorkSection = () => {
         />
       ) : (
         <NewJustificationModal
+        // userEmail={userEmail}
           lectureId={lectureId}
           open={open}
           onClose={() => {

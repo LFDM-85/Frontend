@@ -11,18 +11,6 @@ import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 export const AssessmentsSection = () => {
   const authCtx = useAuth();
   const { data } = useGetAllUsersData();
-  // const [currUser, setCurrUser] = useState<IUser[] | string>();
-
-  // useEffect(() => {
-
-  //   const dataUser = data
-  //     ? data.filter((user) => {
-  //         user.email === signUser.email;
-  //         return user;
-  //       })
-  //     : 'Not Found';
-  //   setCurrUser(dataUser);
-  // }, [authCtx.user]);
 
   const signUser = authCtx.user;
   console.log('Current User', signUser);
@@ -51,7 +39,7 @@ export const AssessmentsSection = () => {
                             summary={lecture.summary}
                             description={lecture.description}
                           />
-                          {lecture.assessment ? (
+                          {lecture ? (
                             <h3 key={lecture.assessment._id}>
                               Assessment: {lecture.assessment.assessmentValue}
                             </h3>

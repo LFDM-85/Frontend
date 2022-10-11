@@ -27,11 +27,15 @@ export interface IAttendance {
 export interface IWorks {
   _id: string;
   filename: string;
+  filepath: string;
+  owner: string;
 }
 
 export interface IAssessment {
   _id: string;
   assessmentValue: number;
+  userEmail: string;
+  lectureId: string;
 }
 
 export interface IUser {
@@ -42,6 +46,7 @@ export interface IUser {
   roles: string[];
   isValidated: boolean;
   classes: IClass[];
+  assessment: IAssessment[];
 }
 export interface IState {
   isAuthenticated: boolean;

@@ -4,6 +4,8 @@ import { Work } from '@mui/icons-material';
 
 type Props = {
   filename: string;
+  filepath: string;
+  owner: string
 };
 
 const useStyles = makeStyles({
@@ -17,12 +19,12 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const WorkItem = ({ filename }: Props) => {
+export const WorkItem = (work: Props) => {
   const classes = useStyles();
 
   return (
     <ListItem className={classes.item}>
-      <ListItemText>{filename}</ListItemText>
+      <ListItemText>{work.filename} - {work.owner} - {work.filepath }</ListItemText>
       <Work />
     </ListItem>
   );

@@ -1,17 +1,20 @@
 import BasicModal from '../../common/BasicModal/BasicModal';
-import axios from '../../../../interceptors/axios';
+import Axios from 'axios';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { margin } from '@mui/system';
 import { UploadFile } from '@mui/icons-material';
+import axios from '../../../../interceptors/axios';
 
 interface IProps {
   open: boolean;
   onClose: () => void;
   lectureId: string | undefined;
+  userEmail: string | undefined;
 }
 
-const NewWorkModal = ({ open, onClose, lectureId }: IProps) => {
+const NewWorkModal = ({ open, onClose, lectureId, userEmail }: IProps) => {
   const [file, setFile] = useState<any>();
+  // const [fileUrl, setFileUrl] = useState<string>();
 
   const handleChange = (file: ChangeEvent) => {
     const { files } = file.target as HTMLInputElement;
@@ -23,13 +26,34 @@ const NewWorkModal = ({ open, onClose, lectureId }: IProps) => {
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append('file', file);
-    const upload = await axios({
-      url: '/work/uploadfile',
-      method: 'post',
-      data: formData,
-    }).then((r) => r);
+    formData.append('upload_preset', 'elearning_preset');
+    formData.append('cloud_name', 'dp9h6rkbl');
 
-    console.log(upload);
+    Axios.post('https://api.cloudinary.com/v1_1/dp9h6rkbl/image/upload', formData).then((res) => {
+      // console.log(res.data);
+      const filename = `${res.data.original_filename}.${res.data.format}`;
+      const fileUrl = res.data.url;
+
+      console.log('FileName: ', filename);
+      console.log('FileURL: ', fileUrl);
+      axios.post('work/create', { filename: filename, filepath: fileUrl, owner: userEmail }).then((res) => {
+        console.log('FILE CREATED -> ', res.data);
+        axios.patch(`lectures/${res.data._id}/add-work/${lectureId}`).then((res) => console.log('Add work to lecture') );
+      }).catch((error) => console.log('ERROR', error));
+      
+    });
+    // const upload = await axios({
+    //   url: 'https://api.cloudinary.com/v1_1/dp9h6rkbl/file/upload',
+    //   method: 'post',
+    //   data: formData,
+    // }).then((res) => {
+    //   setFileUrl(res.data.url);
+    //   console.log(res.data);
+    // }).catch(err => console.log(err))
+      
+      
+
+    // console.log(upload);
   };
 
   const getContent = () => (
