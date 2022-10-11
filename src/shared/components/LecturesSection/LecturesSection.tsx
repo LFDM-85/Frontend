@@ -1,17 +1,22 @@
 import { Button, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
-import { IClass, ILectures } from '../../interfaces/interfaces';
+import { IClass, ILectures, IWorks } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../../hooks/useAuth';
 import { LectureItem } from '../LectureItem/LectureItem';
 import { PlusOne } from '@mui/icons-material';
 import NewLectureModal from '../Modals/NewLectureModal/NewLectureModal';
+import { WorkItem } from '../WorkItem/WorkItem';
+import { JustificationItem } from '../JustificationItem/JustificationItem';
+import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 
 export const LecturesSection = () => {
   const authCtx = useAuth();
   const [open, setOpen] = useState(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
+  const [isProfessor, setIsProfessor] = useState<boolean>();
+  const { data } = useGetAllUsersData();
 
   const [classes, setClasses] = useState<IClass[]>(() => []);
   const [aclassId, setAclassId] = useState<string>();
@@ -48,7 +53,17 @@ export const LecturesSection = () => {
         else setIsFinished(false);
       });
     }
-  }, []);
+    data &&
+      data.map((user) => {
+        const theuser = user;
+
+        if (theuser.roles.includes('professor')) {
+          setIsProfessor(true);
+        } else {
+          setIsProfessor(false);
+        }
+      });
+  }, [setIsProfessor]);
 
   return (
     <div>
@@ -93,7 +108,7 @@ export const LecturesSection = () => {
                             summary={lecture.summary}
                             description={lecture.description}
                           />
-                          {authCtx.user.roles.includes('professor') && (
+                          {isProfessor && (
                             <FormControlLabel
                               control={
                                 <Checkbox
@@ -104,6 +119,33 @@ export const LecturesSection = () => {
                                 />
                               }
                               label="Finish Lecture"
+                            />
+                          )}
+                          {!isProfessor && <h3>Works submitted by students</h3>}
+
+                          {!isProfessor &&
+                            lecture.work &&
+                            lecture.work.map((work: IWorks) => {
+                              return (
+                                <>
+                                  <WorkItem
+                                    key={Math.random()}
+                                    filename={work.filename}
+                                    filepath={work.filepath}
+                                    owner={work.owner}
+                                  />
+                                </>
+                              );
+                            })}
+                          {!isProfessor && (
+                            <h3>Justifications submitted by students</h3>
+                          )}
+                          {!isProfessor && lecture.attendance && (
+                            <JustificationItem
+                              key={Math.random()}
+                              filename={lecture.attendance.filename}
+                              filepath={lecture.attendance.filepath}
+                              owner={lecture.attendance.owner}
                             />
                           )}
                         </>

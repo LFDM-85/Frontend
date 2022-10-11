@@ -77,14 +77,14 @@ export const WorkSection = () => {
   };
 
   const addAssessments = data ? (
-    data.map((student) => {
-      if (student.roles.includes('student')) {
+    data.map((user) => {
+      if (user.roles.includes('student')) {
         return (
           <div style={{ display: 'flex' }} key={Math.random()}>
             <StudentItem
-              key={student._id}
-              id={student._id}
-              name={student.name}
+              key={user._id}
+              id={user._id}
+              name={user.name}
               icontoggle={false}
               deleteShow={false}
             />
@@ -130,75 +130,77 @@ export const WorkSection = () => {
               return (
                 <>
                   <Box>
-                    <Box>
-                      <Typography component="h6" variant="h6">
-                        {lecture.summary}
-                      </Typography>
-                      {!authCtx.user.roles.includes('student') &&
-                        addAssessments}
-                      {authCtx.user.roles.includes('student') && (
-                        <>
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                onChange={() =>
-                                  addAttendanceHandle(lecture._id)
-                                }
-                              />
-                            }
-                            label="Attendance"
-                          />
-                          <Button
-                            size="small"
-                            style={{ margin: 15 }}
-                            variant="contained"
-                            startIcon={<FilePresent />}
-                            onClick={() => {
-                              setIsWorkFile(false);
-                              addHandler(lecture._id, authCtx.user.email);
-                            }}
-                          >
-                            Justifications
-                          </Button>
-                          <Button
-                            size="small"
-                            key={lecture._id}
-                            style={{ margin: 15 }}
-                            variant="contained"
-                            startIcon={<PlusOne />}
-                            onClick={() => {
-                              setIsWorkFile(true);
-                              addHandler(lecture._id, authCtx.user.email);
-                            }}
-                          >
-                            {authCtx.user.roles.includes('student')
-                              ? 'Submit Work'
-                              : 'Add Work'}
-                          </Button>
-                        </>
-                      )}
-                    </Box>
-                    {lecture.work ? (
-                      lecture.work.map((work: IWorks) => {
-                        return (
-                          <WorkItem
-                            key={Math.random()}
-                            filename={work.filename}
-                            filepath={work.filepath}
-                            owner={work.owner}
-                          />
-                        );
-                      })
-                    ) : (
+                    <Typography component="h6" variant="h6">
+                      {lecture.summary}
+                    </Typography>
+                    {!authCtx.user.roles.includes('student') && addAssessments}
+                    {authCtx.user.roles.includes('student') && (
                       <>
-                        <Box
-                          sx={{ display: 'flex', alignContent: 'flex-start' }}
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              onChange={() => addAttendanceHandle(lecture._id)}
+                            />
+                          }
+                          label="Attendance"
+                        />
+                        <Button
+                          size="small"
+                          style={{ margin: 15 }}
+                          variant="contained"
+                          startIcon={<FilePresent />}
+                          onClick={() => {
+                            setIsWorkFile(false);
+                            addHandler(lecture._id, authCtx.user.email);
+                          }}
                         >
-                          <h3>No work found for this lecture</h3>
-                        </Box>
+                          Justifications
+                        </Button>
+                        <Button
+                          size="small"
+                          key={lecture._id}
+                          style={{ margin: 15 }}
+                          variant="contained"
+                          startIcon={<PlusOne />}
+                          onClick={() => {
+                            setIsWorkFile(true);
+                            addHandler(lecture._id, authCtx.user.email);
+                          }}
+                        >
+                          {authCtx.user.roles.includes('student')
+                            ? 'Submit Work'
+                            : 'Add Work'}
+                        </Button>
                       </>
                     )}
                   </Box>
+
+                  {data ? (
+                    data.map((user) => {
+                      if (
+                        user.roles.includes('professor') &&
+                        lecture.work &&
+                        authCtx.user.roles.includes('student')
+                      ) {
+                        lecture.work.map((work: IWorks) => {
+                          return (
+                            <WorkItem
+                              key={Math.random()}
+                              filename={work.filename}
+                              filepath={work.filepath}
+                              owner={work.owner}
+                            />
+                          );
+                        });
+                      }
+                    })
+                  ) : (
+                    <>
+                      <Box sx={{ display: 'flex', alignContent: 'flex-start' }}>
+                        <h3>No work found for this lecture</h3>
+                      </Box>
+                    </>
+                  )}
                 </>
               );
             })
@@ -242,6 +244,7 @@ export const WorkSection = () => {
           open={open}
           onClose={() => {
             setOpen(false);
+            setIsWorkFile(true);
           }}
         />
       )}

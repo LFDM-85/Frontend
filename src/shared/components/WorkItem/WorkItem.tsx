@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   item: {
     height: '35px',
     alignItems: 'center',
-    backgroundColor: '#32a852',
+    backgroundColor: '#64AAF0',
     border: '1px solid #000',
     borderRadius: '5px',
     margin: '5px 5px',
