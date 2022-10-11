@@ -24,10 +24,15 @@ export const WorkSection = () => {
   const [lectureId, setLectureId] = useState<string>();
   const [userEmail, setUserEmail] = useState<string>();
   const { data } = useGetAllUsersData();
-  const [numberInput, setNumberInput] = useState('');
+  const [numberInput, setNumberInput] = useState<any>();
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
 
   const handleNumberInputChange = (event: any) => {
+    const { name, value } = event.target;
+    setNumberInput({
+      ...numberInput,
+      [name]: value,
+    });
     // console.log(numberInput);
   };
 
@@ -88,17 +93,17 @@ export const WorkSection = () => {
               icontoggle={false}
               deleteShow={false}
             />
+
             <TextField
               id="outlined-number"
               label="Number"
               type="number"
+              name={user.email}
               value={numberInput}
               InputLabelProps={{
                 shrink: true,
               }}
-              onChange={(event) => {
-                setNumberInput(event.target.value);
-              }}
+              onChange={handleNumberInputChange}
             />
             <Button
               style={{ margin: 15 }}
