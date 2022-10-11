@@ -13,25 +13,16 @@ const useStyles = makeStyles({
   item: {
     height: '35px',
     alignItems: 'center',
-    backgroundColor: '#32a852',
+    backgroundColor: '#b99fe0',
     border: '1px solid #000',
     borderRadius: '5px',
     margin: '5px 5px',
     padding: '5px',
   },
 });
-export const WorkItem = (work: Props) => {
+export const JustificationItem = (work: Props) => {
   const classes = useStyles();
 
-  // const handleDownload = (url: string, filename: string) => {
-  //   axios
-  //     .get(url, {
-  //       responseType: 'blob',
-  //     })
-  //     .then((res) => {
-  //       res.data, filename;
-  //     });
-  // };
   return (
     <>
       <ListItem className={classes.item}>

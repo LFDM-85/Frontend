@@ -3,14 +3,21 @@ import axios from '../../../../interceptors/axios';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { margin } from '@mui/system';
 import { UploadFile } from '@mui/icons-material';
+import Axios from 'axios';
 
 interface IProps {
   open: boolean;
   onClose: () => void;
   lectureId: string | undefined;
+  userEmail: string | undefined;
 }
 
-const NewJustificationModal = ({ open, onClose, lectureId }: IProps) => {
+const NewJustificationModal = ({
+  open,
+  onClose,
+  lectureId,
+  userEmail,
+}: IProps) => {
   const [file, setFile] = useState<any>();
 
   const handleChange = (file: ChangeEvent) => {
@@ -23,13 +30,35 @@ const NewJustificationModal = ({ open, onClose, lectureId }: IProps) => {
   const handleSubmit = async () => {
     const formData = new FormData();
     formData.append('file', file);
-    const upload = await axios({
-      url: '/work/uploadfile',
-      method: 'post',
-      data: formData,
-    }).then((r) => r);
+    formData.append('upload_preset', 'elearning_preset');
+    formData.append('cloud_name', 'dp9h6rkbl');
 
-    console.log(upload);
+    Axios.post(
+      'https://api.cloudinary.com/v1_1/dp9h6rkbl/auto/upload',
+      formData
+    ).then((res) => {
+      // console.log(res.data);
+      const filename = `${res.data.original_filename}.${res.data.format}`;
+      const fileUrl = res.data.url;
+
+      console.log('FileName: ', filename);
+      console.log('FileURL: ', fileUrl);
+      axios
+        .post('attendance/create', {
+          attendance: false,
+          validation: false,
+          filename: filename,
+          filepath: fileUrl,
+          owner: userEmail,
+        })
+        .then((res) => {
+          console.log('FILE CREATED -> ', res.data);
+          axios
+            .patch(`lectures/${res.data._id}/add-attendance/${lectureId}`)
+            .then((res) => console.log('Add attendance to lecture'));
+        })
+        .catch((error) => console.log('ERROR', error));
+    });
   };
 
   const getContent = () => (

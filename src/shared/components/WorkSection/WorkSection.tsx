@@ -126,6 +126,7 @@ export const WorkSection = () => {
 
           {aclass.lecture ? (
             aclass.lecture.map((lecture: ILectures) => {
+              console.log(lecture);
               return (
                 <>
                   <Box>
@@ -177,12 +178,15 @@ export const WorkSection = () => {
                         </>
                       )}
                     </Box>
-                    {lecture.works ? (
-                      lecture.works.map((work: IWorks) => {
+                    {lecture.work ? (
+                      lecture.work.map((work: IWorks) => {
                         return (
-                          <>
-                            <WorkItem key={work._id} filename={work.filename} filepath={work.filepath} owner={work.owner} />
-                          </>
+                          <WorkItem
+                            key={Math.random()}
+                            filename={work.filename}
+                            filepath={work.filepath}
+                            owner={work.owner}
+                          />
                         );
                       })
                     ) : (
@@ -191,7 +195,6 @@ export const WorkSection = () => {
                           sx={{ display: 'flex', alignContent: 'flex-start' }}
                         >
                           <h3>No work found for this lecture</h3>
-                          
                         </Box>
                       </>
                     )}
@@ -217,7 +220,7 @@ export const WorkSection = () => {
             Works & Attendance
           </Typography>
 
-          <Box sx={{margin: '20px'}}>
+          <Box sx={{ margin: '20px' }}>
             <Box>{getWorks}</Box>
           </Box>
         </Box>
@@ -226,7 +229,6 @@ export const WorkSection = () => {
       {isWorkFile ? (
         <NewWorkModal
           userEmail={userEmail}
-
           lectureId={lectureId}
           open={open}
           onClose={() => {
@@ -235,7 +237,7 @@ export const WorkSection = () => {
         />
       ) : (
         <NewJustificationModal
-        // userEmail={userEmail}
+          userEmail={userEmail}
           lectureId={lectureId}
           open={open}
           onClose={() => {

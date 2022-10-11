@@ -17,7 +17,8 @@ export const AssessmentsSection = () => {
 
   const renderAssessment = data ? (
     data.map((user) => {
-      if (user.email === signUser.email) {
+      const isCurrUser = user.email === signUser.email;
+      if (isCurrUser) {
         return user.classes.map((aclass: IClass) => {
           return (
             <>
@@ -39,7 +40,7 @@ export const AssessmentsSection = () => {
                             summary={lecture.summary}
                             description={lecture.description}
                           />
-                          {lecture ? (
+                          {lecture.assessment.userEmail === signUser.email ? (
                             <h3 key={lecture.assessment._id}>
                               Assessment: {lecture.assessment.assessmentValue}
                             </h3>

@@ -13,7 +13,7 @@ export interface ILectures {
   description: string;
   finished: boolean;
   assessment: IAssessment;
-  works: IWorks[];
+  work: IWorks[];
   attendance: IAttendance;
 }
 
@@ -22,6 +22,8 @@ export interface IAttendance {
   attendance: boolean;
   validation: boolean;
   filename: string;
+  filepath: string;
+  owner: string;
 }
 
 export interface IWorks {
