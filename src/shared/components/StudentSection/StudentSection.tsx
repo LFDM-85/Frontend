@@ -7,6 +7,11 @@ import { Box } from '@mui/system';
 import { Add } from '@mui/icons-material';
 import NewUserModal from '../Modals/NewUserModal/NewUserModal';
 
+// ================================
+// pass style to diferent file
+// users from hooks
+// ================================
+
 export const StudentSection = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [open, setOpen] = useState(false);

@@ -17,6 +17,12 @@ import { WorkItem } from '../WorkItem/WorkItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 import { StudentItem } from '../StudentItem/StudentItem';
 
+// ================================
+// pass style to diferent file
+// users from hooks
+// split logic into various files
+// ================================
+
 export const WorkSection = () => {
   const authCtx = useAuth();
   const [classes, setClasses] = useState<IClass[]>(() => []);
@@ -34,7 +40,7 @@ export const WorkSection = () => {
     });
   };
 
-  // console.log(numberInput);
+  console.log(numberInput);
 
   const addHandler = (id: string, userEmail: string) => {
     setOpen(true);

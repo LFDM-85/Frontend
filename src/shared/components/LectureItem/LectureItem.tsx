@@ -3,6 +3,10 @@ import { makeStyles } from '@mui/styles';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 import { IAssessment } from '../../interfaces/interfaces';
 
+// ================================
+// pass style to diferent file
+// ================================
+
 type Props = {
   summary: string;
   description: string;

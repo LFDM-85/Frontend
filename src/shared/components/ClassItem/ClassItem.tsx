@@ -2,6 +2,11 @@ import { ListItem, ListItemText } from '@mui/material';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import { makeStyles } from '@mui/styles';
 
+// ================================
+// pass style to diferent file
+// check props/any
+// ================================
+
 type Props = {
   name: string;
   toggle: () => void;

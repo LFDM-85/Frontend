@@ -1,14 +1,6 @@
 import React, { useState, createContext } from 'react';
 import { IUser } from '../interfaces/interfaces';
 
-// interface IUser {
-//   email: string;
-//   id: string;
-//   name: string;
-//   roles: string[];
-//   isValidated: boolean;
-// }
-
 const initialUser: IUser = {
   email: '',
   _id: '',

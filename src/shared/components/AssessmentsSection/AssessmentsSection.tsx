@@ -8,6 +8,14 @@ import { LectureItem } from '../LectureItem/LectureItem';
 import { ClassItem } from '../ClassItem/ClassItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 
+// ================================
+// pass style to diferent file
+// use hooks to verify currUser
+// use hooks to get assessments
+// use hooks to get classData
+// use hooks to verify userAssessment
+// ================================
+
 export const AssessmentsSection = () => {
   const authCtx = useAuth();
   const { data } = useGetAllUsersData();

@@ -2,6 +2,10 @@ import { Delete } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
+// ================================
+// pass style to diferent file
+// ================================
+
 type Props = {
   id: string;
   name: string;

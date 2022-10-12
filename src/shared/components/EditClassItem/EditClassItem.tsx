@@ -6,6 +6,11 @@ import axios from '../../../interceptors/axios';
 import { IClass, IUser } from '../../interfaces/interfaces';
 import { PeopleItem } from '../PeopleItem/PeopleItem';
 
+// ================================
+// pass style to diferent file
+// classes & users from hooks
+// ================================
+
 type Props = {
   name: string;
   id: string;

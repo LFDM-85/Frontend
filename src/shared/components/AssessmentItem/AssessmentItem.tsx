@@ -2,6 +2,10 @@ import { ListItem, ListItemText } from '@mui/material';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import { makeStyles } from '@mui/styles';
 
+// ================================
+// pass style to diferent file
+// ================================
+
 type Props = {
   name: string;
 };

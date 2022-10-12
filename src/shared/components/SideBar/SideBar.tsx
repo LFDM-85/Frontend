@@ -19,6 +19,10 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { signout } from '../../features/SignServices';
 
+// ================================
+// pass style to diferent file
+// ================================
+
 type IProps = {
   children: React.ReactNode;
 };

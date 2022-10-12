@@ -6,6 +6,11 @@ import { IClass } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../../hooks/useAuth';
 
+// ================================
+// pass style to diferent file
+// get classes from hooks
+// ================================
+
 export const ClassSection = () => {
   const authCtx = useAuth();
 
@@ -26,7 +31,6 @@ export const ClassSection = () => {
       <Box
         sx={{
           mb: 2,
-          // flexDirection: 'column',
           height: '80vh',
           overflow: 'hidden',
           overflowY: 'scroll',

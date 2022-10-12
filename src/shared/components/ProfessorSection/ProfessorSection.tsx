@@ -5,6 +5,11 @@ import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 import { IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 
+// ================================
+// pass style to diferent file
+// users from hooks
+// ================================
+
 export const ProfessorSection = () => {
   const [users, setUsers] = useState<IUser[]>([]);
 
