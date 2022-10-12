@@ -24,14 +24,13 @@ export const WorkSection = () => {
   const [lectureId, setLectureId] = useState<string>();
   const [userEmail, setUserEmail] = useState<string>();
   const { data } = useGetAllUsersData();
-  const [numberInput, setNumberInput] = useState<any>();
+  const [numberInput, setNumberInput] = useState<any>({});
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
 
   const handleNumberInputChange = (event: any) => {
-    const { name, value } = event.target;
-    setNumberInput({
-      ...numberInput,
-      [name]: value,
+    // const { name, value } = event.target;
+    setNumberInput((values: any) => {
+      return { ...values, [event.target.name]: event.target.value };
     });
     // console.log(numberInput);
   };
@@ -99,7 +98,7 @@ export const WorkSection = () => {
               label="Number"
               type="number"
               name={user.email}
-              value={numberInput}
+              value={numberInput[user.email] ?? ''}
               InputLabelProps={{
                 shrink: true,
               }}
