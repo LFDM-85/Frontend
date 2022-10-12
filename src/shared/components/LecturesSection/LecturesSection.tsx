@@ -142,14 +142,14 @@ export const LecturesSection = () => {
                           {authCtx.user.roles.includes('professor') && (
                             <h3>Justifications submitted by students</h3>
                           )}
-                          {authCtx.user.roles.includes('professor') && (
+                          {/* {authCtx.user.roles.includes('professor') && (
                             <JustificationItem
                               key={Math.random()}
-                              filename={lecture.attendance.filename}
-                              filepath={lecture.attendance.filepath}
+                              filename={lecture.attendance.filename ?? null}
+                              filepath={lecture.attendance.filepath ?? null}
                               owner={lecture.attendance.owner}
                             />
-                          )}
+                          )} */}
                         </>
                       );
                     })

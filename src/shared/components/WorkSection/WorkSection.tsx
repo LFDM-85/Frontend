@@ -26,7 +26,7 @@ export const WorkSection = () => {
   const { data } = useGetAllUsersData();
   const [numberInput, setNumberInput] = useState<any>({});
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
-  const [wasPresent, setWasPresent] = useState<boolean>(true);
+  const [wasPresent, setWasPresent] = useState<boolean>(false);
 
   const handleNumberInputChange = (event: any) => {
     setNumberInput((values: any) => {
@@ -56,18 +56,20 @@ export const WorkSection = () => {
       data.map((user) => {
         user.classes.map((aclass) => {
           aclass.lecture.map((lecture) => {
-            console.log(lecture.attendance.attendance);
-            if (lecture.attendance.attendance !== true) setWasPresent(false);
+            // console.log(lecture.attendance.attendance);
+            if (lecture.attendance && lecture.attendance.attendance !== true)
+              setWasPresent(false);
           });
         });
       });
-  }, [data]);
+  }, []);
 
   const addAttendanceHandle = (lectureId: string) => {
     axios
       .post('attendance/create', { attendance: true, validation: false })
       .then((res) => {
         // console.log(res.data);
+        setWasPresent(true);
         const attendanceId: string = res.data._id;
         if (res.status === 200) {
           axios

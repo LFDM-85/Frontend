@@ -17,8 +17,7 @@ export const AssessmentsSection = () => {
 
   const renderAssessment = data ? (
     data.map((user) => {
-      const isCurrUser = user.email === signUser.email;
-      if (isCurrUser) {
+      if (user.email === signUser.email) {
         return user.classes.map((aclass: IClass) => {
           return (
             <>
@@ -27,36 +26,40 @@ export const AssessmentsSection = () => {
                 {aclass &&
                   aclass.lecture.map((lecture: ILectures) => {
                     console.log(lecture.assessment);
-                    const assessmentUserEmail = lecture.assessment[0].userEmail;
-                    const assessmentValue =
-                      lecture.assessment[0].assessmentValue;
-                    console.log('user', assessmentUserEmail);
-                    console.log('value', assessmentValue);
-                    return (
-                      <>
-                        <Box
-                          key={lecture._id}
-                          sx={{
-                            mb: 2,
-                            ml: 2,
-                          }}
-                        >
-                          <LectureItem
+
+                    if (lecture.assessment[0]) {
+                      const assessmentUserEmail =
+                        lecture.assessment[0].userEmail;
+                      const assessmentValue =
+                        lecture.assessment[0].assessmentValue;
+                      console.log('user', assessmentUserEmail);
+                      console.log('value', assessmentValue);
+                      return (
+                        <>
+                          <Box
                             key={lecture._id}
-                            summary={lecture.summary}
-                            description={lecture.description}
-                          />
-                          {signUser.email === assessmentUserEmail ? (
-                            <h3 key={lecture.assessment[0]._id}>
-                              Assessment:{' '}
-                              {lecture.assessment[0].assessmentValue}
-                            </h3>
-                          ) : (
-                            <h3> No assessment found</h3>
-                          )}
-                        </Box>
-                      </>
-                    );
+                            sx={{
+                              mb: 2,
+                              ml: 2,
+                            }}
+                          >
+                            <LectureItem
+                              key={lecture._id}
+                              summary={lecture.summary}
+                              description={lecture.description}
+                            />
+                            {signUser.email === assessmentUserEmail ? (
+                              <h3 key={lecture.assessment[0]._id}>
+                                Assessment:{' '}
+                                {lecture.assessment[0].assessmentValue}
+                              </h3>
+                            ) : (
+                              <h3> No assessment found</h3>
+                            )}
+                          </Box>
+                        </>
+                      );
+                    }
                   })}
               </div>
             </>
