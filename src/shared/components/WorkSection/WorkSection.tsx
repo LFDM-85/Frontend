@@ -26,13 +26,14 @@ export const WorkSection = () => {
   const { data } = useGetAllUsersData();
   const [numberInput, setNumberInput] = useState<any>({});
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
+  const [wasPresent, setWasPresent] = useState<boolean>(true);
 
   const handleNumberInputChange = (event: any) => {
     // const { name, value } = event.target;
     setNumberInput((values: any) => {
       return { ...values, [event.target.name]: event.target.value };
     });
-    // console.log(numberInput);
+    console.log(numberInput);
   };
 
   const addHandler = (id: string, userEmail: string) => {
@@ -50,9 +51,16 @@ export const WorkSection = () => {
         setClasses(classData);
       })
       .catch((error) => console.log(`Error: ${error}`));
-  }, []);
 
-  // console.log('User:', authCtx.user);
+    data &&
+      data.map((user) => {
+        user.classes.map((aclass) => {
+          aclass.lecture.map((lecture) => {
+            if (lecture.attendance.attendance !== true) setWasPresent(false);
+          });
+        });
+      });
+  }, []);
 
   const addAttendanceHandle = (lectureId: string) => {
     axios
@@ -91,6 +99,7 @@ export const WorkSection = () => {
               name={user.name}
               icontoggle={false}
               deleteShow={false}
+              wasPresent={wasPresent}
             />
 
             <TextField
@@ -104,14 +113,6 @@ export const WorkSection = () => {
               }}
               onChange={handleNumberInputChange}
             />
-            <Button
-              style={{ margin: 15 }}
-              variant="contained"
-              startIcon={<Send />}
-              onClick={handleNumberInputChange}
-            >
-              Submit
-            </Button>
           </div>
         );
       }
@@ -181,6 +182,17 @@ export const WorkSection = () => {
                             ? 'Submit Work'
                             : 'Add Work'}
                         </Button>
+                        {authCtx.user.roles.includes('professor') && (
+                          <Button
+                            size="small"
+                            style={{ margin: 15 }}
+                            variant="contained"
+                            startIcon={<Send />}
+                            onClick={handleNumberInputChange}
+                          >
+                            Submit Assessments
+                          </Button>
+                        )}
                       </>
                     )}
                   </Box>

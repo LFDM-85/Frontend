@@ -8,25 +8,28 @@ type Props = {
   key: string;
   icontoggle: boolean;
   deleteShow: boolean;
+  wasPresent: boolean | undefined;
 };
 
-const useStyles = makeStyles({
-  item: {
-    height: '50px',
-    alignItems: 'center',
-    backgroundColor: '#e8c792',
-    border: '1px solid #000',
-    borderRadius: '5px',
-    margin: '5px 5px',
-    padding: '5px',
-  },
-});
-export const StudentItem = ({ name, id, deleteShow }: Props) => {
+export const StudentItem = ({ name, id, deleteShow, wasPresent }: Props) => {
+  const useStyles = makeStyles({
+    item: {
+      height: '50px',
+      alignItems: 'center',
+      backgroundColor: '#e8c792',
+      border: '1px solid #000',
+      borderRadius: '5px',
+      margin: '5px 5px',
+      padding: '5px',
+    },
+  });
   const classes = useStyles();
 
   return (
     <ListItem className={classes.item}>
-      <ListItemText key={id}>{name}</ListItemText>
+      <ListItemText key={id}>
+        {name} - {wasPresent ? 'Present ' : 'Not Present'}
+      </ListItemText>
       {deleteShow && <Delete />}
     </ListItem>
   );
