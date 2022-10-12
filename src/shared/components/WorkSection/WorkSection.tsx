@@ -33,7 +33,8 @@ export const WorkSection = () => {
       return { ...values, [event.target.name]: event.target.value };
     });
   };
-  console.log(numberInput);
+
+  // console.log(numberInput);
 
   const addHandler = (id: string, userEmail: string) => {
     setOpen(true);
@@ -55,6 +56,7 @@ export const WorkSection = () => {
       data.map((user) => {
         user.classes.map((aclass) => {
           aclass.lecture.map((lecture) => {
+            console.log(lecture.attendance.attendance);
             if (lecture.attendance.attendance !== true) setWasPresent(false);
           });
         });
@@ -187,7 +189,7 @@ export const WorkSection = () => {
                             style={{ margin: 15 }}
                             variant="contained"
                             startIcon={<Send />}
-                            onClick={handleNumberInputChange}
+                            // onClick={submitHandlerGrades}
                           >
                             Submit Assessments
                           </Button>
