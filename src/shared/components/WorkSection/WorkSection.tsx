@@ -60,7 +60,7 @@ export const WorkSection = () => {
           });
         });
       });
-  }, []);
+  }, [data]);
 
   const addAttendanceHandle = (lectureId: string) => {
     axios
@@ -104,13 +104,14 @@ export const WorkSection = () => {
 
             <TextField
               id="outlined-number"
-              label="Number"
+              label="Assessment"
               type="number"
               name={user.email}
               value={numberInput[user.email] ?? ''}
               InputLabelProps={{
                 shrink: true,
               }}
+              InputProps={{ inputProps: { min: 0, max: 20 } }}
               onChange={handleNumberInputChange}
             />
           </div>
@@ -131,7 +132,6 @@ export const WorkSection = () => {
 
           {aclass.lecture ? (
             aclass.lecture.map((lecture: ILectures) => {
-              console.log(lecture);
               return (
                 <>
                   <Box>

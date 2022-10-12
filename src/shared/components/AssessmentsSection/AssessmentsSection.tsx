@@ -26,6 +26,12 @@ export const AssessmentsSection = () => {
                 <ClassItem key={aclass._id} name={aclass.nameClass} />
                 {aclass &&
                   aclass.lecture.map((lecture: ILectures) => {
+                    console.log(lecture.assessment);
+                    const assessmentUserEmail = lecture.assessment[0].userEmail;
+                    const assessmentValue =
+                      lecture.assessment[0].assessmentValue;
+                    console.log('user', assessmentUserEmail);
+                    console.log('value', assessmentValue);
                     return (
                       <>
                         <Box
@@ -40,9 +46,10 @@ export const AssessmentsSection = () => {
                             summary={lecture.summary}
                             description={lecture.description}
                           />
-                          {lecture.assessment.userEmail === signUser.email ? (
-                            <h3 key={lecture.assessment._id}>
-                              Assessment: {lecture.assessment.assessmentValue}
+                          {signUser.email === assessmentUserEmail ? (
+                            <h3 key={lecture.assessment[0]._id}>
+                              Assessment:{' '}
+                              {lecture.assessment[0].assessmentValue}
                             </h3>
                           ) : (
                             <h3> No assessment found</h3>

@@ -12,7 +12,7 @@ export interface ILectures {
   summary: string;
   description: string;
   finished: boolean;
-  assessment: IAssessment;
+  assessment: IAssessment[];
   work: IWorks[];
   attendance: IAttendance;
 }
@@ -37,7 +37,6 @@ export interface IAssessment {
   _id: string;
   assessmentValue: number;
   userEmail: string;
-  lectureId: string;
 }
 
 export interface IUser {
