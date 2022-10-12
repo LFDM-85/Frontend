@@ -29,12 +29,11 @@ export const WorkSection = () => {
   const [wasPresent, setWasPresent] = useState<boolean>(true);
 
   const handleNumberInputChange = (event: any) => {
-    // const { name, value } = event.target;
     setNumberInput((values: any) => {
       return { ...values, [event.target.name]: event.target.value };
     });
-    console.log(numberInput);
   };
+  console.log(numberInput);
 
   const addHandler = (id: string, userEmail: string) => {
     setOpen(true);
@@ -107,7 +106,7 @@ export const WorkSection = () => {
               label="Assessment"
               type="number"
               name={user.email}
-              value={numberInput[user.email] ?? ''}
+              value={numberInput[user.email] ?? 0}
               InputLabelProps={{
                 shrink: true,
               }}
