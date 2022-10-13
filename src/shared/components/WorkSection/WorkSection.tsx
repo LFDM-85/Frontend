@@ -16,6 +16,7 @@ import NewJustificationModal from '../Modals/NewJustificationModal/NewJustificat
 import { WorkItem } from '../WorkItem/WorkItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 import { StudentItem } from '../StudentItem/StudentItem';
+import { finished } from 'stream';
 
 // ================================
 // pass style to diferent file
@@ -59,6 +60,31 @@ export const WorkSection = () => {
           });
         });
       });
+  };
+
+  const getInfo = () => {
+    data.map((user) => {
+      return {
+        name: user.name,
+        email: user.email,
+        roles: user.roles,
+
+        classes: user.classes.map((aclass) => {
+          return {
+            nameClass: aclass.nameClass,
+            open: aclass.open,
+            lecture: aclass.lecture.map((lecture) => {
+              return {
+                summary: lecture.summary,
+                description: lecture.description,
+                finished: lecture.finished,
+                assessment: lecture.assessment,
+              };
+            }),
+          };
+        }),
+      };
+    });
   };
 
   useEffect(() => {
