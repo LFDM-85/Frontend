@@ -7,17 +7,38 @@ import { NewClassModal } from '../Modals/NewClassModal/NewClassModal';
 import { Add } from '@mui/icons-material';
 import { EditClassItem } from '../EditClassItem/EditClassItem';
 
+// ================================
+// pass style to diferent file
+// ================================
+
 export const ClassSectionManagement = () => {
-  const { data } = useGetAllClassesData();
+  const { classData } = useGetAllClassesData();
   const [open, setOpen] = useState(false);
+  const [classes, setClasses] = useState<IClass[]>([]);
+
+  const getClassesList = () => {
+    setClasses(classData);
+  };
 
   const addHandler = () => {
     setOpen(true);
   };
 
+  const getTheClass = classes ? (
+    classes.map((aclass: IClass) => {
+      return (
+        <div key={aclass._id}>
+          <EditClassItem name={aclass.nameClass} id={aclass._id} />
+        </div>
+      );
+    })
+  ) : (
+    <h3>No data found</h3>
+  );
+
   useEffect(() => {
-    data;
-  }, []);
+    getClassesList();
+  }, [getTheClass]);
 
   return (
     <div>
@@ -42,17 +63,7 @@ export const ClassSectionManagement = () => {
           ADD Class
         </Button>
 
-        {data ? (
-          data.map((aclass: IClass) => {
-            return (
-              <div key={aclass._id}>
-                <EditClassItem name={aclass.nameClass} id={aclass._id} />
-              </div>
-            );
-          })
-        ) : (
-          <h3>No data found</h3>
-        )}
+        {getTheClass}
         <NewClassModal
           open={open}
           onClose={() => {

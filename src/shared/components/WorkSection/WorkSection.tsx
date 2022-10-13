@@ -48,16 +48,7 @@ export const WorkSection = () => {
     setUserEmail(userEmail);
   };
 
-  useEffect(() => {
-    axios
-      .get(`auth/${authCtx.user.email}`)
-      .then((res) => {
-        const classData = res.data.classes;
-        // console.log(classData);
-        setClasses(classData);
-      })
-      .catch((error) => console.log(`Error: ${error}`));
-
+  const checkAttendance = () => {
     data &&
       data.map((user) => {
         user.classes.map((aclass) => {
@@ -68,6 +59,19 @@ export const WorkSection = () => {
           });
         });
       });
+  };
+
+  useEffect(() => {
+    axios
+      .get(`auth/${authCtx.user.email}`)
+      .then((res) => {
+        const classData = res.data.classes;
+        // console.log(classData);
+        setClasses(classData);
+      })
+      .catch((error) => console.log(`Error: ${error}`));
+
+    checkAttendance();
   }, []);
 
   const addAttendanceHandle = (lectureId: string) => {

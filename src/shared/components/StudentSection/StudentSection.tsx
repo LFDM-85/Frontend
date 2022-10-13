@@ -6,22 +6,41 @@ import { IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import { Add } from '@mui/icons-material';
 import NewUserModal from '../Modals/NewUserModal/NewUserModal';
+import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 
 // ================================
 // pass style to diferent file
-// users from hooks
 // ================================
 
 export const StudentSection = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [open, setOpen] = useState(false);
+  const { data } = useGetAllUsersData();
 
   const getUsersList = () => {
-    axios
-      .get('auth/all')
-      .then((res) => setUsers(res.data))
-      .catch((error) => console.log(`Error: ${error}`));
+    setUsers(data);
   };
+
+  const getStudentList = users ? (
+    users.map((student) => {
+      if (student.roles.includes('student')) {
+        return (
+          <div key={student._id} onClick={() => deleteHandler(student._id)}>
+            <StudentItem
+              key={student._id}
+              id={student._id}
+              name={student.name}
+              icontoggle={false}
+              deleteShow={true}
+              wasPresent
+            />
+          </div>
+        );
+      }
+    })
+  ) : (
+    <h3>No data found</h3>
+  );
 
   const deleteHandler = (id: string) => {
     axios
@@ -36,7 +55,7 @@ export const StudentSection = () => {
 
   useEffect(() => {
     getUsersList();
-  }, []);
+  }, [getStudentList]);
 
   return (
     <div>
@@ -61,29 +80,7 @@ export const StudentSection = () => {
             margin: '15px',
           }}
         >
-          {users ? (
-            users.map((student) => {
-              if (student.roles.includes('student')) {
-                return (
-                  <div
-                    key={student._id}
-                    onClick={() => deleteHandler(student._id)}
-                  >
-                    <StudentItem
-                      key={student._id}
-                      id={student._id}
-                      name={student.name}
-                      icontoggle={false}
-                      deleteShow={true}
-                      wasPresent
-                    />
-                  </div>
-                );
-              }
-            })
-          ) : (
-            <h3>No data found</h3>
-          )}
+          {getStudentList}
         </Box>
         <Box
           sx={{

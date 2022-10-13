@@ -1,27 +1,41 @@
 import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import axios from '../../../interceptors/axios';
 import { ClassItem } from '../ClassItem/ClassItem';
 import { IClass } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
-import useAuth from '../../hooks/useAuth';
+import useGetClassesCurrUserEmailData from '../../hooks/useGetClassesByCurrUserEmailData';
 
 // ================================
 // pass style to diferent file
-// get classes from hooks
 // ================================
 
 export const ClassSection = () => {
-  const authCtx = useAuth();
+  // const authCtx = useAuth();
+  const { classData } = useGetClassesCurrUserEmailData();
 
   const [classes, setClasses] = useState<IClass[]>([]);
 
+  const getAllClasses = () => {
+    setClasses(classData);
+  };
+
+  console.log(classes);
+
+  const getClassList = classes ? (
+    classes.map((aclass: IClass) => {
+      return (
+        <div key={aclass._id}>
+          <ClassItem name={aclass.nameClass} />
+        </div>
+      );
+    })
+  ) : (
+    <h3>No data found</h3>
+  );
+
   useEffect(() => {
-    axios
-      .get(`auth/${authCtx.user.email}`)
-      .then((res) => setClasses(res.data.classes))
-      .catch((error) => console.log(`Error: ${error}`));
-  }, []);
+    getAllClasses();
+  }, [getClassList]);
 
   return (
     <div>
@@ -38,17 +52,7 @@ export const ClassSection = () => {
           margin: '15px',
         }}
       >
-        {classes ? (
-          classes.map((aclass: IClass) => {
-            return (
-              <div key={aclass._id}>
-                <ClassItem name={aclass.nameClass} />
-              </div>
-            );
-          })
-        ) : (
-          <h3>No data found</h3>
-        )}
+        {getClassList}
       </Box>
     </div>
   );

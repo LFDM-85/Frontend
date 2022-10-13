@@ -4,25 +4,40 @@ import axios from '../../../interceptors/axios';
 import { ProfessorItem } from '../ProfessorItem/ProfessorItem';
 import { IUser } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
+import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 
 // ================================
 // pass style to diferent file
-// users from hooks
 // ================================
 
 export const ProfessorSection = () => {
   const [users, setUsers] = useState<IUser[]>([]);
+  const { data } = useGetAllUsersData();
 
   const getUsersList = () => {
-    axios
-      .get('auth/all')
-      .then((res) => setUsers(res.data))
-      .catch((error) => console.log(`Error: ${error}`));
+    setUsers(data);
   };
+
+  const getProfessorList = users ? (
+    users.map((professor) => {
+      if (professor.roles.includes('professor')) {
+        return (
+          <ProfessorItem
+            key={professor._id}
+            id={professor._id}
+            name={professor.name}
+            isValidated={professor.isValidated}
+          />
+        );
+      }
+    })
+  ) : (
+    <h3>No data found</h3>
+  );
 
   useEffect(() => {
     getUsersList();
-  }, []);
+  }, [getUsersList]);
 
   return (
     <div>
@@ -39,22 +54,7 @@ export const ProfessorSection = () => {
           margin: '15px',
         }}
       >
-        {users ? (
-          users.map((professor) => {
-            if (professor.roles.includes('professor')) {
-              return (
-                <ProfessorItem
-                  key={professor._id}
-                  id={professor._id}
-                  name={professor.name}
-                  isValidated={professor.isValidated}
-                />
-              );
-            }
-          })
-        ) : (
-          <h3>No data found</h3>
-        )}
+        {getProfessorList}
       </Box>
     </div>
   );

@@ -1,4 +1,4 @@
-import { Add, Delete, Remove } from '@mui/icons-material';
+import { Add, Delete } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
