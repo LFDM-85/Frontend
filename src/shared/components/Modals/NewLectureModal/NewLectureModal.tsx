@@ -127,8 +127,8 @@ const NewLectureModal = ({ open, onClose, classId }: IProps) => {
     <BasicModal
       open={open}
       onClose={onClose}
-      title="New Student"
-      subTitle="Add new student to the lecture"
+      title="New Lecture"
+      subTitle="Add new lecture"
       content={getContent()}
       onSubmit={handleSubmit(submitHandler)}
     ></BasicModal>
