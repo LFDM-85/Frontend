@@ -62,33 +62,32 @@ export const WorkSection = () => {
       });
   };
 
-  const getInfo = () => {
-    data.map((user) => {
-      return {
-        name: user.name,
-        email: user.email,
-        classes: user.classes.map((aclass) => {
-          return {
-            nameClass: aclass.nameClass,
-            lecture: aclass.lecture.map((lecture) => {
-              return {
-                summary: lecture.summary,
-                description: lecture.description,
-                assessment: lecture.assessment,
-              };
-            }),
-          };
-        }),
-      };
-    });
-  };
+  // const getInfo = () => {
+  //   data.map((user) => {
+  //     return {
+  //       name: user.name,
+  //       email: user.email,
+  //       classes: user.classes.map((aclass) => {
+  //         return {
+  //           nameClass: aclass.nameClass,
+  //           lecture: aclass.lecture.map((lecture) => {
+  //             return {
+  //               summary: lecture.summary,
+  //               description: lecture.description,
+  //               assessment: lecture.assessment,
+  //             };
+  //           }),
+  //         };
+  //       }),
+  //     };
+  //   });
+  // };
 
   useEffect(() => {
     axios
       .get(`auth/${authCtx.user.email}`)
       .then((res) => {
         const classData = res.data.classes;
-        // console.log(classData);
         setClasses(classData);
       })
       .catch((error) => console.log(`Error: ${error}`));
@@ -231,6 +230,22 @@ export const WorkSection = () => {
                       </>
                     )}
                   </Box>
+                  {authCtx.user.roles.includes('student') &&
+                    lecture.work &&
+                    lecture.work.map((work: IWorks) => {
+                      if (work.owner.includes('professor')) {
+                        return (
+                          <>
+                            <WorkItem
+                              key={Math.random()}
+                              filename={work.filename}
+                              filepath={work.filepath}
+                              owner={work.owner}
+                            />
+                          </>
+                        );
+                      }
+                    })}
 
                   {data ? (
                     data.map((user) => {
@@ -240,14 +255,16 @@ export const WorkSection = () => {
                         authCtx.user.roles.includes('student')
                       ) {
                         lecture.work.map((work: IWorks) => {
-                          return (
-                            <WorkItem
-                              key={Math.random()}
-                              filename={work.filename}
-                              filepath={work.filepath}
-                              owner={work.owner}
-                            />
-                          );
+                          if (work.owner.includes('professor')) {
+                            return (
+                              <WorkItem
+                                key={Math.random()}
+                                filename={work.filename}
+                                filepath={work.filepath}
+                                owner={work.owner}
+                              />
+                            );
+                          }
                         });
                       }
                     })

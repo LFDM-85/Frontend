@@ -7,12 +7,6 @@ import axios from 'axios';
 // pass style to diferent file
 // ================================
 
-type Props = {
-  filename: string;
-  filepath: string;
-  owner: string;
-};
-
 const useStyles = makeStyles({
   item: {
     height: '35px',
@@ -24,7 +18,7 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const JustificationItem = (work: Props) => {
+export const JustificationItem = (attendance: any) => {
   const classes = useStyles();
 
   return (
@@ -32,9 +26,9 @@ export const JustificationItem = (work: Props) => {
       <ListItem className={classes.item}>
         <Work />
         <ListItemText>
-          {work.filename} -------- By: {work.owner}
+          {attendance.filename} -------- By: {attendance.owner}
         </ListItemText>
-        <a href={work.filepath}>DOWNLOAD</a>
+        <a href={attendance.filepath}>DOWNLOAD</a>
       </ListItem>
     </>
   );

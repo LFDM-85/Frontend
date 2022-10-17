@@ -10,6 +10,7 @@ import NewLectureModal from '../Modals/NewLectureModal/NewLectureModal';
 import { WorkItem } from '../WorkItem/WorkItem';
 import { JustificationItem } from '../JustificationItem/JustificationItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
+import { isTemplateExpression } from 'typescript';
 
 export const LecturesSection = () => {
   const authCtx = useAuth();
@@ -26,9 +27,22 @@ export const LecturesSection = () => {
     setAclassId(id);
   };
 
-  const finishHandler = (lecture: ILectures) => {
+  // const finishHandler = (lectureId: string) => {
+  //   axios
+  //     .patch(`lectures/${lectureId}`, { finished: true })
+  //     .then((res) => setIsFinished(true))
+  //     .catch((error) => console.log('Error', error));
+  // };
+
+  const onchangeHandler = (event: any) => {
+    console.log(event.target.id);
+    const target = event.currentTarget;
+    const name = target.name;
+    const id = target.id;
+    const checked = target.checked;
+
     axios
-      .patch(`lectures/${lecture._id}`, { ...lecture, finished: true })
+      .patch(`lectures/${id}`, { finished: true })
       .then((res) => setIsFinished(true))
       .catch((error) => console.log('Error', error));
   };
@@ -113,9 +127,11 @@ export const LecturesSection = () => {
                               control={
                                 <Checkbox
                                   key={Math.random()}
-                                  onClick={() => finishHandler(lecture)}
-                                  checked={isFinished ? true : false}
-                                  disabled={isFinished ? true : false}
+                                  name={lecture.summary}
+                                  id={lecture._id}
+                                  // onClick={() => finishHandler(lecture._id)}
+                                  onChange={onchangeHandler}
+                                  // disabled={isFinished}
                                 />
                               }
                               label="Finish Lecture"
@@ -128,28 +144,33 @@ export const LecturesSection = () => {
                           {authCtx.user.roles.includes('professor') &&
                             lecture.work &&
                             lecture.work.map((work: IWorks) => {
-                              return (
-                                <>
-                                  <WorkItem
-                                    key={Math.random()}
-                                    filename={work.filename}
-                                    filepath={work.filepath}
-                                    owner={work.owner}
-                                  />
-                                </>
-                              );
+                              if (work.owner.includes('student')) {
+                                return (
+                                  <>
+                                    <WorkItem
+                                      key={Math.random()}
+                                      filename={work.filename}
+                                      filepath={work.filepath}
+                                      owner={work.owner}
+                                    />
+                                  </>
+                                );
+                              }
                             })}
                           {authCtx.user.roles.includes('professor') && (
                             <h3>Justifications submitted by students</h3>
                           )}
-                          {/* {authCtx.user.roles.includes('professor') && (
-                            <JustificationItem
-                              key={Math.random()}
-                              filename={lecture.attendance.filename ?? null}
-                              filepath={lecture.attendance.filepath ?? null}
-                              owner={lecture.attendance.owner}
-                            />
-                          )} */}
+                          {authCtx.user.roles.includes('professor') &&
+                            (lecture.attendance ? (
+                              <JustificationItem
+                                key={Math.random()}
+                                attendance={lecture.attendance ?? null}
+                              />
+                            ) : (
+                              <p>
+                                No justifications here found for this lecture
+                              </p>
+                            ))}
                         </>
                       );
                     })
