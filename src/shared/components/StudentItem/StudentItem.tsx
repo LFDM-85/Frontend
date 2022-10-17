@@ -32,7 +32,7 @@ export const StudentItem = ({ name, id, deleteShow, wasPresent }: Props) => {
   return (
     <ListItem className={classes.item}>
       <ListItemText key={id}>
-        {name} - {wasPresent ? 'Present ' : 'Not Present'}
+        {name} - {wasPresent ? 'Present' : 'Not Present'}
       </ListItemText>
       {deleteShow && <Delete />}
     </ListItem>

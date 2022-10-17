@@ -52,13 +52,24 @@ export const WorkSection = () => {
   const checkAttendance = () => {
     data &&
       data.map((user) => {
-        user.classes.map((aclass) => {
-          aclass.lecture.map((lecture) => {
-            // console.log(lecture.attendance.attendance);
-            if (lecture.attendance && lecture.attendance.attendance !== true)
-              setWasPresent(false);
+        const currUser = authCtx.user;
+        if (user.email === currUser.email) {
+          user.classes.map((aclass) => {
+            aclass.lecture.map((lecture) => {
+              // console.log(lecture.attendance.attendance);
+              if (
+                lecture.attendance &&
+                lecture.attendance.owner === currUser.email &&
+                lecture.attendance.attendance === true
+              ) {
+                console.log(lecture.attendance.attendance);
+                return setWasPresent(true);
+              } else {
+                return setWasPresent(false);
+              }
+            });
           });
-        });
+        }
       });
   };
 
@@ -99,7 +110,7 @@ export const WorkSection = () => {
     axios
       .post('attendance/create', { attendance: true, validation: false })
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         setWasPresent(true);
         const attendanceId: string = res.data._id;
         if (res.status === 200) {
