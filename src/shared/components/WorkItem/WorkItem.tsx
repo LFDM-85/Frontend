@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 });
 export const WorkItem = (work: Props) => {
   const classes = useStyles();
+
   return (
     <>
       <ListItem className={classes.item}>
