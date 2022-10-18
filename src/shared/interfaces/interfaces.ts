@@ -5,6 +5,7 @@ export interface IClass {
   nameClass: string;
   open: boolean;
   lecture: ILectures[];
+  users: IUser[];
 }
 
 export interface ILectures {

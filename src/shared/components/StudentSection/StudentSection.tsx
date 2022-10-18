@@ -32,7 +32,6 @@ export const StudentSection = () => {
               name={student.name}
               icontoggle={false}
               deleteShow={true}
-              wasPresent
             />
           </div>
         );

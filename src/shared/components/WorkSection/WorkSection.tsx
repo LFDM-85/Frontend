@@ -33,10 +33,9 @@ export const WorkSection = () => {
   const { data } = useGetAllUsersData();
   const [numberInput, setNumberInput] = useState<any>({});
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
-  const [wasPresent, setWasPresent] = useState<boolean>(false);
 
   const handleNumberInputChange = (event: any) => {
-    setNumberInput((values: any) => {
+    setNumberInput((values: number[]) => {
       return { ...values, [event.target.name]: event.target.value };
     });
   };
@@ -49,51 +48,6 @@ export const WorkSection = () => {
     setUserEmail(userEmail);
   };
 
-  const checkAttendance = () => {
-    data &&
-      data.map((user) => {
-        const currUser = authCtx.user;
-        if (user.email === currUser.email) {
-          user.classes.map((aclass) => {
-            aclass.lecture.map((lecture) => {
-              // console.log(lecture.attendance.attendance);
-              if (
-                lecture.attendance &&
-                lecture.attendance.owner === currUser.email &&
-                lecture.attendance.attendance === true
-              ) {
-                console.log(lecture.attendance.attendance);
-                return setWasPresent(true);
-              } else {
-                return setWasPresent(false);
-              }
-            });
-          });
-        }
-      });
-  };
-
-  // const getInfo = () => {
-  //   data.map((user) => {
-  //     return {
-  //       name: user.name,
-  //       email: user.email,
-  //       classes: user.classes.map((aclass) => {
-  //         return {
-  //           nameClass: aclass.nameClass,
-  //           lecture: aclass.lecture.map((lecture) => {
-  //             return {
-  //               summary: lecture.summary,
-  //               description: lecture.description,
-  //               assessment: lecture.assessment,
-  //             };
-  //           }),
-  //         };
-  //       }),
-  //     };
-  //   });
-  // };
-
   useEffect(() => {
     axios
       .get(`auth/${authCtx.user.email}`)
@@ -102,8 +56,6 @@ export const WorkSection = () => {
         setClasses(classData);
       })
       .catch((error) => console.log(`Error: ${error}`));
-
-    checkAttendance();
   }, []);
 
   const addAttendanceHandle = (lectureId: string) => {
@@ -111,7 +63,6 @@ export const WorkSection = () => {
       .post('attendance/create', { attendance: true, validation: false })
       .then((res) => {
         console.log(res.data);
-        setWasPresent(true);
         const attendanceId: string = res.data._id;
         if (res.status === 200) {
           axios
@@ -144,7 +95,6 @@ export const WorkSection = () => {
               name={user.name}
               icontoggle={false}
               deleteShow={false}
-              wasPresent={wasPresent}
             />
 
             <TextField

@@ -12,10 +12,9 @@ type Props = {
   key: string;
   icontoggle: boolean;
   deleteShow: boolean;
-  wasPresent: boolean | undefined;
 };
 
-export const StudentItem = ({ name, id, deleteShow, wasPresent }: Props) => {
+export const StudentItem = ({ name, id, deleteShow }: Props) => {
   const useStyles = makeStyles({
     item: {
       height: '50px',
@@ -31,9 +30,7 @@ export const StudentItem = ({ name, id, deleteShow, wasPresent }: Props) => {
 
   return (
     <ListItem className={classes.item}>
-      <ListItemText key={id}>
-        {name} - {wasPresent ? 'Present' : 'Not Present'}
-      </ListItemText>
+      <ListItemText key={id}>{name}</ListItemText>
       {deleteShow && <Delete />}
     </ListItem>
   );

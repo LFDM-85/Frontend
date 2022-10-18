@@ -150,7 +150,7 @@ export const LecturesSection = () => {
                                     <WorkItem
                                       key={Math.random()}
                                       filename={work.filename}
-                                      filepath={`https://api.cloudinary.com/v1_1/dp9h6rkbl/auto/upload/fl_attachment/${work.filename}`}
+                                      filepath={`https://res.cloudinary.com/v1_1/dp9h6rkbl/auto/upload/fl_attachment/${work.filename}`}
                                       owner={work.owner}
                                     />
                                   </>
