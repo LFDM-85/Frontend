@@ -4,19 +4,18 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
-  TextField,
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../../interceptors/axios';
 import useAuth from '../../hooks/useAuth';
-import { IClass, ILectures, IWorks } from '../../interfaces/interfaces';
+import { IClass, ILectures, IUser, IWorks } from '../../interfaces/interfaces';
 import NewWorkModal from '../Modals/NewWorkModal/NewWorkModal';
 import NewJustificationModal from '../Modals/NewJustificationModal/NewJustificationModal';
 import { WorkItem } from '../WorkItem/WorkItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
-import { StudentItem } from '../StudentItem/StudentItem';
-import { finished } from 'stream';
+
+import AddAssessments from '../AddAssessments/AddAssessmentsInputs';
 
 // ================================
 // pass style to diferent file
@@ -33,14 +32,13 @@ export const WorkSection = () => {
   const { data } = useGetAllUsersData();
   const [numberInput, setNumberInput] = useState<any>({});
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
+  const [getInfo, setGetInfo] = useState<any>({});
 
   const handleNumberInputChange = (event: any) => {
     setNumberInput((values: number[]) => {
       return { ...values, [event.target.name]: event.target.value };
     });
   };
-
-  console.log(numberInput);
 
   const addHandler = (id: string, userEmail: string) => {
     setOpen(true);
@@ -84,169 +82,177 @@ export const WorkSection = () => {
       .catch((error) => console.log(`Error: ${error} `));
   };
 
-  const addAssessments = data ? (
+  const getInformation = (data: IUser[]) => {
+    const info = data.map((user) => {
+      return {
+        name: user.name,
+        email: user.email,
+        roles: user.roles,
+        classes: user.classes.map((aclass: IClass) => {
+          return {
+            nameClass: aclass.nameClass,
+            lecture: aclass.lecture.map((lecture: ILectures) => {
+              return {
+                summary: lecture.summary,
+                description: lecture.description,
+                assessment: lecture.assessment,
+              };
+            }),
+          };
+        }),
+      };
+    });
+    setGetInfo(info);
+  };
+
+  useEffect(() => {
+    getInformation(data);
+  }, [data]);
+
+  const getWorks = data ? (
     data.map((user) => {
-      if (user.roles.includes('student')) {
+      return user.classes.map((aclass: IClass) => {
         return (
-          <div style={{ display: 'flex' }} key={Math.random()}>
-            <StudentItem
-              key={user._id}
-              id={user._id}
-              name={user.name}
-              icontoggle={false}
-              deleteShow={false}
-            />
+          <>
+            <Typography component="h6" variant="h6">
+              {aclass.nameClass}
+            </Typography>
 
-            <TextField
-              id="outlined-number"
-              label="Assessment"
-              type="number"
-              name={user.email}
-              value={numberInput[user.email] ?? 0}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              InputProps={{ inputProps: { min: 0, max: 20 } }}
-              onChange={handleNumberInputChange}
-            />
-          </div>
-        );
-      }
-    })
-  ) : (
-    <h3>No data found</h3>
-  );
-
-  const getWorks = classes ? (
-    classes.map((aclass: IClass) => {
-      return (
-        <>
-          <Typography component="h6" variant="h6">
-            {aclass.nameClass}
-          </Typography>
-
-          {aclass.lecture ? (
-            aclass.lecture.map((lecture: ILectures) => {
-              return (
-                <>
-                  <Box>
-                    <Typography component="h6" variant="h6">
-                      {lecture.summary}
-                    </Typography>
-                    {!authCtx.user.roles.includes('student') && addAssessments}
-                    {authCtx.user && (
-                      <>
-                        {authCtx.user.roles.includes('student') && (
-                          <FormControlLabel
-                            control={
-                              <Checkbox
-                                onChange={() =>
-                                  addAttendanceHandle(lecture._id)
-                                }
-                              />
-                            }
-                            label="Attendance"
+            {aclass.lecture ? (
+              aclass.lecture.map((lecture: ILectures) => {
+                return (
+                  <>
+                    <Box>
+                      <Typography component="h6" variant="h6">
+                        {lecture.summary}
+                      </Typography>
+                      {/* {!authCtx.user.roles.includes('student') && addAssessments} */}
+                      {!authCtx.user.roles.includes('student') && (
+                        <Box>
+                          <AddAssessments
+                            key={Math.random()}
+                            handleInput={handleNumberInputChange}
+                            value={user}
+                            numberInput={numberInput}
                           />
-                        )}
-                        {authCtx.user.roles.includes('student') && (
+                        </Box>
+                      )}
+                      {authCtx.user && (
+                        <>
+                          {authCtx.user.roles.includes('student') && (
+                            <FormControlLabel
+                              control={
+                                <Checkbox
+                                  onChange={() =>
+                                    addAttendanceHandle(lecture._id)
+                                  }
+                                />
+                              }
+                              label="Attendance"
+                            />
+                          )}
+                          {authCtx.user.roles.includes('student') && (
+                            <Button
+                              size="small"
+                              style={{ margin: 15 }}
+                              variant="contained"
+                              startIcon={<FilePresent />}
+                              onClick={() => {
+                                setIsWorkFile(false);
+                                addHandler(lecture._id, authCtx.user.email);
+                              }}
+                            >
+                              Justifications
+                            </Button>
+                          )}
                           <Button
                             size="small"
+                            key={lecture._id}
                             style={{ margin: 15 }}
                             variant="contained"
-                            startIcon={<FilePresent />}
+                            startIcon={<PlusOne />}
                             onClick={() => {
-                              setIsWorkFile(false);
+                              setIsWorkFile(true);
                               addHandler(lecture._id, authCtx.user.email);
                             }}
                           >
-                            Justifications
+                            {authCtx.user.roles.includes('student')
+                              ? 'Submit Work'
+                              : 'Add Work'}
                           </Button>
-                        )}
-                        <Button
-                          size="small"
-                          key={lecture._id}
-                          style={{ margin: 15 }}
-                          variant="contained"
-                          startIcon={<PlusOne />}
-                          onClick={() => {
-                            setIsWorkFile(true);
-                            addHandler(lecture._id, authCtx.user.email);
-                          }}
-                        >
-                          {authCtx.user.roles.includes('student')
-                            ? 'Submit Work'
-                            : 'Add Work'}
-                        </Button>
-                        {authCtx.user.roles.includes('professor') && (
-                          <Button
-                            size="small"
-                            style={{ margin: 15 }}
-                            variant="contained"
-                            startIcon={<Send />}
-                            // onClick={submitHandlerGrades}
-                          >
-                            Submit Assessments
-                          </Button>
-                        )}
-                      </>
-                    )}
-                  </Box>
-                  {authCtx.user.roles.includes('student') &&
-                    lecture.work &&
-                    lecture.work.map((work: IWorks) => {
-                      if (work.owner.includes('professor')) {
-                        return (
-                          <>
-                            <WorkItem
-                              key={Math.random()}
-                              filename={work.filename}
-                              filepath={work.filepath}
-                              owner={work.owner}
-                            />
-                          </>
-                        );
-                      }
-                    })}
-
-                  {data ? (
-                    data.map((user) => {
-                      if (
-                        user.roles.includes('professor') &&
-                        lecture.work &&
-                        authCtx.user.roles.includes('student')
-                      ) {
-                        lecture.work.map((work: IWorks) => {
-                          if (work.owner.includes('professor')) {
-                            return (
+                          {authCtx.user.roles.includes('professor') && (
+                            <Button
+                              size="small"
+                              style={{ margin: 15 }}
+                              variant="contained"
+                              startIcon={<Send />}
+                              // onClick={submitHandlerGrades}
+                            >
+                              Submit Assessments
+                            </Button>
+                          )}
+                        </>
+                      )}
+                    </Box>
+                    {authCtx.user.roles.includes('student') &&
+                      lecture.work &&
+                      lecture.work.map((work: IWorks) => {
+                        if (work.owner.includes('professor')) {
+                          return (
+                            <>
                               <WorkItem
                                 key={Math.random()}
                                 filename={work.filename}
                                 filepath={work.filepath}
                                 owner={work.owner}
                               />
-                            );
-                          }
-                        });
-                      }
-                    })
-                  ) : (
-                    <>
-                      <Box sx={{ display: 'flex', alignContent: 'flex-start' }}>
-                        <h3>No work found for this lecture</h3>
-                      </Box>
-                    </>
-                  )}
-                </>
-              );
-            })
-          ) : (
-            <h3>No lecture found</h3>
-          )}
-        </>
-      );
+                            </>
+                          );
+                        }
+                      })}
+
+                    {data ? (
+                      data.map((user) => {
+                        if (
+                          user.roles.includes('professor') &&
+                          lecture.work &&
+                          authCtx.user.roles.includes('student')
+                        ) {
+                          lecture.work.map((work: IWorks) => {
+                            if (work.owner.includes('professor')) {
+                              return (
+                                <WorkItem
+                                  key={Math.random()}
+                                  filename={work.filename}
+                                  filepath={work.filepath}
+                                  owner={work.owner}
+                                />
+                              );
+                            }
+                          });
+                        }
+                      })
+                    ) : (
+                      <>
+                        <Box
+                          sx={{ display: 'flex', alignContent: 'flex-start' }}
+                        >
+                          <h3>No work found for this lecture</h3>
+                        </Box>
+                      </>
+                    )}
+                  </>
+                );
+              })
+            ) : (
+              <h3>No lecture found</h3>
+            )}
+          </>
+        );
+      });
     })
   ) : (
-    <h3>No class found</h3>
+    <p>No data found!</p>
   );
 
   return (
