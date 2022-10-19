@@ -18,7 +18,7 @@ import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 import AddAssessments from '../AddAssessments/AddAssessments';
 
 // ================================
-// pass style to diferent file
+// pass style to different file
 // users from hooks
 // split logic into various files
 // ================================

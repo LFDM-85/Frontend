@@ -27,13 +27,6 @@ export const LecturesSection = () => {
     setAclassId(id);
   };
 
-  // const finishHandler = (lectureId: string) => {
-  //   axios
-  //     .patch(`lectures/${lectureId}`, { finished: true })
-  //     .then((res) => setIsFinished(true))
-  //     .catch((error) => console.log('Error', error));
-  // };
-
   const onchangeHandler = (event: any) => {
     console.log(event.target.id);
     const target = event.currentTarget;
@@ -150,7 +143,7 @@ export const LecturesSection = () => {
                                     <WorkItem
                                       key={Math.random()}
                                       filename={work.filename}
-                                      filepath={`https://res.cloudinary.com/v1_1/dp9h6rkbl/auto/upload/fl_attachment/${work.filename}`}
+                                      filepath={work.filepath}
                                       owner={work.owner}
                                     />
                                   </>
