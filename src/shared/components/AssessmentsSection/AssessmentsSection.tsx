@@ -9,7 +9,7 @@ import { ClassItem } from '../ClassItem/ClassItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 
 // ================================
-// pass style to diferent file
+// pass style to different file
 // use hooks to verify currUser
 // use hooks to get assessments
 // use hooks to get classData

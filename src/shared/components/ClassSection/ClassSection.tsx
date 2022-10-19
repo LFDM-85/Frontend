@@ -4,6 +4,8 @@ import { ClassItem } from '../ClassItem/ClassItem';
 import { IClass } from '../../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetClassesCurrUserEmailData from '../../hooks/useGetClassesByCurrUserEmailData';
+import useAuth from '../../hooks/useAuth';
+import axios from '../../../interceptors/axios';
 
 // ================================
 // pass style to diferent file
@@ -12,14 +14,21 @@ import useGetClassesCurrUserEmailData from '../../hooks/useGetClassesByCurrUserE
 export const ClassSection = () => {
   // const authCtx = useAuth();
   const { classData } = useGetClassesCurrUserEmailData();
-
   const [classes, setClasses] = useState<IClass[]>([]);
+
+  // const currUserEmail = authCtx.user.email;
+
+  // const getAllCurrUserClasses = () => {
+  //   axios.get(`auth/${currUserEmail}`).then((res) => {
+  //     console.log('USER ====>>', res.data.classes);
+  //   });
+  // };
 
   const getAllClasses = () => {
     setClasses(classData);
   };
 
-  console.log(classes);
+  // console.log(classes);
 
   const getClassList = classes ? (
     classes.map((aclass: IClass) => {
@@ -35,6 +44,7 @@ export const ClassSection = () => {
 
   useEffect(() => {
     getAllClasses();
+    // getAllCurrUserClasses();
   }, [getClassList]);
 
   return (
