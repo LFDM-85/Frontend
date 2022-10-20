@@ -31,28 +31,32 @@ export const WorkSection = () => {
   const [lectureId, setLectureId] = useState<string>();
   const [userEmail, setUserEmail] = useState<string>();
   const { data } = useGetAllUsersData();
-  const [numberInput, setNumberInput] = useState<any>({});
+  const [numberInput, setNumberInput] = useState<any>([{}]);
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
   const [getInfo, setGetInfo] = useState<any>({});
 
   const handleNumberInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    email: string
+    email: string,
+    lecture_Id: string
   ) => {
-    setNumberInput((values: number[]) => {
-      console.log(event.target.name);
-      console.log(event.target.value);
-
-      return { ...values, [email]: event.target.value };
+    setNumberInput((values: any) => {
+      return {
+        ...values,
+        [lecture_Id]: {
+          ...values[lecture_Id],
+          [email]: event.target.value,
+        },
+      };
     });
   };
 
-  console.log({ numberInput });
   const addHandler = (id: string, userEmail: string) => {
     setOpen(true);
     setLectureId(id);
     setUserEmail(userEmail);
   };
+  console.log({ numberInput });
 
   useEffect(() => {
     axios
@@ -112,7 +116,6 @@ export const WorkSection = () => {
     });
     setGetInfo(info);
   };
-
   useEffect(() => {
     getInformation(data);
   }, [data]);
@@ -133,17 +136,21 @@ export const WorkSection = () => {
                     <Typography component="h6" variant="h6">
                       {lecture.summary}
                     </Typography>
-                    {/* {!authCtx.user.roles.includes('student') && addAssessments} */}
                     {!authCtx.user.roles.includes('student') && (
                       <Box>
-                        {getInfo.map((user: IUser) => {
+                        {getInfo.map((user: IUser, i: number) => {
                           return (
-                            <AddAssessments
-                              key={Math.random()}
-                              handleInput={handleNumberInputChange}
-                              user={user}
-                              numberInput={numberInput}
-                            />
+                            <>
+                              <Box>
+                                <AddAssessments
+                                  key={i}
+                                  handleInput={handleNumberInputChange}
+                                  user={user}
+                                  numberInput={numberInput}
+                                  lecture_Id={lecture._id}
+                                />
+                              </Box>
+                            </>
                           );
                         })}
                       </Box>
