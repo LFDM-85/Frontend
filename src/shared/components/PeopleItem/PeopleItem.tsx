@@ -1,6 +1,7 @@
 import { Add, Delete } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { IClass } from '../../interfaces/interfaces';
 
 const useStyles = makeStyles({
   item: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
 interface IProps {
   name: string;
   id: string;
-  icontoggle: any;
+  icontoggle: IClass | undefined;
   role: string[];
   classToggle: () => void;
 }

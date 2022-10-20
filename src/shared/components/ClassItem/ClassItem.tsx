@@ -3,14 +3,14 @@ import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import { makeStyles } from '@mui/styles';
 
 // ================================
-// pass style to diferent file
+// pass style to different file
 // check props/any
 // ================================
 
-type Props = {
+interface Props {
   name: string;
-  toggle: () => void;
-};
+  toggle?: () => void;
+}
 
 const useStyles = makeStyles({
   item: {
@@ -23,7 +23,8 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const ClassItem = ({ name, toggle }: any) => {
+
+export const ClassItem: React.FC<Props> = ({ name, toggle }: Props) => {
   const classes = useStyles();
 
   return (

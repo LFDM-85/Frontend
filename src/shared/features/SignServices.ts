@@ -1,6 +1,13 @@
 import axios from '../../interceptors/axios';
 
-export const signin = (route: string, inputs: any) => {
+interface IInputs {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export const signin = (route: string, inputs: IInputs) => {
   axios
     .post(route, inputs, {
       headers: { 'Content-Type': 'application/json' },
@@ -18,7 +25,7 @@ export const signin = (route: string, inputs: any) => {
       console.log(error.message);
     });
 };
-export const signup = (route: string, inputs: any) => {
+export const signup = (route: string, inputs: IInputs) => {
   axios
     .post(route, inputs)
     .then((res) => {
@@ -36,7 +43,7 @@ export const signup = (route: string, inputs: any) => {
 };
 // export const signToken = () => {};
 export const signout = () => {
-  axios.post('/auth/signout').then((res) => {
+  axios.post('/auth/signout').then((_res) => {
     alert('User logged Out');
     console.log('User logged Out');
     localStorage.clear();

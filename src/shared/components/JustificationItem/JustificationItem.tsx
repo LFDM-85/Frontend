@@ -1,7 +1,6 @@
-import { Box, Button, ListItem, ListItemText } from '@mui/material';
+import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Download, Send, Work } from '@mui/icons-material';
-import axios from 'axios';
+import { Download } from '@mui/icons-material';
 
 // ================================
 // pass style to diferent file
@@ -18,13 +17,21 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const JustificationItem = (attendance: any) => {
+
+interface Props {
+  attendance: {
+    filename: string;
+    owner: string;
+    filepath: string;
+  };
+}
+export const JustificationItem = ({ attendance }: Props) => {
   const classes = useStyles();
 
   return (
     <>
       <ListItem className={classes.item}>
-        <Work />
+        <Download />
         <ListItemText>
           {attendance.filename} -------- By: {attendance.owner}
         </ListItemText>

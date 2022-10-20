@@ -41,12 +41,10 @@ export const EditClassItem = ({ name, id }: Props) => {
             axios
               .patch(`auth/${people._id}/remove-class/${id}`)
               .then((_res) => {
-                // setAddIcon(true);
                 console.log('User removed from class');
               });
           } else {
             axios.patch(`auth/${people._id}/add-class/${id}`).then((_res) => {
-              // setAddIcon(false);
               console.log('User added to class');
             });
           }

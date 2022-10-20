@@ -16,6 +16,7 @@ import { WorkItem } from '../WorkItem/WorkItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
 
 import AddAssessments from '../AddAssessments/AddAssessments';
+import React from 'react';
 
 // ================================
 // pass style to different file
@@ -34,12 +35,19 @@ export const WorkSection = () => {
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
   const [getInfo, setGetInfo] = useState<any>({});
 
-  const handleNumberInputChange = (event: any) => {
+  const handleNumberInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    email: string
+  ) => {
     setNumberInput((values: number[]) => {
-      return { ...values, [event.target.name]: event.target.value };
+      console.log(event.target.name);
+      console.log(event.target.value);
+
+      return { ...values, [email]: event.target.value };
     });
   };
 
+  console.log({ numberInput });
   const addHandler = (id: string, userEmail: string) => {
     setOpen(true);
     setLectureId(id);
@@ -112,7 +120,7 @@ export const WorkSection = () => {
   const getWorks = classes ? (
     classes.map((aclass: IClass) => {
       return (
-        <>
+        <React.Fragment key={aclass._id}>
           <Typography component="h6" variant="h6">
             {aclass.nameClass}
           </Typography>
@@ -248,7 +256,7 @@ export const WorkSection = () => {
           ) : (
             <h3>No lecture found</h3>
           )}
-        </>
+        </React.Fragment>
       );
     })
   ) : (

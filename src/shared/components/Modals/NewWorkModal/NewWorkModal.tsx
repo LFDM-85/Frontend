@@ -12,7 +12,7 @@ interface IProps {
 }
 
 const NewWorkModal = ({ open, onClose, lectureId, userEmail }: IProps) => {
-  const [file, setFile] = useState<any>();
+  const [file, setFile] = useState<string | Blob>();
 
   const handleChange = (file: ChangeEvent) => {
     const { files } = file.target as HTMLInputElement;
@@ -23,6 +23,10 @@ const NewWorkModal = ({ open, onClose, lectureId, userEmail }: IProps) => {
 
   const handleSubmit = async () => {
     const formData = new FormData();
+    if (!file) {
+      alert('Please select the file first!');
+      return;
+    }
     formData.append('file', file);
     formData.append('upload_preset', 'elearning_preset');
     formData.append('cloud_name', 'dp9h6rkbl');

@@ -1,5 +1,14 @@
 import axios from '../../interceptors/axios';
+import { IUser } from '../interfaces/interfaces';
 import useAuth from './useAuth';
+
+interface Props {
+  token: undefined;
+  isSignedIn: boolean;
+  user: IUser;
+  signin: (token: string, user: IUser) => void;
+  signout: () => void;
+}
 
 const useRefreshToken = () => {
   const { setUser }: any = useAuth();

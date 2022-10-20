@@ -10,7 +10,6 @@ import NewLectureModal from '../Modals/NewLectureModal/NewLectureModal';
 import { WorkItem } from '../WorkItem/WorkItem';
 import { JustificationItem } from '../JustificationItem/JustificationItem';
 import useGetAllUsersData from '../../hooks/useGetAllUsersData';
-import { isTemplateExpression } from 'typescript';
 
 export const LecturesSection = () => {
   const authCtx = useAuth();
@@ -27,12 +26,13 @@ export const LecturesSection = () => {
     setAclassId(id);
   };
 
-  const onchangeHandler = (event: any) => {
-    console.log(event.target.id);
+  const onchangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const target = event.currentTarget;
     const name = target.name;
     const id = target.id;
-    const checked = target.checked;
+    // const checked = target.checked;
 
     axios
       .patch(`lectures/${id}`, { finished: true })
