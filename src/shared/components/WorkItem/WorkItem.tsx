@@ -1,8 +1,6 @@
-import { Box, Button, ListItem, ListItemText } from '@mui/material';
+import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { Download, Send, Work } from '@mui/icons-material';
-import axios from 'axios';
-import { Document } from 'react-pdf';
+import { Work } from '@mui/icons-material';
 
 // ================================
 // pass style to diferent file
@@ -35,8 +33,6 @@ export const WorkItem = (work: Props) => {
         <ListItemText>
           {work.filename} -------- By: {work.owner}
         </ListItemText>
-        <Document file={work.filepath} />
-
         <a href={work.filepath}>DOWNLOAD</a>
       </ListItem>
     </>
