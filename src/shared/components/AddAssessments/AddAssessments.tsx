@@ -21,8 +21,6 @@ const AddAssessments: React.FC<Props> = ({
   key,
   lecture_Id,
 }: Props) => {
-  console.log(numberInput);
-  console.log(lecture_Id);
   return (
     <div style={{ display: 'flex' }} key={key}>
       <>

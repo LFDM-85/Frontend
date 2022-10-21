@@ -170,6 +170,9 @@ export const WorkSection = () => {
                     {!authCtx.user.roles.includes('student') && (
                       <Box>
                         {getInfo.map((user: IUser, i: number) => {
+                          if (!user.roles.includes('student')) {
+                            return;
+                          }
                           return (
                             <>
                               <Box>
