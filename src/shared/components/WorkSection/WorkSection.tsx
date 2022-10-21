@@ -68,6 +68,38 @@ export const WorkSection = () => {
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
 
+  //////////////////////////////////////////////////////////////
+  // Add Assessment function (add to user and add to lecture) //
+  //////////////////////////////////////////////////////////////
+
+  // const addAssessments = () => {
+  //   axios
+  //     .post('assessment/create', {
+  //       assessmentValue: value,
+  //       userEmail: useremail,
+  //     })
+  //     .then((res) => {
+  //       const assessmentId: string = res.data._id;
+  //       if (res.status === 200) {
+  //         axios
+  //           .patch(
+  //             `/auth/${authCtx.user.email}/add-attendance/${res.data._id}`,
+  //             {
+  //               attendance: true,
+  //             }
+  //           )
+  //           .catch((error) => console.log('Error', error));
+
+  //         axios
+  //           .patch(`/lectures/${assessmentId}/add-assessment/${lectureId}`, {
+  //             attendance: true,
+  //           })
+  //           .catch((error) => console.log('Error', error));
+  //       }
+  //     })
+  //     .catch((error) => console.log(`Error: ${error} `));
+  // };
+
   const addAttendanceHandle = (lectureId: string) => {
     axios
       .post('attendance/create', { attendance: true, validation: false })
