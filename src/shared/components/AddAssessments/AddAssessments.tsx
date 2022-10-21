@@ -21,6 +21,8 @@ const AddAssessments: React.FC<Props> = ({
   key,
   lecture_Id,
 }: Props) => {
+  console.log(numberInput);
+  console.log(lecture_Id);
   return (
     <div style={{ display: 'flex' }} key={key}>
       <>
@@ -36,7 +38,7 @@ const AddAssessments: React.FC<Props> = ({
           label="Assessment"
           type="number"
           name={user.email}
-          value={numberInput[user.email] ?? 0}
+          value={numberInput[lecture_Id]?.[user.email] ?? 0}
           InputLabelProps={{
             shrink: true,
           }}

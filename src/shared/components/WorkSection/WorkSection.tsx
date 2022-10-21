@@ -31,7 +31,7 @@ export const WorkSection = () => {
   const [lectureId, setLectureId] = useState<string>();
   const [userEmail, setUserEmail] = useState<string>();
   const { data } = useGetAllUsersData();
-  const [numberInput, setNumberInput] = useState<any>([{}]);
+  const [numberInput, setNumberInput] = useState<any>({});
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
   const [getInfo, setGetInfo] = useState<any>({});
 
@@ -56,7 +56,6 @@ export const WorkSection = () => {
     setLectureId(id);
     setUserEmail(userEmail);
   };
-  console.log({ numberInput });
 
   useEffect(() => {
     axios
