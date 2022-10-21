@@ -71,33 +71,34 @@ export const WorkSection = () => {
   // Add Assessment function (add to user and add to lecture) //
   //////////////////////////////////////////////////////////////
 
-  // const addAssessments = () => {
-  //   axios
-  //     .post('assessment/create', {
-  //       assessmentValue: value,
-  //       userEmail: useremail,
-  //     })
-  //     .then((res) => {
-  //       const assessmentId: string = res.data._id;
-  //       if (res.status === 200) {
-  //         axios
-  //           .patch(
-  //             `/auth/${authCtx.user.email}/add-attendance/${res.data._id}`,
-  //             {
-  //               attendance: true,
-  //             }
-  //           )
-  //           .catch((error) => console.log('Error', error));
+  const addAssessmentsHandler = () => {
+    for (const key in numberInput) {
+      const element = numberInput[key];
+      const lectId = key;
+      for (const key in element) {
+        const userEmailGrade: string = key;
+        const grade: number = element[key];
 
-  //         axios
-  //           .patch(`/lectures/${assessmentId}/add-assessment/${lectureId}`, {
-  //             attendance: true,
-  //           })
-  //           .catch((error) => console.log('Error', error));
-  //       }
-  //     })
-  //     .catch((error) => console.log(`Error: ${error} `));
-  // };
+        axios
+          .post('/assessments/create', {
+            assessmentValue: grade,
+            userEmail: userEmailGrade,
+          })
+          .then((res) => {
+            const assessmentId: string = res.data._id;
+            if (res.status === 200) {
+              axios
+                .patch(`/auth/${userEmailGrade}/add-assessment/${res.data._id}`)
+                .catch((error) => console.log('Error', error));
+              axios
+                .patch(`/lectures/${assessmentId}/add-assessment/${lectId}`)
+                .catch((error) => console.log('Error', error));
+            }
+          })
+          .catch((error) => console.log(`Error: ${error} `));
+      }
+    }
+  };
 
   const addAttendanceHandle = (lectureId: string) => {
     axios
@@ -169,7 +170,7 @@ export const WorkSection = () => {
                     </Typography>
                     {!authCtx.user.roles.includes('student') && (
                       <Box>
-                        {getInfo.map((user: IUser, i: number) => {
+                        {getInfo.map((user: IUser) => {
                           if (!user.roles.includes('student')) {
                             return;
                           }
@@ -177,12 +178,21 @@ export const WorkSection = () => {
                             <>
                               <Box>
                                 <AddAssessments
-                                  key={i}
+                                  key={Math.random()}
                                   handleInput={handleNumberInputChange}
                                   user={user}
                                   numberInput={numberInput}
                                   lecture_Id={lecture._id}
                                 />
+                                {/* <Button
+                                  size="small"
+                                  style={{ margin: 15 }}
+                                  variant="contained"
+                                  startIcon={<Send />}
+                                  onClick={addAssessmentsHandler}
+                                >
+                                  Submit Assessments
+                                </Button> */}
                               </Box>
                             </>
                           );
@@ -238,7 +248,7 @@ export const WorkSection = () => {
                             style={{ margin: 15 }}
                             variant="contained"
                             startIcon={<Send />}
-                            // onClick={submitHandlerGrades}
+                            onClick={addAssessmentsHandler}
                           >
                             Submit Assessments
                           </Button>

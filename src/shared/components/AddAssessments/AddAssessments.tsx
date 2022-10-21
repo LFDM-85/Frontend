@@ -25,7 +25,7 @@ const AddAssessments: React.FC<Props> = ({
     <div style={{ display: 'flex' }} key={key}>
       <>
         <StudentItem
-          key={user.email}
+          key={Math.random().toString()}
           id={user.email}
           name={user.name}
           icontoggle={false}
