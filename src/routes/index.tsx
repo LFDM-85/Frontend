@@ -1,24 +1,24 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { LandingPage } from '../pages/LandingPage/LandingPage';
-import LayoutRoutes from '../shared/components/LayoutRoutes/LayoutRotes';
-import Unauthorized from '../pages/Unauthorized/Unauthorized';
+import { LandingPage } from '../pages/LandingPage';
+import LayoutRoutes from '../shared/components/LayoutRotes';
+import Unauthorized from '../pages/Unauthorized';
 import { Suspense, lazy, useEffect, useState } from 'react';
 import RequireAuth from '../shared/features/RequireAuth';
 import axios from '../interceptors/axios';
-import { Loading } from '../shared/components/Loading/Loading';
-import { MyPageRoute } from '../shared/components/MyPageRoute/MyPageRoute';
-import ClassesPage from '../pages/ClassesPage/ClassesPage';
-import LecturesPage from '../pages/LecturesPage/LecturesPage';
-import WorkPage from '../pages/WorkPage/WorkPage';
-import AssessmentsPage from '../pages/AssessmentsPage/AssessmentsPage';
-import { ManagementPage } from '../pages/ManagementPage/ManagementPage';
+import { Loading } from '../shared/components/Loading';
+import { MyPageRoute } from '../shared/components/MyPageRoute';
+import ClassesPage from '../pages/ClassesPage';
+import LecturesPage from '../pages/LecturesPage';
+import WorkPage from '../pages/WorkPage';
+import AssessmentsPage from '../pages/AssessmentsPage';
+import { ManagementPage } from '../pages/ManagementPage';
 import { MyLayout } from '../shared/layouts/MyLayout';
 export const AppRoutes = () => {
   const [signedUser, setSignedUser] = useState(false);
   const navigate = useNavigate();
 
   const SignPage = lazy(() =>
-    import('../pages/SignPage/SignPage').then(({ SignPage }) => ({
+    import('../pages/SignPage').then(({ SignPage }) => ({
       default: SignPage,
     }))
   );
