@@ -1,7 +1,7 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import axios from '../../interceptors/axios';
 
 // ================================
@@ -30,9 +30,9 @@ export const ProfessorItem = ({ name, id, isValidated }: Props) => {
   const classes = useStyles();
   const [validate, setValidate] = useState(isValidated);
 
-  const setValidationHandler = () => {
+  const setValidationHandler = useCallback(() => {
     setValidate((prevState) => !prevState);
-  };
+  },[]);
 
   useEffect(() => {
     axios

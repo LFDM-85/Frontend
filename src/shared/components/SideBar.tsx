@@ -77,18 +77,18 @@ const SideBar = ({ children }: IProps) => {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              {!authCtx.user.roles.includes('admin') && (
-                <ListItemButton
-                  component={Link}
-                  to={'/my'}
-                  selected={'/my' === path}
-                >
-                  <ListItemIcon>
-                    <Home />
-                  </ListItemIcon>
-                  <ListItemText secondary="Home"></ListItemText>
-                </ListItemButton>
-              )}
+              {/*{!authCtx.user.roles.includes('admin') && (*/}
+              {/*  <ListItemButton*/}
+              {/*    component={Link}*/}
+              {/*    to={'/my'}*/}
+              {/*    selected={'/my' === path}*/}
+              {/*  >*/}
+              {/*    <ListItemIcon>*/}
+              {/*      <Home />*/}
+              {/*    </ListItemIcon>*/}
+              {/*    <ListItemText secondary="Home"></ListItemText>*/}
+              {/*  </ListItemButton>*/}
+              {/*)}*/}
               {!authCtx.user.roles.includes('admin') && (
                 <ListItemButton
                   component={Link}

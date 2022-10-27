@@ -5,6 +5,7 @@ import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import axios from '../../interceptors/axios';
 import { IClass, IUser } from '../interfaces/interfaces';
 import { PeopleItem } from './PeopleItem';
+import { useCallback } from 'react';
 
 // ================================
 // pass style to diferent file
@@ -32,31 +33,18 @@ export const EditClassItem = ({ name, id }: Props) => {
   const classes = useStyles();
   // const [addIcon, setAddIcon] = useState<boolean>();
 
-  const toggleHandler = (people: IUser) => {
-    {
-      people &&
-        people.classes.length != 0 &&
-        people.classes.map((aclass: IClass) => {
-          if (aclass._id === id) {
-            axios
-              .patch(`auth/${people._id}/remove-class/${id}`)
-              .then((_res) => {
-                console.log('User removed from class');
-              });
-          } else {
-            axios.patch(`auth/${people._id}/add-class/${id}`).then((_res) => {
-              console.log('User added to class');
-            });
-          }
-        });
-      people &&
-        people.classes.length == 0 &&
-        axios.patch(`auth/${people._id}/add-class/${id}`).then((res) => {
-          console.log('User added to class');
-        });
-      !people && <h3>Person does not exist!</h3>;
-    }
-  };
+  const toggleHandler = useCallback(async (people: IUser) => {
+    const mapclass = people.classes.map((aclass: IClass) => {
+      if (aclass._id === id) {
+        return axios.patch(`auth/${people._id}/remove-class/${id}`);
+      } else {
+        return axios.patch(`auth/${people._id}/add-class/${id}`);
+      }
+    });
+    // return axios.patch(`auth/${people._id}/add-class/${id}`);
+
+    await Promise.all(mapclass);
+  }, []);
 
   const renderPeople = data ? (
     data.map((people) => {

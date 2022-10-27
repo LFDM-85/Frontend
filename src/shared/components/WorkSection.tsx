@@ -6,7 +6,7 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import axios from '../../interceptors/axios';
 import useAuth from '../hooks/useAuth';
 import { IClass, ILectures, IUser, IWorks } from '../interfaces/interfaces';
@@ -35,11 +35,9 @@ export const WorkSection = () => {
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
   const [getInfo, setGetInfo] = useState<any>({});
 
-  const handleNumberInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  const handleNumberInputChange = useCallback ((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     email: string,
-    lecture_Id: string
-  ) => {
+    lecture_Id: string) => {
     setNumberInput((values: any) => {
       return {
         ...values,
@@ -49,7 +47,7 @@ export const WorkSection = () => {
         },
       };
     });
-  };
+  }, []);
 
   const addHandler = (id: string, userEmail: string) => {
     setOpen(true);
@@ -71,7 +69,7 @@ export const WorkSection = () => {
   // Add Assessment function (add to user and add to lecture) //
   //////////////////////////////////////////////////////////////
 
-  const addAssessmentsHandler = () => {
+  const addAssessmentsHandler = useCallback (() => {
     for (const key in numberInput) {
       const element = numberInput[key];
       const lectId = key;
@@ -98,9 +96,10 @@ export const WorkSection = () => {
           .catch((error) => console.log(`Error: ${error} `));
       }
     }
-  };
+  }, []);
+ 
 
-  const addAttendanceHandle = (lectureId: string) => {
+  const addAttendanceHandle = useCallback((lectureId: string) => {
     axios
       .post('attendance/create', { attendance: true, validation: false })
       .then((res) => {
@@ -124,9 +123,9 @@ export const WorkSection = () => {
         }
       })
       .catch((error) => console.log(`Error: ${error} `));
-  };
+  }, []);
 
-  const getInformation = (data: IUser[]) => {
+  const getInformation = useCallback((data: IUser[]) => {
     const info = data.map((user) => {
       return {
         name: user.name,
@@ -147,7 +146,7 @@ export const WorkSection = () => {
       };
     });
     setGetInfo(info);
-  };
+  }, []);
   useEffect(() => {
     getInformation(data);
   }, [data]);
