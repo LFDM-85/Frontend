@@ -2,10 +2,6 @@ import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Download } from '@mui/icons-material';
 
-// ================================
-// pass style to diferent file
-// ================================
-
 const useStyles = makeStyles({
   item: {
     height: '35px',
@@ -26,11 +22,11 @@ interface Props {
   };
 }
 export const JustificationItem = ({ attendance }: Props) => {
-  const classes = useStyles();
+  const classesStyles = useStyles();
 
   return (
     <>
-      <ListItem className={classes.item}>
+      <ListItem className={classesStyles.item}>
         <Download />
         <ListItemText>
           {attendance.filename} -------- By: {attendance.owner}

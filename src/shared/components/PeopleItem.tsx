@@ -29,10 +29,10 @@ export const PeopleItem = ({
   role,
   classToggle,
 }: IProps) => {
-  const classes = useStyles();
+  const classesStyles = useStyles();
 
   return (
-    <ListItem className={classes.item} onClick={classToggle}>
+    <ListItem className={classesStyles.item} onClick={classToggle}>
       <ListItemText key={id}>
         {name} - {role}
       </ListItemText>

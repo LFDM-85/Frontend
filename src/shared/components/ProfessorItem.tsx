@@ -1,12 +1,8 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import {useCallback, useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
-
-// ================================
-// pass style to diferent file
-// ================================
 
 type Props = {
   id: string;
@@ -27,12 +23,12 @@ const useStyles = makeStyles({
   },
 });
 export const ProfessorItem = ({ name, id, isValidated }: Props) => {
-  const classes = useStyles();
+  const classesStyles = useStyles();
   const [validate, setValidate] = useState(isValidated);
 
   const setValidationHandler = useCallback(() => {
     setValidate((prevState) => !prevState);
-  },[]);
+  }, []);
 
   useEffect(() => {
     axios
@@ -41,7 +37,7 @@ export const ProfessorItem = ({ name, id, isValidated }: Props) => {
   }, [setValidationHandler]);
 
   return (
-    <ListItem className={classes.item} onClick={setValidationHandler}>
+    <ListItem className={classesStyles.item} onClick={setValidationHandler}>
       <ListItemText key={id}>{name}</ListItemText>
       {validate && <CheckIcon />}
     </ListItem>

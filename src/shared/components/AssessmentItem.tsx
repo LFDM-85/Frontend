@@ -22,10 +22,10 @@ const useStyles = makeStyles({
   },
 });
 export const AssessmentItem = ({ name }: Props) => {
-  const classes = useStyles();
+  const classesStyles = useStyles();
 
   return (
-    <ListItem className={classes.item}>
+    <ListItem className={classesStyles.item}>
       <ListItemText>{name}</ListItemText>
       <AssessmentIcon />
     </ListItem>

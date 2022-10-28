@@ -4,14 +4,23 @@ import { ProfessorItem } from './ProfessorItem';
 import { IUser } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
+import { makeStyles } from '@mui/styles';
 
-// ================================
-// pass style to diferent file
-// ================================
+const useStyles = makeStyles({
+  boxItem: {
+    mb: 2,
+    height: 400,
+    overflow: 'hidden',
+    overflowY: 'scroll',
+    padding: '15px',
+    margin: '15px',
+  },
+});
 
 export const ProfessorSection = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const { data } = useGetAllUsersData();
+  const classesStyles = useStyles();
 
   const getUsersList = () => {
     setUsers(data);
@@ -43,18 +52,7 @@ export const ProfessorSection = () => {
       <Typography component="h5" variant="h5">
         Professor Management Validation
       </Typography>
-      <Box
-        sx={{
-          mb: 2,
-          height: 400,
-          overflow: 'hidden',
-          overflowY: 'scroll',
-          padding: '15px',
-          margin: '15px',
-        }}
-      >
-        {getProfessorList}
-      </Box>
+      <Box className={classesStyles.boxItem}>{getProfessorList}</Box>
     </>
   );
 };

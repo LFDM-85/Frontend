@@ -6,15 +6,26 @@ import useGetAllClassesData from '../hooks/useGetAllClassesData';
 import { NewClassModal } from './Modals/NewClassModal';
 import { Add } from '@mui/icons-material';
 import { EditClassItem } from './EditClassItem';
+import { makeStyles } from '@mui/styles';
 
-// ================================
-// pass style to diferent file
-// ================================
+const useStyles = makeStyles({
+  boxItem: {
+    mb: 2,
+    height: '80vh',
+
+    padding: '15px',
+    margin: '15px',
+  },
+  buttonItem: {
+    margin: 15,
+  },
+});
 
 export const ClassSectionManagement = () => {
   const { classData } = useGetAllClassesData();
   const [open, setOpen] = useState(false);
   const [classes, setClasses] = useState<IClass[]>([]);
+  const classesStyles = useStyles();
 
   const getClassesList = () => {
     setClasses(classData);
@@ -45,17 +56,9 @@ export const ClassSectionManagement = () => {
       <Typography component="h5" variant="h5">
         My Classes
       </Typography>
-      <Box
-        sx={{
-          mb: 2,
-          height: '80vh',
-
-          padding: '15px',
-          margin: '15px',
-        }}
-      >
+      <Box className={classesStyles.boxItem}>
         <Button
-          style={{ margin: 15 }}
+          className={classesStyles.buttonItem}
           variant="contained"
           startIcon={<Add />}
           onClick={addHandler}

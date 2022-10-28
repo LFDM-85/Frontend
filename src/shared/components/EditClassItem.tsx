@@ -7,10 +7,6 @@ import { IClass, IUser } from '../interfaces/interfaces';
 import { PeopleItem } from './PeopleItem';
 import { useCallback } from 'react';
 
-// ================================
-// pass style to diferent file
-// classes & users from hooks
-// ================================
 
 type Props = {
   name: string;
@@ -30,8 +26,7 @@ const useStyles = makeStyles({
 });
 export const EditClassItem = ({ name, id }: Props) => {
   const { data } = useGetAllUsersData();
-  const classes = useStyles();
-  // const [addIcon, setAddIcon] = useState<boolean>();
+  const classesStyles = useStyles();
 
   const toggleHandler = useCallback(async (people: IUser) => {
     const mapclass = people.classes.map((aclass: IClass) => {
@@ -41,7 +36,6 @@ export const EditClassItem = ({ name, id }: Props) => {
         return axios.patch(`auth/${people._id}/add-class/${id}`);
       }
     });
-    // return axios.patch(`auth/${people._id}/add-class/${id}`);
 
     await Promise.all(mapclass);
   }, []);
@@ -74,7 +68,7 @@ export const EditClassItem = ({ name, id }: Props) => {
 
   return (
     <>
-      <ListItem className={classes.item}>
+      <ListItem className={classesStyles.item}>
         <ListItemText>{name}</ListItemText>
         <CastForEducationIcon />
       </ListItem>

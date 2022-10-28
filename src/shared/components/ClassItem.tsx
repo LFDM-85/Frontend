@@ -25,10 +25,10 @@ const useStyles = makeStyles({
 });
 
 export const ClassItem: React.FC<Props> = ({ name, toggle }: Props) => {
-  const classes = useStyles();
+  const classesStyles = useStyles();
 
   return (
-    <ListItem className={classes.item} onClick={toggle}>
+    <ListItem className={classesStyles.item} onClick={toggle}>
       <ListItemText>{name}</ListItemText>
       <CastForEducationIcon />
     </ListItem>

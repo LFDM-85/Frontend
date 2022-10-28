@@ -10,8 +10,24 @@ import NewLectureModal from './Modals/NewLectureModal';
 import { WorkItem } from './WorkItem';
 import { JustificationItem } from './JustificationItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  boxItem: {
+    mb: 2,
+    height: '80vh',
+    overflow: 'hidden',
+    overflowY: 'scroll',
+    padding: '15px',
+    margin: '15px',
+  },
+  buttonItem: {
+    margin: 15,
+  },
+});
 
 export const LecturesSection = () => {
+  const classesStyles = useStyles();
   const authCtx = useAuth();
   const [open, setOpen] = useState(false);
   const [isFinished, setIsFinished] = useState<boolean>(false);
@@ -30,7 +46,7 @@ export const LecturesSection = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const target = event.currentTarget;
-    const name = target.name;
+    // const name = target.name;
     const id = target.id;
     // const checked = target.checked;
 
@@ -77,16 +93,7 @@ export const LecturesSection = () => {
       <Typography component="h5" variant="h5">
         Lectures
       </Typography>
-      <Box
-        sx={{
-          mb: 2,
-          height: '80vh',
-          overflow: 'hidden',
-          overflowY: 'scroll',
-          padding: '15px',
-          margin: '15px',
-        }}
-      >
+      <Box className={classesStyles.boxItem}>
         {classes ? (
           classes.map((aclassId: IClass) => {
             return (
@@ -98,7 +105,7 @@ export const LecturesSection = () => {
                   {authCtx.user.roles.includes('professor') && (
                     <Button
                       key={aclassId._id}
-                      style={{ margin: 15 }}
+                      className={classesStyles.buttonItem}
                       variant="contained"
                       startIcon={<PlusOne />}
                       onClick={() => addHandler(aclassId._id)}
@@ -122,9 +129,7 @@ export const LecturesSection = () => {
                                   key={Math.random()}
                                   name={lecture.summary}
                                   id={lecture._id}
-                                  // onClick={() => finishHandler(lecture._id)}
                                   onChange={onchangeHandler}
-                                  // disabled={isFinished}
                                 />
                               }
                               label="Finish Lecture"

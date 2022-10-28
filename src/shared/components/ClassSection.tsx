@@ -4,14 +4,22 @@ import { ClassItem } from './ClassItem';
 import { IClass } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetClassesCurrUserEmailData from '../hooks/useGetClassesByCurrUserEmailData';
+import { makeStyles } from '@mui/styles';
 
-// ================================
-// pass style to diferent file
-// ================================
-
+const useStyles = makeStyles({
+  boxItem: {
+    mb: 2,
+    height: '80vh',
+    overflow: 'hidden',
+    overflowY: 'scroll',
+    padding: '15px',
+    margin: '15px',
+  },
+});
 export const ClassSection = () => {
   const { classData } = useGetClassesCurrUserEmailData();
   const [classes, setClasses] = useState<IClass[]>([]);
+  const classesStyles = useStyles();
 
   const getAllClasses = () => {
     setClasses(classData);
@@ -38,18 +46,7 @@ export const ClassSection = () => {
       <Typography component="h5" variant="h5">
         My Classes
       </Typography>
-      <Box
-        sx={{
-          mb: 2,
-          height: '80vh',
-          overflow: 'hidden',
-          overflowY: 'scroll',
-          padding: '15px',
-          margin: '15px',
-        }}
-      >
-        {getClassList}
-      </Box>
+      <Box className={classesStyles.boxItem}>{getClassList}</Box>
     </>
   );
 };

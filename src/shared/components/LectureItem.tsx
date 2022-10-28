@@ -24,10 +24,10 @@ const useStyles = makeStyles({
   },
 });
 export const LectureItem = ({ summary, description }: Props) => {
-  const classes = useStyles();
+  const classesStyles = useStyles();
 
   return (
-    <ListItem className={classes.item}>
+    <ListItem className={classesStyles.item}>
       <ListItemText>{summary}</ListItemText>
       <ListItemText>{description}</ListItemText>
       <DeveloperBoardIcon />

@@ -5,21 +5,25 @@ import useAuth from '../hooks/useAuth';
 import { LectureItem } from './LectureItem';
 import { ClassItem } from './ClassItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
+import { makeStyles } from '@mui/styles';
 
-// ================================
-// pass style to different file
-// use hooks to verify currUser
-// use hooks to get assessments
-// use hooks to get classData
-// use hooks to verify userAssessment
-// ================================
+const useStyles = makeStyles({
+  boxItem: {
+    mb: 2,
+    height: '80vh',
+    overflow: 'hidden',
+    overflowY: 'scroll',
+    padding: '15px',
+    margin: '15px',
+  },
+});
 
 export const AssessmentsSection = () => {
   const authCtx = useAuth();
   const { data } = useGetAllUsersData();
+  const classesStyles = useStyles();
 
   const signUser = authCtx.user;
-  console.log('Current User', signUser);
 
   const renderAssessment = data ? (
     data.map((user) => {
@@ -82,18 +86,7 @@ export const AssessmentsSection = () => {
       <Typography component="h5" variant="h5">
         My Assessments
       </Typography>
-      <Box
-        sx={{
-          mb: 2,
-          height: '80vh',
-          overflow: 'hidden',
-          overflowY: 'scroll',
-          padding: '15px',
-          margin: '15px',
-        }}
-      >
-        {renderAssessment}
-      </Box>
+      <Box className={classesStyles.boxItem}>{renderAssessment}</Box>
     </>
   );
 };

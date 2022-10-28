@@ -24,11 +24,11 @@ const useStyles = makeStyles({
   },
 });
 export const WorkItem = (work: Props) => {
-  const classes = useStyles();
+  const classesStyles = useStyles();
 
   return (
     <>
-      <ListItem className={classes.item}>
+      <ListItem className={classesStyles.item}>
         <Work />
         <ListItemText>
           {work.filename} -------- By: {work.owner}

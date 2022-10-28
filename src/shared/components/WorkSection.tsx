@@ -6,7 +6,7 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material';
-import {useCallback, useEffect, useState} from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
 import useAuth from '../hooks/useAuth';
 import { IClass, ILectures, IUser, IWorks } from '../interfaces/interfaces';
@@ -35,19 +35,24 @@ export const WorkSection = () => {
   const [isWorkFile, setIsWorkFile] = useState<boolean>(true);
   const [getInfo, setGetInfo] = useState<any>({});
 
-  const handleNumberInputChange = useCallback ((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    email: string,
-    lecture_Id: string) => {
-    setNumberInput((values: any) => {
-      return {
-        ...values,
-        [lecture_Id]: {
-          ...values[lecture_Id],
-          [email]: event.target.value,
-        },
-      };
-    });
-  }, []);
+  const handleNumberInputChange = useCallback(
+    (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+      email: string,
+      lecture_Id: string
+    ) => {
+      setNumberInput((values: any) => {
+        return {
+          ...values,
+          [lecture_Id]: {
+            ...values[lecture_Id],
+            [email]: event.target.value,
+          },
+        };
+      });
+    },
+    []
+  );
 
   const addHandler = (id: string, userEmail: string) => {
     setOpen(true);
@@ -69,7 +74,7 @@ export const WorkSection = () => {
   // Add Assessment function (add to user and add to lecture) //
   //////////////////////////////////////////////////////////////
 
-  const addAssessmentsHandler = useCallback (() => {
+  const addAssessmentsHandler = useCallback(() => {
     for (const key in numberInput) {
       const element = numberInput[key];
       const lectId = key;
@@ -97,33 +102,35 @@ export const WorkSection = () => {
       }
     }
   }, []);
- 
 
-  const addAttendanceHandle = useCallback((lectureId: string) => {
-    axios
-      .post('attendance/create', { attendance: true, validation: false })
-      .then((res) => {
-        console.log(res.data);
-        const attendanceId: string = res.data._id;
-        if (res.status === 200) {
-          axios
-            .patch(
-              `/auth/${authCtx.user.email}/add-attendance/${res.data._id}`,
-              {
+  const addAttendanceHandle = useCallback(
+    (lectureId: string) => {
+      axios
+        .post('attendance/create', { attendance: true, validation: false })
+        .then((res) => {
+          console.log(res.data);
+          const attendanceId: string = res.data._id;
+          if (res.status === 200) {
+            axios
+              .patch(
+                `/auth/${authCtx.user.email}/add-attendance/${res.data._id}`,
+                {
+                  attendance: true,
+                }
+              )
+              .catch((error) => console.log('Error', error));
+
+            axios
+              .patch(`/lectures/${attendanceId}/add-attendance/${lectureId}`, {
                 attendance: true,
-              }
-            )
-            .catch((error) => console.log('Error', error));
-
-          axios
-            .patch(`/lectures/${attendanceId}/add-attendance/${lectureId}`, {
-              attendance: true,
-            })
-            .catch((error) => console.log('Error', error));
-        }
-      })
-      .catch((error) => console.log(`Error: ${error} `));
-  }, []);
+              })
+              .catch((error) => console.log('Error', error));
+          }
+        })
+        .catch((error) => console.log(`Error: ${error} `));
+    },
+    [lectureId]
+  );
 
   const getInformation = useCallback((data: IUser[]) => {
     const info = data.map((user) => {
@@ -183,15 +190,6 @@ export const WorkSection = () => {
                                   numberInput={numberInput}
                                   lecture_Id={lecture._id}
                                 />
-                                {/* <Button
-                                  size="small"
-                                  style={{ margin: 15 }}
-                                  variant="contained"
-                                  startIcon={<Send />}
-                                  onClick={addAssessmentsHandler}
-                                >
-                                  Submit Assessments
-                                </Button> */}
                               </Box>
                             </>
                           );
