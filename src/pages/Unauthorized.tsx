@@ -1,8 +1,7 @@
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import unauthorized from '../assets/goback.svg';
-import {Button, Grid} from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import React from 'react';
-
 
 const Unauthorized = () => {
   const navigate = useNavigate();
@@ -10,29 +9,20 @@ const Unauthorized = () => {
   const goPreviousPage = () => navigate(-1);
 
   return (
-    <Grid container component="main"  sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '100vh' }}>
       <Grid
         container
         justifyContent="center"
         alignItems="center"
-        alignContent='center'
+        alignContent="center"
         style={{
           backgroundImage: `url(${unauthorized})`,
           backgroundRepeat: 'no-repeat',
-          // backgroundSize: 'cover',
-          // resize: 'both',
           backgroundPosition: 'center',
           height: '80%',
         }}
-      >
-        
-      </Grid>
-      <Grid
-        container
-        justifyContent="center"
-        alignItems="center"
-      >
-
+      ></Grid>
+      <Grid container justifyContent="center" alignItems="center">
         <Grid margin={6}>
           <Button
             onClick={goPreviousPage}
@@ -40,7 +30,7 @@ const Unauthorized = () => {
             variant="contained"
             color="secondary"
           >
-                    Go Back
+            Go Back
           </Button>
         </Grid>
       </Grid>

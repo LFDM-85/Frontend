@@ -2,10 +2,6 @@ import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
 
-// ================================
-// pass style to diferent file
-// ================================
-
 type Props = {
   summary: string;
   description: string;
