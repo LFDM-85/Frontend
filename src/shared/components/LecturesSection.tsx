@@ -4,11 +4,11 @@ import axios from '../../interceptors/axios';
 import { IClass, ILectures, IWorks } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../hooks/useAuth';
-import { LectureItem } from './LectureItem';
+import LectureItem from './LectureItem';
 import { PlusOne } from '@mui/icons-material';
 import NewLectureModal from './Modals/NewLectureModal';
-import { WorkItem } from './WorkItem';
-import { JustificationItem } from './JustificationItem';
+import WorkItem from './WorkItem';
+import JustificationItem from './JustificationItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import { makeStyles } from '@mui/styles';
 

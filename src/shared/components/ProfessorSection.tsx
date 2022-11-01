@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ProfessorItem } from './ProfessorItem';
+import ProfessorItem from './ProfessorItem';
 import { IUser } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';

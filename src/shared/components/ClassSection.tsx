@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { ClassItem } from './ClassItem';
+import ClassItem from './ClassItem';
 import { IClass } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetClassesCurrUserEmailData from '../hooks/useGetClassesByCurrUserEmailData';

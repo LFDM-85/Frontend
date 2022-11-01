@@ -1,9 +1,9 @@
 import { Typography } from '@mui/material';
-import { IClass, ILectures, IUser } from '../interfaces/interfaces';
+import { IClass, ILectures } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../hooks/useAuth';
-import { LectureItem } from './LectureItem';
-import { ClassItem } from './ClassItem';
+import LectureItem from './LectureItem';
+import ClassItem from './ClassItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import { makeStyles } from '@mui/styles';
 

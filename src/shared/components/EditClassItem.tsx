@@ -4,9 +4,9 @@ import { makeStyles } from '@mui/styles';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import axios from '../../interceptors/axios';
 import { IClass, IUser } from '../interfaces/interfaces';
-import { PeopleItem } from './PeopleItem';
+import PeopleItem from './PeopleItem';
 import { useCallback } from 'react';
-
+import React from 'react';
 
 type Props = {
   name: string;
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const EditClassItem = ({ name, id }: Props) => {
+const EditClassItem = ({ name, id }: Props) => {
   const { data } = useGetAllUsersData();
   const classesStyles = useStyles();
 
@@ -76,3 +76,5 @@ export const EditClassItem = ({ name, id }: Props) => {
     </>
   );
 };
+
+export default React.memo(EditClassItem);

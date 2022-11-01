@@ -12,7 +12,7 @@ import useAuth from '../hooks/useAuth';
 import { IClass, ILectures, IUser, IWorks } from '../interfaces/interfaces';
 import NewWorkModal from './Modals/NewWorkModal';
 import NewJustificationModal from './Modals/NewJustificationModal';
-import { WorkItem } from './WorkItem';
+import WorkItem from './WorkItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 
 import AddAssessments from './AddAssessments';

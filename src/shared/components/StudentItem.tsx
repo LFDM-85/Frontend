@@ -1,6 +1,7 @@
 import { Delete } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
 
 type Props = {
   id: string;
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const StudentItem = ({ name, id, deleteShow }: Props) => {
+const StudentItem = ({ name, id, deleteShow }: Props) => {
   const classesStyles = useStyles();
 
   return (
@@ -31,3 +32,5 @@ export const StudentItem = ({ name, id, deleteShow }: Props) => {
     </ListItem>
   );
 };
+
+export default React.memo(StudentItem);

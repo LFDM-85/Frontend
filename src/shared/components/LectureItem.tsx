@@ -1,6 +1,7 @@
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
+import React from 'react';
 
 type Props = {
   summary: string;
@@ -19,7 +20,7 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const LectureItem = ({ summary, description }: Props) => {
+const LectureItem = ({ summary, description }: Props) => {
   const classesStyles = useStyles();
 
   return (
@@ -30,3 +31,5 @@ export const LectureItem = ({ summary, description }: Props) => {
     </ListItem>
   );
 };
+
+export default React.memo(LectureItem);

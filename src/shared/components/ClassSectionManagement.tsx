@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import useGetAllClassesData from '../hooks/useGetAllClassesData';
 import { NewClassModal } from './Modals/NewClassModal';
 import { Add } from '@mui/icons-material';
-import { EditClassItem } from './EditClassItem';
+import EditClassItem from './EditClassItem';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({

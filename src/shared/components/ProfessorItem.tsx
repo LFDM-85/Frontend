@@ -1,6 +1,7 @@
 import CheckIcon from '@mui/icons-material/Check';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
 
@@ -22,7 +23,7 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-export const ProfessorItem = ({ name, id, isValidated }: Props) => {
+const ProfessorItem = ({ name, id, isValidated }: Props) => {
   const classesStyles = useStyles();
   const [validate, setValidate] = useState(isValidated);
 
@@ -43,3 +44,5 @@ export const ProfessorItem = ({ name, id, isValidated }: Props) => {
     </ListItem>
   );
 };
+
+export default React.memo(ProfessorItem);

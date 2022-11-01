@@ -1,7 +1,7 @@
 import { Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
-import { StudentItem } from './StudentItem';
+import StudentItem from './StudentItem';
 import { IUser } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import { Add } from '@mui/icons-material';

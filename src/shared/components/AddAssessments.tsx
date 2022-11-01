@@ -1,6 +1,6 @@
 import { TextField } from '@mui/material';
 import { IUser } from '../interfaces/interfaces';
-import { StudentItem } from './StudentItem';
+import StudentItem from './StudentItem';
 
 interface Props {
   handleInput: (
