@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import ClassItem from './ClassItem';
 import { IClass } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     margin: '15px',
   },
 });
-const ClassSection = () => {
+const ClassSection = memo(() => {
   const { classData } = useGetClassesCurrUserEmailData();
   const [classes, setClasses] = useState<IClass[]>([]);
   const classesStyles = useStyles();
@@ -50,6 +50,8 @@ const ClassSection = () => {
       <Box className={classesStyles.boxItem}>{getClassList}</Box>
     </>
   );
-};
+});
 
-export default React.memo(ClassSection);
+ClassSection.displayName = 'ClassSection';
+
+export default ClassSection;

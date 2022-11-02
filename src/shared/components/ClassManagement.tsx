@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import ClassSectionManagement from './ClassSectionManagement';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { memo } from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     padding: '20px',
   },
 });
-const ClassManagement = () => {
+const ClassManagement = memo(() => {
   const classesStyles = useStyles();
   return (
     <>
@@ -19,6 +19,8 @@ const ClassManagement = () => {
       </Box>
     </>
   );
-};
+});
 
-export default React.memo(ClassManagement);
+ClassManagement.displayName = 'ClassMangement';
+
+export default ClassManagement;

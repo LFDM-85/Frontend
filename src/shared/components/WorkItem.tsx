@@ -1,11 +1,7 @@
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Work } from '@mui/icons-material';
-import React from 'react';
-
-// ================================
-// pass style to diferent file
-// ================================
+import React, { memo } from 'react';
 
 type Props = {
   filename: string;
@@ -24,7 +20,7 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-const WorkItem = (work: Props) => {
+const WorkItem = memo((work: Props) => {
   const classesStyles = useStyles();
 
   return (
@@ -38,6 +34,8 @@ const WorkItem = (work: Props) => {
       </ListItem>
     </>
   );
-};
+});
 
-export default React.memo(WorkItem);
+WorkItem.displayName = 'WorkItem';
+
+export default WorkItem;

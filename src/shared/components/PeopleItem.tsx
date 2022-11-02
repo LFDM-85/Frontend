@@ -1,7 +1,7 @@
 import { Add, Delete } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { memo } from 'react';
 import { IClass } from '../interfaces/interfaces';
 
 const useStyles = makeStyles({
@@ -23,18 +23,22 @@ interface IProps {
   role: string[];
   classToggle: () => void;
 }
-const PeopleItem = ({ name, id, icontoggle, role, classToggle }: IProps) => {
-  const classesStyles = useStyles();
+const PeopleItem = memo(
+  ({ name, id, icontoggle, role, classToggle }: IProps) => {
+    const classesStyles = useStyles();
 
-  return (
-    <ListItem className={classesStyles.item} onClick={classToggle}>
-      <ListItemText key={id}>
-        {name} - {role}
-      </ListItemText>
-      {icontoggle && <Delete />}
-      {!icontoggle && <Add />}
-    </ListItem>
-  );
-};
+    return (
+      <ListItem className={classesStyles.item} onClick={classToggle}>
+        <ListItemText key={id}>
+          {name} - {role}
+        </ListItemText>
+        {icontoggle && <Delete />}
+        {!icontoggle && <Add />}
+      </ListItem>
+    );
+  }
+);
 
-export default React.memo(PeopleItem);
+PeopleItem.displayName = 'PeopleItem';
+
+export default PeopleItem;

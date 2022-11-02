@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import ProfessorItem from './ProfessorItem';
 import { IUser } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ProfessorSection = () => {
+const ProfessorSection = memo(() => {
   const [users, setUsers] = useState<IUser[]>([]);
   const { data } = useGetAllUsersData();
   const classesStyles = useStyles();
@@ -56,6 +56,8 @@ const ProfessorSection = () => {
       <Box className={classesStyles.boxItem}>{getProfessorList}</Box>
     </>
   );
-};
+});
 
-export default React.memo(ProfessorSection);
+ProfessorSection.displayName = 'ProfessorSection';
+
+export default ProfessorSection;

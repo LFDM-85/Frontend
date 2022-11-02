@@ -1,7 +1,7 @@
 import { ListItem, ListItemText } from '@mui/material';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { memo } from 'react';
 
 type Props = {
   name: string;
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-const AssessmentItem = ({ name }: Props) => {
+const AssessmentItem = memo(({ name }: Props) => {
   const classesStyles = useStyles();
 
   return (
@@ -27,6 +27,7 @@ const AssessmentItem = ({ name }: Props) => {
       <AssessmentIcon />
     </ListItem>
   );
-};
+});
 
-export default React.memo(AssessmentItem);
+AssessmentItem.displayName = 'AssessmentItem';
+export default AssessmentItem;

@@ -1,5 +1,5 @@
 import { Button, Checkbox, FormControlLabel, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
 import { IClass, ILectures, IWorks } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-const LecturesSection = () => {
+const LecturesSection = memo(() => {
   const classesStyles = useStyles();
   const authCtx = useAuth();
   const [open, setOpen] = useState(false);
@@ -194,6 +194,8 @@ const LecturesSection = () => {
       />
     </>
   );
-};
+});
 
-export default React.memo(LecturesSection);
+LecturesSection.displayName = 'LectureSection';
+
+export default LecturesSection;

@@ -1,5 +1,5 @@
 import { Button, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { IClass } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetAllClassesData from '../hooks/useGetAllClassesData';
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ClassSectionManagement = () => {
+const ClassSectionManagement = memo(() => {
   const { classData } = useGetAllClassesData();
   const [open, setOpen] = useState(false);
   const [classes, setClasses] = useState<IClass[]>([]);
@@ -77,6 +77,8 @@ const ClassSectionManagement = () => {
       </Box>
     </>
   );
-};
+});
 
-export default React.memo(ClassSectionManagement);
+ClassSectionManagement.displayName = 'ClassSectionManagement';
+
+export default ClassSectionManagement;

@@ -1,5 +1,5 @@
 import { Button, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
 import StudentItem from './StudentItem';
 import { IUser } from '../interfaces/interfaces';
@@ -9,11 +9,7 @@ import NewUserModal from './Modals/NewUserModal';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import React from 'react';
 
-// ================================
-// pass style to diferent file
-// ================================
-
-const StudentSection = () => {
+const StudentSection = memo(() => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [open, setOpen] = useState(false);
   const { data } = useGetAllUsersData();
@@ -99,6 +95,8 @@ const StudentSection = () => {
       />
     </>
   );
-};
+});
 
-export default React.memo(StudentSection);
+StudentSection.displayName = 'StudentSection';
+
+export default StudentSection;

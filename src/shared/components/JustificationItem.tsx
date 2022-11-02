@@ -1,7 +1,7 @@
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Download } from '@mui/icons-material';
-import React from 'react';
+import React, { memo } from 'react';
 
 const useStyles = makeStyles({
   item: {
@@ -22,7 +22,7 @@ interface Props {
     filepath: string;
   };
 }
-const JustificationItem = ({ attendance }: Props) => {
+const JustificationItem = memo(({ attendance }: Props) => {
   const classesStyles = useStyles();
 
   return (
@@ -36,6 +36,8 @@ const JustificationItem = ({ attendance }: Props) => {
       </ListItem>
     </>
   );
-};
+});
 
-export default React.memo(JustificationItem);
+JustificationItem.displayName = 'JustificationItem';
+
+export default JustificationItem;

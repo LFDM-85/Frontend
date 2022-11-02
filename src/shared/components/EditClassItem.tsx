@@ -5,7 +5,7 @@ import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import axios from '../../interceptors/axios';
 import { IClass, IUser } from '../interfaces/interfaces';
 import PeopleItem from './PeopleItem';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import React from 'react';
 
 type Props = {
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-const EditClassItem = ({ name, id }: Props) => {
+const EditClassItem = memo(({ name, id }: Props) => {
   const { data } = useGetAllUsersData();
   const classesStyles = useStyles();
 
@@ -75,6 +75,7 @@ const EditClassItem = ({ name, id }: Props) => {
       {renderPeople}
     </>
   );
-};
+});
 
-export default React.memo(EditClassItem);
+EditClassItem.displayName = 'EditClassItem';
+export default EditClassItem;

@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import ProfessorSection from './ProfessorSection';
 import StudentSection from './StudentSection';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { memo } from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-const PeopleManagement = () => {
+const PeopleManagement = memo(() => {
   const classesStyles = useStyles();
   return (
     <>
@@ -22,6 +22,8 @@ const PeopleManagement = () => {
       </Box>
     </>
   );
-};
+});
+
+PeopleManagement.displayName = 'PeopleManagement';
 
 export default React.memo(PeopleManagement);

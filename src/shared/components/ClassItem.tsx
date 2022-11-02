@@ -1,7 +1,7 @@
 import { ListItem, ListItemText } from '@mui/material';
 import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
+import React, { memo } from 'react';
 
 interface Props {
   name: string;
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ClassItem: React.FC<Props> = ({ name, toggle }: Props) => {
+const ClassItem: React.FC<Props> = memo(({ name, toggle }: Props) => {
   const classesStyles = useStyles();
 
   return (
@@ -29,6 +29,8 @@ const ClassItem: React.FC<Props> = ({ name, toggle }: Props) => {
       <CastForEducationIcon />
     </ListItem>
   );
-};
+});
 
-export default React.memo(ClassItem);
+ClassItem.displayName = 'ClassItem';
+
+export default ClassItem;

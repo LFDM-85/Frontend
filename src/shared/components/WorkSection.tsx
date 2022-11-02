@@ -6,7 +6,7 @@ import {
   FormControlLabel,
   Typography,
 } from '@mui/material';
-import { useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
 import useAuth from '../hooks/useAuth';
 import { IClass, ILectures, IUser, IWorks } from '../interfaces/interfaces';
@@ -18,13 +18,7 @@ import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import AddAssessments from './AddAssessments';
 import React from 'react';
 
-// ================================
-// pass style to different file
-// users from hooks
-// split logic into various files
-// ================================
-
-const WorkSection = () => {
+const WorkSection = memo(() => {
   const authCtx = useAuth();
   const [classes, setClasses] = useState<IClass[]>(() => []);
   const [open, setOpen] = useState(false);
@@ -347,6 +341,8 @@ const WorkSection = () => {
       )}
     </>
   );
-};
+});
 
-export default React.memo(WorkSection);
+WorkSection.displayName = 'WorkSection';
+
+export default WorkSection;
