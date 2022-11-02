@@ -48,11 +48,11 @@ const WorkSection = memo(() => {
     []
   );
 
-  const addHandler = (id: string, userEmail: string) => {
+  const addHandler = useCallback((id: string, userEmail: string) => {
     setOpen(true);
     setLectureId(id);
     setUserEmail(userEmail);
-  };
+  }, []);
 
   useEffect(() => {
     axios
@@ -63,10 +63,6 @@ const WorkSection = memo(() => {
       })
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
-
-  //////////////////////////////////////////////////////////////
-  // Add Assessment function (add to user and add to lecture) //
-  //////////////////////////////////////////////////////////////
 
   const addAssessmentsHandler = useCallback(() => {
     for (const key in numberInput) {

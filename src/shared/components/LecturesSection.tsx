@@ -1,5 +1,5 @@
 import { Button, Checkbox, FormControlLabel, Typography } from '@mui/material';
-import { memo, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
 import { IClass, ILectures, IWorks } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
@@ -43,19 +43,20 @@ const LecturesSection = memo(() => {
     setAclassId(id);
   };
 
-  const onchangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const target = event.currentTarget;
-    // const name = target.name;
-    const id = target.id;
-    // const checked = target.checked;
+  const onchangeHandler = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const target = event.currentTarget;
+      // const name = target.name;
+      const id = target.id;
+      // const checked = target.checked;
 
-    axios
-      .patch(`lectures/${id}`, { finished: true })
-      .then((res) => setIsFinished(true))
-      .catch((error) => console.log('Error', error));
-  };
+      axios
+        .patch(`lectures/${id}`, { finished: true })
+        .then((res) => setIsFinished(true))
+        .catch((error) => console.log('Error', error));
+    },
+    []
+  );
 
   useEffect(() => {
     axios
