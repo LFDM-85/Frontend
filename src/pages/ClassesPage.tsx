@@ -1,4 +1,4 @@
-import { ClassSection } from '../shared/components/ClassSection';
+import ClassSection from '../shared/components/ClassSection';
 
 const ClassesPage = () => {
   return (

@@ -7,6 +7,7 @@ import { NewClassModal } from './Modals/NewClassModal';
 import { Add } from '@mui/icons-material';
 import EditClassItem from './EditClassItem';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ClassSectionManagement = () => {
+const ClassSectionManagement = () => {
   const { classData } = useGetAllClassesData();
   const [open, setOpen] = useState(false);
   const [classes, setClasses] = useState<IClass[]>([]);
@@ -77,3 +78,5 @@ export const ClassSectionManagement = () => {
     </>
   );
 };
+
+export default React.memo(ClassSectionManagement);

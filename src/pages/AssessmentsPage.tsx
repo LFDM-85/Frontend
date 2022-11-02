@@ -1,4 +1,4 @@
-import { AssessmentsSection } from '../shared/components/AssessmentsSection';
+import AssessmentsSection from '../shared/components/AssessmentsSection';
 
 const AssessmentsPage = () => {
   return (

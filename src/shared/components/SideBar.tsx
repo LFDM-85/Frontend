@@ -18,6 +18,7 @@ import { Box } from '@mui/system';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import { signout } from '../features/SignServices';
+import React from 'react';
 
 // ================================
 // pass style to diferent file
@@ -165,4 +166,4 @@ const SideBar = ({ children }: IProps) => {
     </>
   );
 };
-export default SideBar;
+export default React.memo(SideBar);

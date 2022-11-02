@@ -1,4 +1,4 @@
-import { LecturesSection } from '../shared/components/LecturesSection';
+import LecturesSection from '../shared/components/LecturesSection';
 
 const LecturesPage = () => {
   return (

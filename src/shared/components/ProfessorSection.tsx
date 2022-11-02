@@ -5,6 +5,7 @@ import { IUser } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -17,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ProfessorSection = () => {
+const ProfessorSection = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const { data } = useGetAllUsersData();
   const classesStyles = useStyles();
@@ -56,3 +57,5 @@ export const ProfessorSection = () => {
     </>
   );
 };
+
+export default React.memo(ProfessorSection);

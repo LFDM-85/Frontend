@@ -1,4 +1,4 @@
-import { WorkSection } from '../shared/components/WorkSection';
+import WorkSection from '../shared/components/WorkSection';
 
 const WorkPage = () => {
   return (

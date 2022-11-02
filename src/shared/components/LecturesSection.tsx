@@ -11,6 +11,7 @@ import WorkItem from './WorkItem';
 import JustificationItem from './JustificationItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const LecturesSection = () => {
+const LecturesSection = () => {
   const classesStyles = useStyles();
   const authCtx = useAuth();
   const [open, setOpen] = useState(false);
@@ -194,3 +195,5 @@ export const LecturesSection = () => {
     </>
   );
 };
+
+export default React.memo(LecturesSection);

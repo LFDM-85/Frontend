@@ -7,12 +7,13 @@ import { Box } from '@mui/system';
 import { Add } from '@mui/icons-material';
 import NewUserModal from './Modals/NewUserModal';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
+import React from 'react';
 
 // ================================
 // pass style to diferent file
 // ================================
 
-export const StudentSection = () => {
+const StudentSection = () => {
   const [users, setUsers] = useState<IUser[]>([]);
   const [open, setOpen] = useState(false);
   const { data } = useGetAllUsersData();
@@ -99,3 +100,5 @@ export const StudentSection = () => {
     </>
   );
 };
+
+export default React.memo(StudentSection);

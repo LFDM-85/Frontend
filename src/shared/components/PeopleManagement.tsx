@@ -1,7 +1,8 @@
 import { Box } from '@mui/material';
-import { ProfessorSection } from './ProfessorSection';
-import { StudentSection } from './StudentSection';
+import ProfessorSection from './ProfessorSection';
+import StudentSection from './StudentSection';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -11,7 +12,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const PeopleManagement = () => {
+const PeopleManagement = () => {
   const classesStyles = useStyles();
   return (
     <>
@@ -22,3 +23,5 @@ export const PeopleManagement = () => {
     </>
   );
 };
+
+export default React.memo(PeopleManagement);

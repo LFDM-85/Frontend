@@ -1,4 +1,5 @@
 import { TextField } from '@mui/material';
+import React from 'react';
 import { IUser } from '../interfaces/interfaces';
 import StudentItem from './StudentItem';
 
@@ -48,4 +49,4 @@ const AddAssessments: React.FC<Props> = ({
   );
 };
 
-export default AddAssessments;
+export default React.memo(AddAssessments);

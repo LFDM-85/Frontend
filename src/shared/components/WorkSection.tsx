@@ -24,7 +24,7 @@ import React from 'react';
 // split logic into various files
 // ================================
 
-export const WorkSection = () => {
+const WorkSection = () => {
   const authCtx = useAuth();
   const [classes, setClasses] = useState<IClass[]>(() => []);
   const [open, setOpen] = useState(false);
@@ -348,3 +348,5 @@ export const WorkSection = () => {
     </>
   );
 };
+
+export default React.memo(WorkSection);

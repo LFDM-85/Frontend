@@ -6,6 +6,7 @@ import LectureItem from './LectureItem';
 import ClassItem from './ClassItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const AssessmentsSection = () => {
+const AssessmentsSection = () => {
   const authCtx = useAuth();
   const { data } = useGetAllUsersData();
   const classesStyles = useStyles();
@@ -90,3 +91,5 @@ export const AssessmentsSection = () => {
     </>
   );
 };
+
+export default React.memo(AssessmentsSection);

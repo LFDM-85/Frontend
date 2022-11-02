@@ -5,6 +5,7 @@ import { IClass } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetClassesCurrUserEmailData from '../hooks/useGetClassesByCurrUserEmailData';
 import { makeStyles } from '@mui/styles';
+import React from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -16,7 +17,7 @@ const useStyles = makeStyles({
     margin: '15px',
   },
 });
-export const ClassSection = () => {
+const ClassSection = () => {
   const { classData } = useGetClassesCurrUserEmailData();
   const [classes, setClasses] = useState<IClass[]>([]);
   const classesStyles = useStyles();
@@ -50,3 +51,5 @@ export const ClassSection = () => {
     </>
   );
 };
+
+export default React.memo(ClassSection);
