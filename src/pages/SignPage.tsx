@@ -153,7 +153,7 @@ export function SignPage(): JSX.Element {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '85vh' }}>
       <CssBaseline />
       <Grid
         item
@@ -340,7 +340,11 @@ export function SignPage(): JSX.Element {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="src/pages/SignPage#" variant="body2" onClick={signUpToggleHandler}>
+                <Link
+                  href="src/pages/SignPage#"
+                  variant="body2"
+                  onClick={signUpToggleHandler}
+                >
                   {signIn
                     ? 'Dont have an account? Sign Up'
                     : 'Have an account? Sign In'}

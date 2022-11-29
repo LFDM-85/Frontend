@@ -13,6 +13,7 @@ import WorkPage from '../pages/WorkPage';
 import AssessmentsPage from '../pages/AssessmentsPage';
 import { ManagementPage } from '../pages/ManagementPage';
 import { MyLayout } from '../shared/layouts/MyLayout';
+import Header from '../shared/components/UI/Header';
 export const AppRoutes = () => {
   const [signedUser, setSignedUser] = useState(false);
   const navigate = useNavigate();
@@ -43,61 +44,64 @@ export const AppRoutes = () => {
   }, []);
 
   return (
-    <Routes>
-      <Route path="/" element={<LayoutRoutes />}>
-        {/* public routes */}
-        {!signedUser ? (
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<Loading />}>
-                <LandingPage />
-              </Suspense>
-            }
-          />
-        ) : (
-          <Route path="/my" element={<MyPageRoute />} />
-        )}
-        {!signedUser ? (
-          <Route
-            path="/sign"
-            element={
-              <Suspense fallback={<Loading />}>
-                <SignPage />
-              </Suspense>
-            }
-          />
-        ) : (
-          <Route path="/my" element={<MyPageRoute />} />
-        )}
-        {!signedUser ? (
-          <Route path="/unauthorized" element={<Unauthorized />} />
-        ) : (
-          <Route path="/my" element={<MyPageRoute />} />
-        )}
+    <>
+      <Header />
+      <Routes>
+        <Route path="/" element={<LayoutRoutes />}>
+          {/* public routes */}
+          {!signedUser ? (
+            <Route
+              path="/"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <LandingPage />
+                </Suspense>
+              }
+            />
+          ) : (
+            <Route path="/my" element={<MyPageRoute />} />
+          )}
+          {!signedUser ? (
+            <Route
+              path="/sign"
+              element={
+                <Suspense fallback={<Loading />}>
+                  <SignPage />
+                </Suspense>
+              }
+            />
+          ) : (
+            <Route path="/my" element={<MyPageRoute />} />
+          )}
+          {!signedUser ? (
+            <Route path="/unauthorized" element={<Unauthorized />} />
+          ) : (
+            <Route path="/my" element={<MyPageRoute />} />
+          )}
 
-        {/*  private routes */}
-        {/*Separate Protected Nested Routes with every role. For now Admin, Student and Professor are allowed */}
+          {/*  private routes */}
+          {/*Separate Protected Nested Routes with every role. For now Admin, Student and Professor are allowed */}
 
-        <Route
-          element={
-            <RequireAuth allowedRoles={['admin', 'student', 'professor']} />
-          }
-        >
-          <Route path="/my" element={<MyPageRoute />}>
-            <Route element={<MyLayout />}>
-              <Route path="classes" element={<ClassesPage />} />
-              <Route path="lecture" element={<LecturesPage />} />
-              <Route path="work" element={<WorkPage />} />
-              <Route path="assessment" element={<AssessmentsPage />} />
-              <Route path="management" element={<ManagementPage />} />
+          <Route
+            element={
+              <RequireAuth allowedRoles={['admin', 'student', 'professor']} />
+            }
+          >
+            <Route path="/my" element={<MyPageRoute />}>
+              <Route element={<MyLayout />}>
+                <Route path="classes" element={<ClassesPage />} />
+                <Route path="lecture" element={<LecturesPage />} />
+                <Route path="work" element={<WorkPage />} />
+                <Route path="assessment" element={<AssessmentsPage />} />
+                <Route path="management" element={<ManagementPage />} />
+              </Route>
             </Route>
           </Route>
-        </Route>
 
-        {/* catch all */}
-        <Route path="*" element={<Navigate to="/" />} />
-      </Route>
-    </Routes>
+          {/* catch all */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Route>
+      </Routes>
+    </>
   );
 };

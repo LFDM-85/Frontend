@@ -1,6 +1,5 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
 import HeroImage from '../assets/Work.png';
 
 export const LandingPage = () => {
@@ -11,7 +10,13 @@ export const LandingPage = () => {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid
+      container
+      component="main"
+      sx={{
+        height: '85vh',
+      }}
+    >
       <Grid
         container
         direction="column"
@@ -20,19 +25,19 @@ export const LandingPage = () => {
         xl={5}
       >
         <Grid
-          container
+          item
           direction="column"
           justifyContent="center"
           alignItems="center"
         >
-          <Typography ml={6} variant="h2" component="h2">
+          <Typography ml={6} variant="h1" component="h1" fontFamily="Pacifico">
             E-le@rn School
           </Typography>
           <Typography mt={10} variant="h4" component="h4">
             Best elearning tool for teachers and students
           </Typography>
         </Grid>
-        <Grid margin={6}>
+        <Grid item margin={6}>
           <Button
             onClick={clickHandler}
             size="large"
@@ -45,9 +50,7 @@ export const LandingPage = () => {
       </Grid>
 
       <Grid
-        container
-        direction="column"
-        justifyContent="center"
+        item
         alignItems="right"
         xl={6}
         style={{
