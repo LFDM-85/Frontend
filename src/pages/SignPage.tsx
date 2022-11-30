@@ -135,11 +135,10 @@ export function SignPage(): JSX.Element {
           withCredentials: true,
         })
         .then((res) => {
-          const accessToken = res.data.token;
-          console.log(res.data);
+          const accessToken = res.data.accessToken;
 
           authCtx.signin(accessToken, res.data.user);
-          authCtx.isSignedIn = true;
+          // authCtx.isSignedIn = true;
 
           console.log('User logged In');
           navigate('/my', { replace: true });
@@ -147,7 +146,7 @@ export function SignPage(): JSX.Element {
         .catch(function (error) {
           alert('User not found!');
           console.log(error.message);
-          authCtx.isSignedIn = false;
+          // authCtx.isSignedIn = false;
         });
     }
   };

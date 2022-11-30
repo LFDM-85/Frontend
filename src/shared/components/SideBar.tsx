@@ -20,10 +20,6 @@ import useAuth from '../hooks/useAuth';
 import { signout } from '../features/SignServices';
 import React from 'react';
 
-// ================================
-// pass style to diferent file
-// ================================
-
 type IProps = {
   children: React.ReactNode;
 };
@@ -47,7 +43,7 @@ const SideBar = ({ children }: IProps) => {
       <Drawer open={true} variant={smDown ? 'temporary' : 'permanent'}>
         <Box
           width={theme.spacing(28)}
-          height="100%"
+          height="85vh"
           display="flex"
           flexDirection="column"
         >

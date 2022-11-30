@@ -13,10 +13,12 @@ import WorkPage from '../pages/WorkPage';
 import AssessmentsPage from '../pages/AssessmentsPage';
 import { ManagementPage } from '../pages/ManagementPage';
 import { MyLayout } from '../shared/layouts/MyLayout';
-import Header from '../shared/components/UI/Header';
+import useAuth from '../shared/hooks/useAuth';
+
 export const AppRoutes = () => {
   const [signedUser, setSignedUser] = useState(false);
   const navigate = useNavigate();
+  const authCtx = useAuth();
 
   const SignPage = lazy(() =>
     import('../pages/SignPage').then(({ SignPage }) => ({
@@ -45,7 +47,6 @@ export const AppRoutes = () => {
 
   return (
     <>
-      <Header />
       <Routes>
         <Route path="/" element={<LayoutRoutes />}>
           {/* public routes */}

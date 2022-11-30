@@ -14,8 +14,6 @@ export const signin = (route: string, inputs: IInputs) => {
       withCredentials: true,
     })
     .then((res) => {
-      // const accessToken = res.data.token;
-      // const user = res.data.user;
       console.log(res.data);
       console.log('User logged In');
       return res.data;

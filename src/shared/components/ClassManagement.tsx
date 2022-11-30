@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import ClassSectionManagement from './ClassSectionManagement';
 import { makeStyles } from '@mui/styles';
-import React, { memo } from 'react';
+import  { memo } from 'react';
 
 const useStyles = makeStyles({
   boxItem: {

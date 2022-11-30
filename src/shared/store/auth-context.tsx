@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useCallback } from 'react';
 import { IUser } from '../interfaces/interfaces';
 
 const initialUser: IUser = {
@@ -13,7 +13,7 @@ const initialUser: IUser = {
 };
 
 const AuthContext = createContext({
-  token: undefined,
+  token: '',
   isSignedIn: false,
   user: initialUser,
   signin: (token: string, user: IUser) => {
@@ -29,13 +29,13 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState('');
   const [user, setUser] = useState(initialUser);
   const userIsSignedIn = !!token;
 
-  const signinHandler = (token: string, user: IUser) => {
-    localStorage.setItem('isAuthenticated', 'true');
-    // setToken(token);
+  const signinHandler = useCallback((token: string, user: IUser) => {
+    // localStorage.setItem('isAuthenticated', 'true');
+    setToken(token);
     setUser({
       email: user.email,
       _id: user._id,
@@ -46,17 +46,17 @@ export const AuthContextProvider = ({
       classes: user.classes,
       assessment: user.assessment,
     });
-  };
+  }, []);
 
   const signoutHandler = () => {
-    setToken(undefined);
+    setToken('');
     setUser(initialUser);
   };
 
   const contextValue = {
     token: token,
     user: user,
-    isSignedIn: userIsSignedIn,
+    isSignedIn: !!token,
     signin: signinHandler,
     signout: signoutHandler,
   };
