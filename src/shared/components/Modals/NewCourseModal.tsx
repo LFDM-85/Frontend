@@ -9,7 +9,7 @@ interface IProps {
   onClose: () => void;
 }
 
-export const NewClassModal = ({ open, onClose }: IProps) => {
+export const NewCourseModal = ({ open, onClose }: IProps) => {
   const { data } = useGetAllUsersData();
 
   const {
@@ -17,7 +17,7 @@ export const NewClassModal = ({ open, onClose }: IProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: { nameClass: '', open: true },
+    defaultValues: { nameCourse: '', open: true },
   });
   const modalStyles = {
     inputFields: {
@@ -32,29 +32,27 @@ export const NewClassModal = ({ open, onClose }: IProps) => {
   };
 
   const submitHandler = async ({
-    nameClass,
+    nameCourse,
     open,
   }: {
-    nameClass: string;
+    nameCourse: string;
     open: boolean;
   }) => {
     const inputs = {
-      nameClass,
+      nameCourse,
       open,
     };
 
-    console.log(inputs);
-
     axios
-      .post('class/create', { ...inputs, open: true })
+      .post('course/create', { ...inputs, open: true })
       .then((res) => {
         if (res.status === 201) {
-          alert('Class was created');
+          alert('Course was created');
           return;
         }
       })
       .catch(function (error) {
-        alert('Class already exists!');
+        alert('Course already exists!');
         console.log(error.message);
         return;
       });
@@ -66,10 +64,10 @@ export const NewClassModal = ({ open, onClose }: IProps) => {
         margin="normal"
         required
         fullWidth
-        id="nameClass"
+        id="nameCourse"
         label="Class Name"
-        {...register('nameClass', {
-          required: 'Class Name is required!',
+        {...register('nameCourse', {
+          required: 'Course Name is required!',
           minLength: {
             value: 3,
             message: 'Invalid name, must have between 3 to 25 characters',
@@ -79,10 +77,10 @@ export const NewClassModal = ({ open, onClose }: IProps) => {
             message: 'Invalid name, must have less then 25 characters',
           },
         })}
-        autoComplete="nameClass"
+        autoComplete="nameCourse"
         autoFocus
-        error={!!errors?.nameClass}
-        helperText={errors?.nameClass ? errors.nameClass.message : null}
+        error={!!errors?.nameCourse}
+        helperText={errors?.nameCourse ? errors.nameCourse.message : null}
         inputProps={{ maxLength: 25 }}
       />
     </Box>
@@ -91,8 +89,8 @@ export const NewClassModal = ({ open, onClose }: IProps) => {
     <BasicModal
       open={open}
       onClose={onClose}
-      title="New Class"
-      subTitle="Add new class to school"
+      title="New Course"
+      subTitle="Add new course to school"
       content={getContent()}
       onSubmit={handleSubmit(submitHandler)}
     ></BasicModal>

@@ -9,7 +9,7 @@ import {
 import { memo, useCallback, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
 import useAuth from '../hooks/useAuth';
-import { IClass, ILectures, IUser, IWorks } from '../interfaces/interfaces';
+import { ICourse, ILectures, IUser, IWorks } from '../interfaces/interfaces';
 import NewWorkModal from './Modals/NewWorkModal';
 import NewJustificationModal from './Modals/NewJustificationModal';
 import WorkItem from './WorkItem';
@@ -20,7 +20,7 @@ import React from 'react';
 
 const WorkSection = memo(() => {
   const authCtx = useAuth();
-  const [classes, setClasses] = useState<IClass[]>(() => []);
+  const [courses, setCourses] = useState<ICourse[]>(() => []);
   const [open, setOpen] = useState(false);
   const [lectureId, setLectureId] = useState<string>();
   const [userEmail, setUserEmail] = useState<string>();
@@ -56,10 +56,9 @@ const WorkSection = memo(() => {
 
   useEffect(() => {
     axios
-      .get(`auth/${authCtx.user.email}`)
+      .get(`user/${authCtx.user.email}`)
       .then((res) => {
-        const classData = res.data.classes;
-        setClasses(classData);
+        setCourses(res.data.courses);
       })
       .catch((error) => console.log(`Error: ${error}`));
   }, []);
@@ -81,7 +80,9 @@ const WorkSection = memo(() => {
             const assessmentId: string = res.data._id;
             if (res.status === 200) {
               axios
-                .patch(`/auth/${userEmailGrade}/add-assessment/${res.data._id}`)
+                .patch(
+                  `/users/${userEmailGrade}/add-assessment/${res.data._id}`
+                )
                 .catch((error) => console.log('Error', error));
               axios
                 .patch(`/lectures/${assessmentId}/add-assessment/${lectId}`)
@@ -103,7 +104,7 @@ const WorkSection = memo(() => {
           if (res.status === 200) {
             axios
               .patch(
-                `/auth/${authCtx.user.email}/add-attendance/${res.data._id}`,
+                `/users/${authCtx.user.email}/add-attendance/${res.data._id}`,
                 {
                   attendance: true,
                 }
@@ -128,10 +129,10 @@ const WorkSection = memo(() => {
         name: user.name,
         email: user.email,
         roles: user.roles,
-        classes: user.classes.map((aclass: IClass) => {
+        classes: user.courses.map((course: ICourse) => {
           return {
-            nameClass: aclass.nameClass,
-            lecture: aclass.lecture.map((lecture: ILectures) => {
+            nameCourse: course.nameCourse,
+            lecture: course.lecture.map((lecture: ILectures) => {
               return {
                 summary: lecture.summary,
                 description: lecture.description,
@@ -148,16 +149,16 @@ const WorkSection = memo(() => {
     getInformation(data);
   }, [data]);
 
-  const getWorks = classes ? (
-    classes.map((aclass: IClass) => {
+  const getWorks = courses ? (
+    courses.map((course: ICourse) => {
       return (
-        <React.Fragment key={aclass._id}>
+        <React.Fragment key={course._id}>
           <Typography component="h6" variant="h6">
-            {aclass.nameClass}
+            {course.nameCourse}
           </Typography>
 
-          {aclass.lecture ? (
-            aclass.lecture.map((lecture: ILectures) => {
+          {course.lecture ? (
+            course.lecture.map((lecture: ILectures) => {
               return (
                 <>
                   <Box>

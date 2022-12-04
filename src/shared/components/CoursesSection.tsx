@@ -1,9 +1,9 @@
 import { Typography } from '@mui/material';
 import { memo, useEffect, useState } from 'react';
-import ClassItem from './ClassItem';
-import { IClass } from '../interfaces/interfaces';
+import ClassItem from './CourseItem';
+import { ICourse } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
-import useGetClassesCurrUserEmailData from '../hooks/useGetClassesByCurrUserEmailData';
+import useGetClassesCurrUserEmailData from '../hooks/useGetCoursesByCurrUserEmailData';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 
@@ -17,20 +17,20 @@ const useStyles = makeStyles({
     margin: '15px',
   },
 });
-const ClassSection = memo(() => {
-  const { classData } = useGetClassesCurrUserEmailData();
-  const [classes, setClasses] = useState<IClass[]>([]);
+const CoursesSection = memo(() => {
+  const { courseData } = useGetClassesCurrUserEmailData();
+  const [courses, setCourses] = useState<ICourse[]>([]);
   const classesStyles = useStyles();
 
   const getAllClasses = () => {
-    setClasses(classData);
+    setCourses(courseData);
   };
 
-  const getClassList = classes ? (
-    classes.map((aclass: IClass) => {
+  const getCourseList = courses ? (
+    courses.map((aclass: ICourse) => {
       return (
         <div key={aclass._id}>
-          <ClassItem name={aclass.nameClass} />
+          <ClassItem name={aclass.nameCourse} />
         </div>
       );
     })
@@ -40,18 +40,18 @@ const ClassSection = memo(() => {
 
   useEffect(() => {
     getAllClasses();
-  }, [getClassList]);
+  }, [getCourseList]);
 
   return (
     <>
       <Typography component="h5" variant="h5">
         My Classes
       </Typography>
-      <Box className={classesStyles.boxItem}>{getClassList}</Box>
+      <Box className={classesStyles.boxItem}>{getCourseList}</Box>
     </>
   );
 });
 
-ClassSection.displayName = 'ClassSection';
+CoursesSection.displayName = 'CoursesSection';
 
-export default ClassSection;
+export default CoursesSection;

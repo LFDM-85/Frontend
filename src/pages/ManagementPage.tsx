@@ -1,6 +1,6 @@
 import { Box, Button } from '@mui/material';
 import { useState } from 'react';
-import ClassManagement from '../shared/components/ClassManagement';
+import CourseManagement from '../shared/components/CourseManagement';
 import PeopleManagement from '../shared/components/PeopleManagement';
 export const ManagementPage = () => {
   const [isClassM, setIsClassM] = useState(true);
@@ -43,7 +43,7 @@ export const ManagementPage = () => {
         </Box>
       </Box>
 
-      {isClassM && <ClassManagement />}
+      {isClassM && <CourseManagement />}
       {!isClassM && <PeopleManagement />}
     </>
   );

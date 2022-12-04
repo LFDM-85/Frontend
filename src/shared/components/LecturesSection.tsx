@@ -1,7 +1,7 @@
 import { Button, Checkbox, FormControlLabel, Typography } from '@mui/material';
 import { memo, useCallback, useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
-import { IClass, ILectures, IWorks } from '../interfaces/interfaces';
+import { ICourse, ILectures, IWorks } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../hooks/useAuth';
 import LectureItem from './LectureItem';
@@ -35,20 +35,18 @@ const LecturesSection = memo(() => {
   const [isProfessor, setIsProfessor] = useState<boolean>();
   const { data } = useGetAllUsersData();
 
-  const [classes, setClasses] = useState<IClass[]>(() => []);
-  const [aclassId, setAclassId] = useState<string>();
+  const [courses, setCourses] = useState<ICourse[]>(() => []);
+  const [courseId, setCourseId] = useState<string>();
 
   const addHandler = (id: string) => {
     setOpen(true);
-    setAclassId(id);
+    setCourseId(id);
   };
 
   const onchangeHandler = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const target = event.currentTarget;
-      // const name = target.name;
       const id = target.id;
-      // const checked = target.checked;
 
       axios
         .patch(`lectures/${id}`, { finished: true })
@@ -60,15 +58,15 @@ const LecturesSection = memo(() => {
 
   useEffect(() => {
     axios
-      .get(`auth/${authCtx.user.email}`)
+      .get(`users/${authCtx.user.email}`)
       .then((res) => {
-        const classData = res.data.classes;
-        setClasses(classData);
+        const courseData = res.data.courses;
+        setCourses(courseData);
       })
       .catch((error) => console.log(`Error: ${error}`));
 
-    classes.map((aclass: IClass) => {
-      const findLectureFinished = aclass.lecture.find((lecture: ILectures) => {
+    courses.map((course: ICourse) => {
+      const findLectureFinished = course.lecture.find((lecture: ILectures) => {
         lecture.finished === true;
       });
       if (findLectureFinished) setIsFinished(true);
@@ -77,7 +75,7 @@ const LecturesSection = memo(() => {
 
     data &&
       data.map((user) => {
-        const theuser = user;
+        const theuser = user; //TODO: check this
 
         if (
           !theuser.roles.includes('professor') &&
@@ -96,27 +94,27 @@ const LecturesSection = memo(() => {
         Lectures
       </Typography>
       <Box className={classesStyles.boxItem}>
-        {classes ? (
-          classes.map((aclassId: IClass) => {
+        {courses ? (
+          courses.map((courseId: ICourse) => {
             return (
               <>
-                <div key={aclassId._id}>
+                <div key={courseId._id}>
                   <Typography key={Math.random()} component="h5" variant="h5">
-                    {aclassId.nameClass}
+                    {courseId.nameCourse}
                   </Typography>
                   {authCtx.user.roles.includes('professor') && (
                     <Button
-                      key={aclassId._id}
+                      key={courseId._id}
                       className={classesStyles.buttonItem}
                       variant="contained"
                       startIcon={<PlusOne />}
-                      onClick={() => addHandler(aclassId._id)}
+                      onClick={() => addHandler(courseId._id)}
                     >
                       Add Lecture
                     </Button>
                   )}
-                  {aclassId.lecture ? (
-                    aclassId.lecture.map((lecture: ILectures) => {
+                  {courseId.lecture ? (
+                    courseId.lecture.map((lecture: ILectures) => {
                       return (
                         <>
                           <LectureItem
@@ -187,7 +185,7 @@ const LecturesSection = memo(() => {
       </Box>
 
       <NewLectureModal
-        classId={aclassId}
+        courseId={courseId}
         open={open}
         onClose={() => {
           setOpen(false);

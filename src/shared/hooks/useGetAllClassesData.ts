@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
-import { IClass } from '../interfaces/interfaces';
+import { ICourse } from '../interfaces/interfaces';
+import useAuth from './useAuth';
 
-const useGetAllClassesData = () => {
-  const [classData, setClassData] = useState<IClass[]>([]);
+const useGetAllCoursesData = () => {
+  const [courseData, setCourseData] = useState<ICourse[]>([]);
+  const authCtx = useAuth();
 
   useEffect(() => {
+    const config = { headers: { Authorization: `Bearer ${authCtx.token}` } };
     const getUsersData = async () => {
       try {
-        const { data: response } = await axios.get('class/all');
-        setClassData(response);
+        const { data: response } = await axios.get('course/all', config);
+        setCourseData(response);
       } catch (error) {
         console.error(error);
       }
@@ -17,6 +20,6 @@ const useGetAllClassesData = () => {
 
     getUsersData();
   }, []);
-  return { classData };
+  return { courseData };
 };
-export default useGetAllClassesData;
+export default useGetAllCoursesData;

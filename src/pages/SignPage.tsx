@@ -135,11 +135,10 @@ export function SignPage(): JSX.Element {
           withCredentials: true,
         })
         .then((res) => {
-          const accessToken = res.data.token;
-          console.log(res.data);
+          const accessToken = res.data.tokens.accessToken;
 
           authCtx.signin(accessToken, res.data.user);
-          authCtx.isSignedIn = true;
+          // authCtx.isSignedIn = true;
 
           console.log('User logged In');
           navigate('/my', { replace: true });
@@ -147,13 +146,13 @@ export function SignPage(): JSX.Element {
         .catch(function (error) {
           alert('User not found!');
           console.log(error.message);
-          authCtx.isSignedIn = false;
+          // authCtx.isSignedIn = false;
         });
     }
   };
 
   return (
-    <Grid container component="main" sx={{ height: '100vh' }}>
+    <Grid container component="main" sx={{ height: '85vh' }}>
       <CssBaseline />
       <Grid
         item
@@ -340,7 +339,11 @@ export function SignPage(): JSX.Element {
             </Button>
             <Grid container>
               <Grid item>
-                <Link href="src/pages/SignPage#" variant="body2" onClick={signUpToggleHandler}>
+                <Link
+                  href="src/pages/SignPage#"
+                  variant="body2"
+                  onClick={signUpToggleHandler}
+                >
                   {signIn
                     ? 'Dont have an account? Sign Up'
                     : 'Have an account? Sign In'}

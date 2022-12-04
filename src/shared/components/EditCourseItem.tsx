@@ -3,7 +3,7 @@ import CastForEducationIcon from '@mui/icons-material/CastForEducation';
 import { makeStyles } from '@mui/styles';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import axios from '../../interceptors/axios';
-import { IClass, IUser } from '../interfaces/interfaces';
+import { ICourse, IUser } from '../interfaces/interfaces';
 import PeopleItem from './PeopleItem';
 import { memo, useCallback } from 'react';
 import React from 'react';
@@ -24,16 +24,16 @@ const useStyles = makeStyles({
     padding: '5px',
   },
 });
-const EditClassItem = memo(({ name, id }: Props) => {
+const EditCourseItem = memo(({ name, id }: Props) => {
   const { data } = useGetAllUsersData();
   const classesStyles = useStyles();
 
   const toggleHandler = useCallback(async (people: IUser) => {
-    const mapclass = people.classes.map((aclass: IClass) => {
+    const mapclass = people.courses.map((aclass: ICourse) => {
       if (aclass._id === id) {
-        return axios.patch(`auth/${people._id}/remove-class/${id}`);
+        return axios.patch(`users/${people._id}/remove-course/${id}`);
       } else {
-        return axios.patch(`auth/${people._id}/add-class/${id}`);
+        return axios.patch(`users/${people._id}/add-course/${id}`);
       }
     });
 
@@ -53,10 +53,10 @@ const EditClassItem = memo(({ name, id }: Props) => {
               id={people._id}
               name={people.name}
               role={people.roles}
-              icontoggle={people.classes.find(
-                (item) => item.nameClass === name
+              icontoggle={people.courses.find(
+                (item) => item.nameCourse === name
               )}
-              classToggle={() => toggleHandler(people)}
+              courseToggle={() => toggleHandler(people)}
             />
           </div>
         );
@@ -77,5 +77,5 @@ const EditClassItem = memo(({ name, id }: Props) => {
   );
 });
 
-EditClassItem.displayName = 'EditClassItem';
-export default EditClassItem;
+EditCourseItem.displayName = 'EditCourseItem';
+export default EditCourseItem;

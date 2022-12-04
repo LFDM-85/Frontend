@@ -1,7 +1,7 @@
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Download } from '@mui/icons-material';
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 const useStyles = makeStyles({
   item: {

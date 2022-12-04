@@ -20,10 +20,6 @@ import useAuth from '../hooks/useAuth';
 import { signout } from '../features/SignServices';
 import React from 'react';
 
-// ================================
-// pass style to diferent file
-// ================================
-
 type IProps = {
   children: React.ReactNode;
 };
@@ -47,7 +43,7 @@ const SideBar = ({ children }: IProps) => {
       <Drawer open={true} variant={smDown ? 'temporary' : 'permanent'}>
         <Box
           width={theme.spacing(28)}
-          height="100%"
+          height="85vh"
           display="flex"
           flexDirection="column"
         >
@@ -61,6 +57,7 @@ const SideBar = ({ children }: IProps) => {
             marginBottom={theme.spacing(-3)}
           >
             <Avatar
+              src={`${authCtx.user.image}`}
               sx={{ height: theme.spacing(12), width: theme.spacing(12) }}
             />
           </Box>
@@ -78,28 +75,28 @@ const SideBar = ({ children }: IProps) => {
           <Divider />
           <Box flex={1}>
             <List component="nav">
-              {/*{!authCtx.user.roles.includes('admin') && (*/}
-              {/*  <ListItemButton*/}
-              {/*    component={Link}*/}
-              {/*    to={'/my'}*/}
-              {/*    selected={'/my' === path}*/}
-              {/*  >*/}
-              {/*    <ListItemIcon>*/}
-              {/*      <Home />*/}
-              {/*    </ListItemIcon>*/}
-              {/*    <ListItemText secondary="Home"></ListItemText>*/}
-              {/*  </ListItemButton>*/}
-              {/*)}*/}
               {!authCtx.user.roles.includes('admin') && (
                 <ListItemButton
                   component={Link}
-                  to={'/my/classes'}
-                  selected={'/my/classes' === path}
+                  to={'/my'}
+                  selected={'/my' === path}
+                >
+                  <ListItemIcon>
+                    <Home />
+                  </ListItemIcon>
+                  <ListItemText secondary="Home"></ListItemText>
+                </ListItemButton>
+              )}
+              {!authCtx.user.roles.includes('admin') && (
+                <ListItemButton
+                  component={Link}
+                  to={'/my/courses'}
+                  selected={'/my/courses' === path}
                 >
                   <ListItemIcon>
                     <Groups />
                   </ListItemIcon>
-                  <ListItemText secondary="Classes"></ListItemText>
+                  <ListItemText secondary="Courses"></ListItemText>
                 </ListItemButton>
               )}
               {!authCtx.user.roles.includes('admin') && (

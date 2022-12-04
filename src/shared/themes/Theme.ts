@@ -1,22 +1,31 @@
 import { createTheme } from '@mui/material';
 
+const elearnBlack = '#212529';
+const elearnWhite = '#e0dbd1';
+
 export const Theme = createTheme({
   palette: {
+    mode: 'light',
+    background: {
+      default: '#fafafa',
+      paper: '#fff',
+    },
+    text: {
+      primary: 'rgba(0,0,0,0.87)',
+      secondary: 'rgba(0,0,0,0.54)',
+      disabled: 'rgba(0,0,0,0.38)',
+    },
     primary: {
-      main: '#0077b6',
-      dark: '#03045e',
-      light: '#00b4d8',
-      contrastText: '#ffffff',
+      main: `${elearnBlack}`,
+      dark: 'rgb(23,25,28)',
+      light: 'rgb(77,80,83)',
+      contrastText: '#fff',
     },
     secondary: {
-      main: '#0077b6',
-      dark: '#03045e',
-      light: '#00b4d8',
-      contrastText: '#ffffff',
-    },
-    background: {
-      default: '#f7f6f3',
-      paper: '#ffffff',
+      main: `${elearnWhite}`,
+      light: 'rgb(230,226,218)',
+      dark: 'rgb(156,153,146)',
+      contrastText: 'rgba(0,0,0,0.87)',
     },
   },
 });
