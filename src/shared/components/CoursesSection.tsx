@@ -1,9 +1,9 @@
 import { Typography } from '@mui/material';
 import { memo, useEffect, useState } from 'react';
-import ClassItem from './CourseItem';
+import CourseItem from './CourseItem';
 import { ICourse } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
-import useGetClassesCurrUserEmailData from '../hooks/useGetCoursesByCurrUserEmailData';
+import useGetCoursesCurrUserEmailData from '../hooks/useGetCoursesByCurrUserEmailData';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 const CoursesSection = memo(() => {
-  const { courseData } = useGetClassesCurrUserEmailData();
+  const { courseData } = useGetCoursesCurrUserEmailData();
   const [courses, setCourses] = useState<ICourse[]>([]);
   const classesStyles = useStyles();
 
@@ -27,10 +27,10 @@ const CoursesSection = memo(() => {
   };
 
   const getCourseList = courses ? (
-    courses.map((aclass: ICourse) => {
+    courses.map((course: ICourse) => {
       return (
-        <div key={aclass._id}>
-          <ClassItem name={aclass.nameCourse} />
+        <div key={course._id}>
+          <CourseItem name={course.nameCourse} />
         </div>
       );
     })

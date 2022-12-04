@@ -2,7 +2,7 @@ import { Button, Typography } from '@mui/material';
 import { memo, useEffect, useState } from 'react';
 import { ICourse } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
-import useGetAllCoursesData from '../hooks/useGetAllClassesData';
+import useGetAllCoursesData from '../hooks/useGetAllCoursesData';
 import { NewCourseModal } from './Modals/NewCourseModal';
 import { Add } from '@mui/icons-material';
 import EditCourseItem from './EditCourseItem';
