@@ -7,10 +7,10 @@ interface IProps {
   open: boolean;
   onClose: () => void;
 
-  classId: string | undefined;
+  courseId: string | undefined;
 }
 
-const NewLectureModal = ({ open, onClose, classId }: IProps) => {
+const NewLectureModal = ({ open, onClose, courseId }: IProps) => {
   const {
     register,
     handleSubmit,
@@ -39,9 +39,10 @@ const NewLectureModal = ({ open, onClose, classId }: IProps) => {
         if (res.status === 201) {
           console.log('Lecture was created');
           axios
-            .patch(`/class/${res.data._id}/add-lecture/${classId}`)
+            .patch(`/course/${res.data._id}/add-lecture/${courseId}`)
             .then((res) => {
-              if (res.status === 201) console.log('Lecture added to the class');
+              if (res.status === 201)
+                console.log('Lecture added to the course');
             })
             .catch(function (error) {
               alert('Lecture already added!');

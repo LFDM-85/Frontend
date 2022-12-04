@@ -1,8 +1,8 @@
 import { Add, Delete } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { memo } from 'react';
-import { IClass } from '../interfaces/interfaces';
+import { memo } from 'react';
+import { ICourse } from '../interfaces/interfaces';
 
 const useStyles = makeStyles({
   item: {
@@ -19,16 +19,16 @@ const useStyles = makeStyles({
 interface IProps {
   name: string;
   id: string;
-  icontoggle: IClass | undefined;
+  icontoggle: ICourse | undefined;
   role: string[];
-  classToggle: () => void;
+  courseToggle: () => void;
 }
 const PeopleItem = memo(
-  ({ name, id, icontoggle, role, classToggle }: IProps) => {
+  ({ name, id, icontoggle, role, courseToggle }: IProps) => {
     const classesStyles = useStyles();
 
     return (
-      <ListItem className={classesStyles.item} onClick={classToggle}>
+      <ListItem className={classesStyles.item} onClick={courseToggle}>
         <ListItemText key={id}>
           {name} - {role}
         </ListItemText>

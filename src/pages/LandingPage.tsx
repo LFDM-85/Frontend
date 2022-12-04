@@ -1,6 +1,7 @@
 import { Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import HeroImage from '../assets/Work.png';
+import Header from '../shared/components/UI/Header';
 
 export const LandingPage = () => {
   const navigate = useNavigate();
@@ -10,58 +11,66 @@ export const LandingPage = () => {
   };
 
   return (
-    <Grid
-      container
-      component="main"
-      sx={{
-        height: '85vh',
-      }}
-    >
+    <>
+      <Header />
       <Grid
         container
-        direction="column"
-        justifyContent="center"
-        alignItems="center"
-        xl={5}
+        component="main"
+        sx={{
+          height: '85vh',
+        }}
       >
         <Grid
-          item
+          container
           direction="column"
           justifyContent="center"
           alignItems="center"
+          xl={5}
         >
-          <Typography ml={6} variant="h1" component="h1" fontFamily="Pacifico">
-            E-le@rn School
-          </Typography>
-          <Typography mt={10} variant="h4" component="h4">
-            Best elearning tool for teachers and students
-          </Typography>
-        </Grid>
-        <Grid item margin={6}>
-          <Button
-            onClick={clickHandler}
-            size="large"
-            variant="contained"
-            color="secondary"
+          <Grid
+            item
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
           >
-            Start Now
-          </Button>
+            <Typography
+              ml={6}
+              variant="h1"
+              component="h1"
+              fontFamily="Pacifico"
+            >
+              E-le@rn School
+            </Typography>
+            <Typography mt={10} variant="h4" component="h4">
+              Best elearning tool for teachers and students
+            </Typography>
+          </Grid>
+          <Grid item margin={6}>
+            <Button
+              onClick={clickHandler}
+              size="large"
+              variant="contained"
+              color="secondary"
+            >
+              Start Now
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
 
-      <Grid
-        item
-        alignItems="right"
-        xl={6}
-        style={{
-          backgroundImage: `url(${HeroImage})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          resize: 'both',
-          backgroundPosition: 'center',
-          height: '100%',
-        }}
-      ></Grid>
-    </Grid>
+        <Grid
+          item
+          alignItems="right"
+          xl={6}
+          style={{
+            backgroundImage: `url(${HeroImage})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            resize: 'both',
+            backgroundPosition: 'center',
+            height: '100%',
+          }}
+        ></Grid>
+      </Grid>
+    </>
   );
 };

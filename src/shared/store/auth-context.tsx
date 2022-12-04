@@ -8,7 +8,7 @@ const initialUser: IUser = {
   roles: [],
   isValidated: false,
   image: '',
-  classes: [],
+  courses: [],
   assessment: [],
 };
 
@@ -31,10 +31,9 @@ export const AuthContextProvider = ({
 }) => {
   const [token, setToken] = useState('');
   const [user, setUser] = useState(initialUser);
-  const userIsSignedIn = !!token;
+  // const userIsSignedIn = !!token;
 
   const signinHandler = useCallback((token: string, user: IUser) => {
-    // localStorage.setItem('isAuthenticated', 'true');
     setToken(token);
     setUser({
       email: user.email,
@@ -43,7 +42,7 @@ export const AuthContextProvider = ({
       roles: user.roles,
       isValidated: user.isValidated,
       image: user.image,
-      classes: user.classes,
+      courses: user.courses,
       assessment: user.assessment,
     });
   }, []);

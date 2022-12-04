@@ -7,7 +7,7 @@ import RequireAuth from '../shared/features/RequireAuth';
 import axios from '../interceptors/axios';
 import { Loading } from '../shared/components/Loading';
 import { MyPageRoute } from '../shared/components/MyPageRoute';
-import ClassesPage from '../pages/ClassesPage';
+import CoursesPage from '../pages/CoursesPage';
 import LecturesPage from '../pages/LecturesPage';
 import WorkPage from '../pages/WorkPage';
 import AssessmentsPage from '../pages/AssessmentsPage';
@@ -90,7 +90,7 @@ export const AppRoutes = () => {
           >
             <Route path="/my" element={<MyPageRoute />}>
               <Route element={<MyLayout />}>
-                <Route path="classes" element={<ClassesPage />} />
+                <Route path="courses" element={<CoursesPage />} />
                 <Route path="lecture" element={<LecturesPage />} />
                 <Route path="work" element={<WorkPage />} />
                 <Route path="assessment" element={<AssessmentsPage />} />

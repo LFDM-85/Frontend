@@ -1,9 +1,9 @@
 import { Typography } from '@mui/material';
-import { IClass, ILectures } from '../interfaces/interfaces';
+import { ICourse, ILectures } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useAuth from '../hooks/useAuth';
 import LectureItem from './LectureItem';
-import ClassItem from './ClassItem';
+import CourseItem from './CourseItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import { makeStyles } from '@mui/styles';
 import React, { memo } from 'react';
@@ -29,22 +29,19 @@ const AssessmentsSection = memo(() => {
   const renderAssessment = data ? (
     data.map((user) => {
       if (user.email === signUser.email) {
-        return user.classes.map((aclass: IClass) => {
+        return user.courses.map((course: ICourse) => {
           return (
             <>
-              <div key={aclass._id}>
-                <ClassItem key={aclass._id} name={aclass.nameClass} />
-                {aclass &&
-                  aclass.lecture.map((lecture: ILectures) => {
-                    console.log(lecture.assessment);
-
+              <div key={course._id}>
+                <CourseItem key={course._id} name={course.nameCourse} />
+                {course &&
+                  course.lecture.map((lecture: ILectures) => {
                     if (lecture.assessment[0]) {
                       const assessmentUserEmail =
                         lecture.assessment[0].userEmail;
                       const assessmentValue =
                         lecture.assessment[0].assessmentValue;
-                      console.log('user', assessmentUserEmail);
-                      console.log('value', assessmentValue);
+
                       return (
                         <>
                           <Box

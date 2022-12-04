@@ -7,7 +7,6 @@ import { Box } from '@mui/system';
 import { Add } from '@mui/icons-material';
 import NewUserModal from './Modals/NewUserModal';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
-import React from 'react';
 
 const StudentSection = memo(() => {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -40,7 +39,7 @@ const StudentSection = memo(() => {
 
   const deleteHandler = (id: string) => {
     axios
-      .delete(`/auth/${id}`)
+      .delete(`/user/${id}`)
       .then(() => getUsersList())
       .catch((error) => console.log('Error', error));
   };

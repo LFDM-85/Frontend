@@ -1,11 +1,11 @@
 import { Button, Typography } from '@mui/material';
 import { memo, useEffect, useState } from 'react';
-import { IClass } from '../interfaces/interfaces';
+import { ICourse } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
-import useGetAllClassesData from '../hooks/useGetAllClassesData';
-import { NewClassModal } from './Modals/NewClassModal';
+import useGetAllCoursesData from '../hooks/useGetAllClassesData';
+import { NewCourseModal } from './Modals/NewCourseModal';
 import { Add } from '@mui/icons-material';
-import EditClassItem from './EditClassItem';
+import EditCourseItem from './EditCourseItem';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 
@@ -22,25 +22,25 @@ const useStyles = makeStyles({
   },
 });
 
-const ClassSectionManagement = memo(() => {
-  const { classData } = useGetAllClassesData();
+const CourseSectionManagement = memo(() => {
+  const { courseData } = useGetAllCoursesData();
   const [open, setOpen] = useState(false);
-  const [classes, setClasses] = useState<IClass[]>([]);
+  const [courses, setCourses] = useState<ICourse[]>([]);
   const classesStyles = useStyles();
 
-  const getClassesList = () => {
-    setClasses(classData);
+  const getCoursesList = () => {
+    setCourses(courseData);
   };
 
   const addHandler = () => {
     setOpen(true);
   };
 
-  const getTheClass = classes ? (
-    classes.map((aclass: IClass) => {
+  const getTheCourse = courses ? (
+    courses.map((course: ICourse) => {
       return (
-        <div key={aclass._id}>
-          <EditClassItem name={aclass.nameClass} id={aclass._id} />
+        <div key={course._id}>
+          <EditCourseItem name={course.nameCourse} id={course._id} />
         </div>
       );
     })
@@ -49,13 +49,13 @@ const ClassSectionManagement = memo(() => {
   );
 
   useEffect(() => {
-    getClassesList();
-  }, [getTheClass]);
+    getCoursesList();
+  }, [getTheCourse]);
 
   return (
     <>
       <Typography component="h5" variant="h5">
-        My Classes
+        My Courses
       </Typography>
       <Box className={classesStyles.boxItem}>
         <Button
@@ -64,11 +64,11 @@ const ClassSectionManagement = memo(() => {
           startIcon={<Add />}
           onClick={addHandler}
         >
-          ADD Class
+          ADD COURSE
         </Button>
 
-        {getTheClass}
-        <NewClassModal
+        {getTheCourse}
+        <NewCourseModal
           open={open}
           onClose={() => {
             setOpen(false);
@@ -79,6 +79,6 @@ const ClassSectionManagement = memo(() => {
   );
 });
 
-ClassSectionManagement.displayName = 'ClassSectionManagement';
+CourseSectionManagement.displayName = 'CourseSectionManagement';
 
-export default ClassSectionManagement;
+export default CourseSectionManagement;

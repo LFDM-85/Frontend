@@ -1,5 +1,5 @@
 import axios from '../../interceptors/axios';
-
+import useAuth from '../hooks/useAuth';
 interface IInputs {
   name: string;
   email: string;
@@ -8,9 +8,13 @@ interface IInputs {
 }
 
 export const signin = (route: string, inputs: IInputs) => {
+  const authCtx = useAuth();
   axios
     .post(route, inputs, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authCtx.token}`,
+      },
       withCredentials: true,
     })
     .then((res) => {

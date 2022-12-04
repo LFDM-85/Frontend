@@ -5,7 +5,6 @@ import { IUser } from '../interfaces/interfaces';
 import { Box } from '@mui/system';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
 
 const useStyles = makeStyles({
   boxItem: {

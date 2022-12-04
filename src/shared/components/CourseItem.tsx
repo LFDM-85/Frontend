@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ClassItem: React.FC<Props> = memo(({ name, toggle }: Props) => {
+const CourseItem: React.FC<Props> = memo(({ name, toggle }: Props) => {
   const classesStyles = useStyles();
 
   return (
@@ -31,6 +31,6 @@ const ClassItem: React.FC<Props> = memo(({ name, toggle }: Props) => {
   );
 });
 
-ClassItem.displayName = 'ClassItem';
+CourseItem.displayName = 'CourseItem';
 
-export default ClassItem;
+export default CourseItem;

@@ -135,7 +135,7 @@ export function SignPage(): JSX.Element {
           withCredentials: true,
         })
         .then((res) => {
-          const accessToken = res.data.accessToken;
+          const accessToken = res.data.tokens.accessToken;
 
           authCtx.signin(accessToken, res.data.user);
           // authCtx.isSignedIn = true;

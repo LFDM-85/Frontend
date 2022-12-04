@@ -33,7 +33,7 @@ const ProfessorItem = memo(({ name, id, isValidated }: Props) => {
 
   useEffect(() => {
     axios
-      .patch(`/auth/${id}`, { isValidated: validate })
+      .patch(`/users/${id}`, { isValidated: validate })
       .catch((error) => console.log('Error', error));
   }, [setValidationHandler]);
 

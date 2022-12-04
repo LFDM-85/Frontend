@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
-import ClassSectionManagement from './ClassSectionManagement';
+import CourseSectionManagement from './CourseSectionManagement';
 import { makeStyles } from '@mui/styles';
-import  { memo } from 'react';
+import { memo } from 'react';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -10,17 +10,17 @@ const useStyles = makeStyles({
     padding: '20px',
   },
 });
-const ClassManagement = memo(() => {
+const CourseManagement = memo(() => {
   const classesStyles = useStyles();
   return (
     <>
       <Box className={classesStyles.boxItem}>
-        <ClassSectionManagement />
+        <CourseSectionManagement />
       </Box>
     </>
   );
 });
 
-ClassManagement.displayName = 'ClassMangement';
+CourseManagement.displayName = 'CourseManagement';
 
-export default ClassManagement;
+export default CourseManagement;

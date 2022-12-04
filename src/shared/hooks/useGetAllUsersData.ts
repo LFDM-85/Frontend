@@ -9,12 +9,12 @@ const useGetAllUsersData = () => {
 
   useEffect(() => {
     const config = {
-      headers: { Authorization: 'Bearer ' + authCtx.token },
+      headers: { Authorization: `Bearer ${authCtx.token}` },
     };
 
     const getUsersData = async () => {
       try {
-        const { data: response } = await axios.get('auth/all', config);
+        const { data: response } = await axios.get('users', config);
         setData(response);
       } catch (error) {
         console.error(error);

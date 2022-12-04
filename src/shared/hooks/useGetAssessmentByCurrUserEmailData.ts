@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from '../../interceptors/axios';
 import useAuth from './useAuth';
-import useGetClassesByCurrEmailData from './useGetClassesByCurrUserEmailData';
+import useGetClassesByCurrEmailData from './useGetCoursesByCurrUserEmailData';
 
 const useGetAssessmentsCurrUserEmailData = () => {
   // const [assessmentData, setAssessmentData] = useState([]);

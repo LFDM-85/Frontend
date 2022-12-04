@@ -1,7 +1,7 @@
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import DeveloperBoardIcon from '@mui/icons-material/DeveloperBoard';
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 type Props = {
   summary: string;
