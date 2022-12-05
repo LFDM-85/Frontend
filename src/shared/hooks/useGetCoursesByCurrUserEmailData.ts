@@ -11,6 +11,8 @@ const useGetCoursesCurrUserEmailData = () => {
       headers: { Authorization: `Bearer ${authCtx.token}` },
     };
 
+    console.log('User email: ', authCtx.user.email);
+
     const getCoursesCurrUserEmailData = async () => {
       try {
         const { data: response } = await axios.get(
@@ -25,6 +27,8 @@ const useGetCoursesCurrUserEmailData = () => {
 
     getCoursesCurrUserEmailData();
   }, []);
+
+  console.log(courseData);
   return {
     courseData,
   };

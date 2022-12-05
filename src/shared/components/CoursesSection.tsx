@@ -26,6 +26,8 @@ const CoursesSection = memo(() => {
     setCourses(courseData);
   };
 
+  console.log('Course Data ', courseData);
+
   const getCourseList = courses ? (
     courses.map((aclass: ICourse) => {
       return (

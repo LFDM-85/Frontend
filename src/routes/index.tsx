@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { LandingPage } from '../pages/LandingPage';
+import { LandingPage } from '../pages/LandingPage/LandingPage';
 import LayoutRoutes from '../shared/components/LayoutRotes';
 import Unauthorized from '../pages/Unauthorized';
 import { Suspense, lazy, useEffect, useState } from 'react';
