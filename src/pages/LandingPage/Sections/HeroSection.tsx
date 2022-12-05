@@ -13,6 +13,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     color: ' white',
     fontFamily: 'Pacifico',
+    textAlign: 'center',
   },
 });
 
@@ -21,7 +22,13 @@ function HeroSection() {
   return (
     <>
       <Grid container component="main" className={classesStyles.hero}>
-        <Grid item>
+        <Grid
+          container
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          xl={5}
+        >
           <Typography
             className={classesStyles.title}
             ml={6}
@@ -34,8 +41,8 @@ function HeroSection() {
           <Typography
             className={classesStyles.title}
             mt={10}
-            variant="h3"
-            component="h3"
+            variant="h2"
+            component="h2"
           >
             Best elearning tool for teachers and students
           </Typography>
