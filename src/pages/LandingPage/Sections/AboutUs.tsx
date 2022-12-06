@@ -2,7 +2,7 @@ import { Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Theme } from '@mui/material';
 import HeroImage from '../../../assets/annie-spratt-dWYU3i-mqEo-unsplash.jpg';
-import video from '../../../assets/videoBg.mp4';
+// import video from '../../../assets/videoBg.mp4';
 
 const layoutSection = {
   position: 'relative',
@@ -69,7 +69,7 @@ function AboutUs() {
               {/* <video src={video} width="100%" autoPlay loop muted></video> */}
             </Grid>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <Button
               onClick={clickHandler}
               size="large"
@@ -78,7 +78,7 @@ function AboutUs() {
             >
               Start Now
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     </>
