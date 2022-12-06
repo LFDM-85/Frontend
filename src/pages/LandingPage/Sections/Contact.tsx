@@ -13,7 +13,8 @@ import { Theme } from '@mui/material';
 const layoutSection = {
   position: 'relative',
   justifyContent: 'center',
-  marginTop: '8em',
+  marginTop: '12em',
+  // backgroundColor: (theme: Theme) => theme.palette.primary.dark,
 } as const;
 
 const title = {

@@ -41,7 +41,7 @@ const tab = {
   textTransform: 'none',
   fontWeight: '700',
   fontSize: '1rem',
-  minWidth: 10,
+  minWidth: '10',
   marginLeft: '25px',
   color: (theme: Theme) => theme.palette.secondary.main,
 } as const;

@@ -6,6 +6,7 @@ import heroImage from '../../assets/black-gdd6257e2a_1920.jpg';
 import AboutUs from './Sections/AboutUs';
 import Courses from './Sections/Courses';
 import Contact from './Sections/Contact';
+import Footer from './Sections/Footer';
 
 const useStyles = makeStyles({
   image: {
@@ -29,6 +30,7 @@ export const LandingPage = () => {
       <AboutUs />
       <Courses />
       <Contact />
+      <Footer />
     </>
   );
 };
