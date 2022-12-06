@@ -5,6 +5,7 @@ import { makeStyles } from '@mui/styles';
 import heroImage from '../../assets/black-gdd6257e2a_1920.jpg';
 import AboutUs from './Sections/AboutUs';
 import Courses from './Sections/Courses';
+import Contact from './Sections/Contact';
 
 const useStyles = makeStyles({
   image: {
@@ -27,6 +28,7 @@ export const LandingPage = () => {
       <HeroSection />
       <AboutUs />
       <Courses />
+      <Contact />
     </>
   );
 };

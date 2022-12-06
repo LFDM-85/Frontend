@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Theme } from '@mui/material';
 import HeroImage from '../../../assets/annie-spratt-dWYU3i-mqEo-unsplash.jpg';
@@ -8,6 +8,7 @@ const layoutSection = {
   position: 'relative',
   height: '85vh',
   justifyContent: 'center',
+  marginTop: '8em',
 } as const;
 
 const title = {

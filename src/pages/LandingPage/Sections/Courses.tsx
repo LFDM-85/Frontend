@@ -1,15 +1,12 @@
 import { Grid, Typography } from '@mui/material';
 import { Theme } from '@mui/material';
 import CourseCard from '../../../shared/components/UI/CourseCard';
-// import mathematics from '../../../assets/courses/mathematics.jpg';
-// import chemistry from '../../../assets/courses/chemistry.jpg';
-// import history from '../../../assets/courses/history.jpg';
-// import coding from '../../../assets/courses/coding.jpg';
 
 const layoutSection = {
   position: 'relative',
   height: '85vh',
   justifyContent: 'center',
+  marginTop: '8em',
 } as const;
 
 const title = {
@@ -17,18 +14,10 @@ const title = {
   fontFamily: 'Pacifico',
 };
 
-const description = {
-  color: (theme: Theme) => theme.palette.secondary.main,
-};
-
 const card = {
   width: '25em',
   // height: '200%',
   margin: '1em',
-};
-const descriptionImageGrid = {
-  margin: '2em',
-  width: '36rem',
 };
 
 const defaultGrid = {
