@@ -33,6 +33,10 @@ const tabContainer = {
   color: (theme: Theme) => theme.palette.secondary.main,
 } as const;
 
+const appBar = {
+  backgroundColor: (theme: Theme) => theme.palette.primary.dark,
+} as const;
+
 const tab = {
   textTransform: 'none',
   fontWeight: '700',
@@ -79,7 +83,7 @@ function Header(props: any) {
   return (
     <>
       <ElevationScroll>
-        <AppBar position="fixed">
+        <AppBar position="fixed" sx={appBar}>
           <Toolbar disableGutters>
             <Button
               component={Link}

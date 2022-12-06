@@ -1,51 +1,45 @@
 import { Grid, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
 
-const useStyles = makeStyles({
-  hero: {
-    position: 'relative',
-    height: '100vh',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: ' white',
-    fontFamily: 'Pacifico',
-    textAlign: 'center',
-  },
-});
+const layoutSection = {
+  position: 'relative',
+  height: '100vh',
+  justifyContent: 'center',
+} as const;
+
+const title = {
+  color: (theme: Theme) => theme.palette.secondary.main,
+  fontFamily: 'Pacifico',
+  textAlign: 'center',
+};
+const subtitle = {
+  color: (theme: Theme) => theme.palette.secondary.main,
+  fontFamily: 'Pacifico',
+  // textAlign: 'center',
+};
+
+const defaultGrid = {
+  direction: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  // xl: '5',
+};
 
 function HeroSection() {
-  const classesStyles = useStyles();
   return (
     <>
-      <Grid container component="main" className={classesStyles.hero}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          xl={5}
-        >
-          <Typography
-            className={classesStyles.title}
-            ml={6}
-            variant="h1"
-            component="h1"
-            fontFamily="Pacifico"
-          >
+      <Grid container component="main" sx={layoutSection}>
+        <Grid container sx={defaultGrid}>
+          <Typography sx={title} variant="h1" component="h1">
             E-le@rn School
           </Typography>
-          <Typography
-            className={classesStyles.title}
-            mt={10}
-            variant="h2"
-            component="h2"
-          >
-            Best elearning tool for teachers and students
-          </Typography>
+          <Grid container sx={defaultGrid}>
+            <Grid item sx={defaultGrid}>
+              <Typography sx={subtitle} variant="h2" component="h2">
+                Best elearning tool for teachers and students
+              </Typography>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </>

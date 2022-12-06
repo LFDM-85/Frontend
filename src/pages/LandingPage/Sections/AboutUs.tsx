@@ -1,26 +1,43 @@
 import { Button, Grid, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
-import HeroImage from '../../../assets/Work.png';
+import { Theme } from '@mui/material';
+import HeroImage from '../../../assets/annie-spratt-dWYU3i-mqEo-unsplash.jpg';
+import video from '../../../assets/videoBg.mp4';
 
-const useStyles = makeStyles({
-  hero: {
-    position: 'relative',
-    height: '100vh',
-    justifyContent: 'center',
-    // alignItems: 'center',
-  },
-  title: {
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // alignContent: 'center',
-    color: ' white',
-    fontFamily: 'Pacifico',
-  },
-});
+const layoutSection = {
+  position: 'relative',
+  height: '85vh',
+  justifyContent: 'center',
+} as const;
+
+const title = {
+  color: (theme: Theme) => theme.palette.secondary.main,
+  fontFamily: 'Pacifico',
+};
+
+const description = {
+  color: (theme: Theme) => theme.palette.secondary.main,
+};
+
+const descriptionGrid = {
+  width: '56rem',
+};
+const descriptionImageGrid = {
+  margin: '2em',
+  width: '36rem',
+};
+
+const descriptionImage = {
+  with: '100%',
+};
+
+const defaultGrid = {
+  direction: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
 
 function AboutUs() {
-  const classesStyles = useStyles();
   const navigate = useNavigate();
 
   const clickHandler = () => {
@@ -29,40 +46,34 @@ function AboutUs() {
 
   return (
     <>
-      <Grid container component="main" className={classesStyles.hero}>
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          xl={5}
-        >
-          <Typography
-            className={classesStyles.title}
-            ml={6}
-            variant="h1"
-            component="h1"
-            fontFamily="Pacifico"
-          >
+      <Grid container component="main" sx={layoutSection}>
+        <Grid container sx={defaultGrid}>
+          <Typography variant="h1" component="h1" sx={title}>
             About Us
           </Typography>
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            xl={5}
-          >
-            <Typography
-              className={classesStyles.title}
-              mt={10}
-              variant="h3"
-              component="h3"
-            >
-              Best elearning tool for teachers and students
-            </Typography>
+          <Grid container sx={defaultGrid}>
+            <Grid item sx={descriptionGrid}>
+              <Typography sx={description} variant="h5" component="h5">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro
+                illum aperiam, dolorum rerum et fuga doloremque earum a expedita
+                tenetur, alias, aliquid deserunt perferendis eligendi
+                dignissimos deleniti consequatur exercitationem ad. Lorem ipsum,
+                dolor sit amet consectetur adipisicing elit. Quidem suscipit
+                deleniti velit, quo blanditiis culpa autem repudiandae adipisci
+                nulla cum ipsam error saepe voluptate amet veritatis harum
+                libero facilis? Quam! Lorem ipsum dolor sit, amet consectetur
+                adipisicing elit. Odit cum repellendus quasi! Exercitationem
+                excepturi rem numquam, mollitia facilis eveniet quisquam aliquam
+                dolor voluptatem officiis unde. Consequatur voluptatibus nulla
+                unde minima?
+              </Typography>
+            </Grid>
+            <Grid item sx={descriptionImageGrid} alignItems="right">
+              <img src={HeroImage} alt="work" width="100%" />
+              {/* <video src={video} width="100%" autoPlay loop muted></video> */}
+            </Grid>
           </Grid>
-          <Grid item margin={6}>
+          <Grid item>
             <Button
               onClick={clickHandler}
               size="large"

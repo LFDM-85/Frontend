@@ -17,7 +17,7 @@ export const Theme = createTheme({
     },
     primary: {
       main: `${elearnBlack}`,
-      dark: 'rgb(23,25,28)',
+      dark: 'rgba(23,25,28,0.70)',
       light: 'rgb(77,80,83)',
       contrastText: '#fff',
     },
