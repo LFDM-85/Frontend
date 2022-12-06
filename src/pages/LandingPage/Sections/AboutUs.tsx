@@ -27,10 +27,6 @@ const descriptionImageGrid = {
   width: '36rem',
 };
 
-const descriptionImage = {
-  with: '100%',
-};
-
 const defaultGrid = {
   direction: 'column',
   justifyContent: 'center',
