@@ -7,7 +7,7 @@ import {
   Tab,
   Button,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
 import { Theme } from '@mui/material';
 
@@ -33,11 +33,15 @@ const tabContainer = {
   color: (theme: Theme) => theme.palette.secondary.main,
 } as const;
 
+const appBar = {
+  backgroundColor: (theme: Theme) => theme.palette.primary.dark,
+} as const;
+
 const tab = {
   textTransform: 'none',
   fontWeight: '700',
   fontSize: '1rem',
-  minWidth: 10,
+  minWidth: '10',
   marginLeft: '25px',
   color: (theme: Theme) => theme.palette.secondary.main,
 } as const;
@@ -50,15 +54,21 @@ const logoStyle = {
 } as const;
 
 const button = {
-  height: '45px',
+  height: '3em',
+  width: '7em',
   textTransform: 'none',
-  borderRadius: '50px',
-  margin: '15px',
-  fontSize: '1rem ',
+  borderRadius: '7%',
+  margin: '2em',
+  fontSize: '1em ',
 } as const;
 
 function Header(props: any) {
   const [value, setValue] = useState(0);
+  const navigate = useNavigate();
+
+  const clickHandler = () => {
+    navigate('/sign');
+  };
 
   const handleChange = (e: any, value: number) => {
     setValue(value);
@@ -79,7 +89,7 @@ function Header(props: any) {
   return (
     <>
       <ElevationScroll>
-        <AppBar position="fixed">
+        <AppBar position="fixed" sx={appBar}>
           <Toolbar disableGutters>
             <Button
               component={Link}
@@ -95,11 +105,13 @@ function Header(props: any) {
               <Tab sx={tab} component={Link} to="/about" label="About Us" />
               <Tab sx={tab} component={Link} to="/contact" label="Contact Us" />
             </Tabs>
-            <Button variant="contained" color="secondary" sx={button}>
-              Sign In
-            </Button>
-            <Button variant="contained" color="secondary" sx={button}>
-              Sign Up
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={button}
+              onClick={clickHandler}
+            >
+              Sign
             </Button>
           </Toolbar>
         </AppBar>
