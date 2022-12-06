@@ -1,4 +1,5 @@
-import { Container, Grid, Box, Link, Theme } from '@mui/material';
+import { Container, Grid, Box, Link, Theme, Typography } from '@mui/material';
+import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const layoutSection = {
   position: 'relative',
@@ -24,7 +25,7 @@ function Footer() {
         <Container maxWidth="lg">
           <Grid container sx={defaultGrid}>
             <Grid item xs={12} sm={4}>
-              <Box borderBottom={1}>Help</Box>
+              <Typography variant="h4">Help</Typography>
               <Box>
                 <Link href="/" color="inherit">
                   Home
@@ -52,33 +53,32 @@ function Footer() {
               </Box>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Box borderBottom={1}>Account</Box>
+              <Typography variant="h4">Account</Typography>
               <Box>
-                <Link href="/" color="inherit">
-                  Sign in
-                </Link>
-              </Box>
-              <Box>
-                <Link href="/" color="inherit">
-                  Sign up
+                <Link href="/sign" color="inherit">
+                  Sign
                 </Link>
               </Box>
             </Grid>
             <Grid item xs={12} sm={4}>
-              <Box borderBottom={1}>Socials</Box>
+              <Typography variant="h4">Socials</Typography>
               <Box>
-                <Link href="/" color="inherit">
-                  Linkedin
+                <Link
+                  href="https://www.linkedin.com/in/luisfdmelo/"
+                  color="inherit"
+                >
+                  <FaLinkedin size={35} />
                 </Link>
               </Box>
               <Box>
-                <Link href="/" color="inherit">
-                  Instagram
+                <Link href="https://github.com/LFDM-85" color="inherit">
+                  <FaGithub size={35} />
                 </Link>
               </Box>
             </Grid>
           </Grid>
         </Container>
+        <Grid>By Luís Melo</Grid>
       </Box>
     </footer>
   );
