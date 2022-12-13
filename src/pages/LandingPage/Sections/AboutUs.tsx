@@ -1,6 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { Theme } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import Everywhere from '../../../assets/learn.jpg';
 
 const layoutSection = {
@@ -20,8 +18,6 @@ const gridContainer = {
 };
 
 const title = {
-  // color: (theme: Theme) => theme.palette.secondary.main,
-  // fontFamily: 'Pacifico',
   paddingBottom: '15px',
 };
 
@@ -31,27 +27,7 @@ const description = {
   fontSize: '18px',
 };
 
-const descriptionGrid = {
-  width: '56rem',
-};
-const descriptionImageGrid = {
-  margin: '2em',
-  width: '36rem',
-};
-
-const defaultGrid = {
-  direction: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-};
-
 function AboutUs() {
-  const navigate = useNavigate();
-
-  const clickHandler = () => {
-    navigate('/sign');
-  };
-
   return (
     <Box sx={layoutSection}>
       <Grid container spacing={6} sx={gridContainer}>
@@ -70,13 +46,6 @@ function AboutUs() {
             <br />
             <span> Anytime anywhere!</span>
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ width: '200px', fontSize: '16px' }}
-          >
-            CONTACT US
-          </Button>
         </Grid>
       </Grid>
     </Box>
