@@ -2,20 +2,20 @@ import { Container, Grid, Box, Link, Theme, Typography } from '@mui/material';
 import { FaLinkedin, FaGithub } from 'react-icons/fa';
 
 const layoutSection = {
-  position: 'relative',
-  direction: 'row',
+  flexGrow: '1',
+  display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
-  height: '10em',
-  marginTop: '12em',
-  padding: '3em',
+
+  miHeight: '10vh',
+  padding: '20px',
+  flexDirection: 'column',
   backgroundColor: (theme: Theme) => theme.palette.primary.dark,
   color: (theme: Theme) => theme.palette.secondary.main,
 } as const;
 
 const defaultGrid = {
   direction: 'row',
-  justifyContent: 'center',
-  alignItems: 'center',
 };
 
 function Footer() {

@@ -1,23 +1,34 @@
-import { Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Theme } from '@mui/material';
-import HeroImage from '../../../assets/annie-spratt-dWYU3i-mqEo-unsplash.jpg';
-// import video from '../../../assets/videoBg.mp4';
+import Everywhere from '../../../assets/learn.jpg';
 
 const layoutSection = {
-  position: 'relative',
-  height: '85vh',
+  width: '100%',
+  display: 'flex',
+  minHeight: '400px',
+  alignItems: 'center',
   justifyContent: 'center',
-  marginTop: '8em',
+  margin: '30px 0px 50px 0px',
 } as const;
 
+const gridContainer = {
+  display: 'flex',
+  alignItems: 'center',
+  maxWidth: '1300px',
+  padding: '50px',
+};
+
 const title = {
-  color: (theme: Theme) => theme.palette.secondary.main,
-  fontFamily: 'Pacifico',
+  // color: (theme: Theme) => theme.palette.secondary.main,
+  // fontFamily: 'Pacifico',
+  paddingBottom: '15px',
 };
 
 const description = {
-  color: (theme: Theme) => theme.palette.secondary.main,
+  opacity: '0.7',
+  paddingBottom: '30px',
+  fontSize: '18px',
 };
 
 const descriptionGrid = {
@@ -42,47 +53,33 @@ function AboutUs() {
   };
 
   return (
-    <>
-      <Grid container component="main" sx={layoutSection}>
-        <Grid container sx={defaultGrid}>
-          <Typography variant="h1" component="h1" sx={title}>
-            About Us
+    <Box sx={layoutSection}>
+      <Grid container spacing={6} sx={gridContainer}>
+        <Grid item xs={12} md={5}>
+          <img src={Everywhere} alt="Work everywhere" width="100%" />
+        </Grid>
+
+        <Grid item xs={12} md={6}>
+          <Typography variant="h3" fontWeight={700} sx={title}>
+            Learn Quickly, Anywhere
           </Typography>
-          <Grid container sx={defaultGrid}>
-            <Grid item sx={descriptionGrid}>
-              <Typography sx={description} variant="h5" component="h5">
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Porro
-                illum aperiam, dolorum rerum et fuga doloremque earum a expedita
-                tenetur, alias, aliquid deserunt perferendis eligendi
-                dignissimos deleniti consequatur exercitationem ad. Lorem ipsum,
-                dolor sit amet consectetur adipisicing elit. Quidem suscipit
-                deleniti velit, quo blanditiis culpa autem repudiandae adipisci
-                nulla cum ipsam error saepe voluptate amet veritatis harum
-                libero facilis? Quam! Lorem ipsum dolor sit, amet consectetur
-                adipisicing elit. Odit cum repellendus quasi! Exercitationem
-                excepturi rem numquam, mollitia facilis eveniet quisquam aliquam
-                dolor voluptatem officiis unde. Consequatur voluptatibus nulla
-                unde minima?
-              </Typography>
-            </Grid>
-            <Grid item sx={descriptionImageGrid} alignItems="right">
-              <img src={HeroImage} alt="work" width="100%" />
-              {/* <video src={video} width="100%" autoPlay loop muted></video> */}
-            </Grid>
-          </Grid>
-          {/* <Grid item>
-            <Button
-              onClick={clickHandler}
-              size="large"
-              variant="contained"
-              color="secondary"
-            >
-              Start Now
-            </Button>
-          </Grid> */}
+          <Typography sx={description}>
+            We aim to show a different way of teaching and learning. You can
+            study anywhere as if you were in the classroom. Study at your own
+            pace and you will always have support from teachers and classmates.
+            <br />
+            <span> Anytime anywhere!</span>
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ width: '200px', fontSize: '16px' }}
+          >
+            CONTACT US
+          </Button>
         </Grid>
       </Grid>
-    </>
+    </Box>
   );
 }
 

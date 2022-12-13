@@ -57,6 +57,7 @@ const button = {
 const linkStyle = {
   color: '#000',
   margin: '1em',
+  textDecoration: 'none',
 };
 
 function Header() {
@@ -96,7 +97,7 @@ function Header() {
       <List>
         {links.map((link) => (
           <ListItem button key={link.id}>
-            <ListItemText primary={link.route} />
+            <ListItemText sx={linkStyle} primary={link.route} />
           </ListItem>
         ))}
       </List>
