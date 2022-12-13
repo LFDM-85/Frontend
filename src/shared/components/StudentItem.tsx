@@ -1,7 +1,7 @@
 import { Delete } from '@mui/icons-material';
 import { ListItem, ListItemText } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 type Props = {
   id: string;

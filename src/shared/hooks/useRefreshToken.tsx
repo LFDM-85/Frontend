@@ -14,17 +14,17 @@ const useRefreshToken = () => {
   const { setUser }: any = useAuth();
 
   const refresh = async () => {
-    const response = await axios.put('/token/refresh', {
+    const response = await axios.put('/auth/refresh', {
       withCredentials: true,
     });
     setUser((prev: any) => {
       console.log(JSON.stringify(prev));
-      console.log(response.data.accessToken);
-      return { ...prev, accessToken: response.data.token };
+      console.log(response.data.tokens.accessToken);
+      return { ...prev, accessToken: response.data.tokens.accessToken };
     });
-    return response.data.token;
+    return response.data.tokens.accessToken;
   };
   return refresh;
 };
 
-export default useRefreshToken();
+export default useRefreshToken;

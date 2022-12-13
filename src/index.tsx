@@ -2,7 +2,7 @@ import { ThemeProvider } from '@mui/system';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { App } from './App';
-import { Theme } from './shared/themes';
+import { Theme } from './shared/themes/Theme';
 import './interceptors/axios';
 import { AuthContextProvider } from './shared/store/auth-context';
 import { CookiesProvider } from 'react-cookie';

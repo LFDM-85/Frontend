@@ -1,8 +1,8 @@
 import React from 'react';
 
-export interface IClass {
+export interface ICourse {
   _id: string;
-  nameClass: string;
+  nameCourse: string;
   open: boolean;
   lecture: ILectures[];
   users: IUser[];
@@ -47,7 +47,7 @@ export interface IUser {
   email: string;
   roles: string[];
   isValidated: boolean;
-  classes: IClass[];
+  courses: ICourse[];
   assessment: IAssessment[];
 }
 export interface IState {

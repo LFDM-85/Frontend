@@ -1,7 +1,7 @@
 import { ListItem, ListItemText } from '@mui/material';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import { makeStyles } from '@mui/styles';
-import React, { memo } from 'react';
+import { memo } from 'react';
 
 type Props = {
   name: string;

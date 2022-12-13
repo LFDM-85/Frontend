@@ -1,5 +1,6 @@
-import React, { useState, createContext } from 'react';
+import React, { useState, createContext, useCallback } from 'react';
 import { IUser } from '../interfaces/interfaces';
+import jwt_decode from 'jwt-decode';
 
 const initialUser: IUser = {
   email: '',
@@ -8,12 +9,12 @@ const initialUser: IUser = {
   roles: [],
   isValidated: false,
   image: '',
-  classes: [],
+  courses: [],
   assessment: [],
 };
 
 const AuthContext = createContext({
-  token: undefined,
+  token: '',
   isSignedIn: false,
   user: initialUser,
   signin: (token: string, user: IUser) => {
@@ -29,13 +30,18 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [token, setToken] = useState();
+  const [token, setToken] = useState('');
   const [user, setUser] = useState(initialUser);
-  const userIsSignedIn = !!token;
 
-  const signinHandler = (token: string, user: IUser) => {
-    localStorage.setItem('isAuthenticated', 'true');
-    // setToken(token);
+  // if (localStorage.getItem('tokens')){
+  //   const tokens = JSON.parse(localStorage.getItem('tokens'));
+  //   return jwt_decode(tokens.access_token);
+  // }
+  // return null;
+  // const userIsSignedIn = !!token;
+
+  const signinHandler = useCallback((token: string, user: IUser) => {
+    setToken(token);
     setUser({
       email: user.email,
       _id: user._id,
@@ -43,20 +49,20 @@ export const AuthContextProvider = ({
       roles: user.roles,
       isValidated: user.isValidated,
       image: user.image,
-      classes: user.classes,
+      courses: user.courses,
       assessment: user.assessment,
     });
-  };
+  }, []);
 
   const signoutHandler = () => {
-    setToken(undefined);
+    setToken('');
     setUser(initialUser);
   };
 
   const contextValue = {
     token: token,
     user: user,
-    isSignedIn: userIsSignedIn,
+    isSignedIn: !!token,
     signin: signinHandler,
     signout: signoutHandler,
   };
