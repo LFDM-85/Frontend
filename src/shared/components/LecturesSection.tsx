@@ -57,13 +57,21 @@ const LecturesSection = memo(() => {
   );
 
   useEffect(() => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${authCtx.token}`,
+      },
+    };
     axios
-      .get(`users/${authCtx.user.email}`)
+      .get(`users/${authCtx.user.email}`, config)
       .then((res) => {
         const courseData = res.data.courses;
         setCourses(courseData);
       })
       .catch((error) => console.log(`Error: ${error}`));
+
+    console.log('Courses ===> ', courses);
 
     courses.map((course: ICourse) => {
       const findLectureFinished = course.lecture.find((lecture: ILectures) => {

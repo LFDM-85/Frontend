@@ -42,7 +42,7 @@ function Contact() {
       .then(
         (result) => {
           console.log(result.text);
-          // e.currentTarget.reset();
+          e.currentTarget.reset();
         },
         (error) => {
           console.log(error.text);

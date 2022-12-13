@@ -1,5 +1,6 @@
 import React, { useState, createContext, useCallback } from 'react';
 import { IUser } from '../interfaces/interfaces';
+import jwt_decode from 'jwt-decode';
 
 const initialUser: IUser = {
   email: '',
@@ -31,6 +32,12 @@ export const AuthContextProvider = ({
 }) => {
   const [token, setToken] = useState('');
   const [user, setUser] = useState(initialUser);
+
+  // if (localStorage.getItem('tokens')){
+  //   const tokens = JSON.parse(localStorage.getItem('tokens'));
+  //   return jwt_decode(tokens.access_token);
+  // }
+  // return null;
   // const userIsSignedIn = !!token;
 
   const signinHandler = useCallback((token: string, user: IUser) => {

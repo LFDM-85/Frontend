@@ -136,6 +136,7 @@ export function SignPage(): JSX.Element {
         })
         .then((res) => {
           const accessToken = res.data.tokens.accessToken;
+          localStorage.setItem('tokens', JSON.stringify(res.data.tokens));
 
           authCtx.signin(accessToken, res.data.user);
           // authCtx.isSignedIn = true;
@@ -152,13 +153,13 @@ export function SignPage(): JSX.Element {
   };
 
   return (
-    <Grid container component="main" sx={{ height: '85vh' }}>
+    <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
-      <Grid
+      {/* <Grid
         item
         xs={false}
-        sm={4}
-        md={7}
+        sm={2}
+        md={5}
         sx={{
           backgroundImage: `url(${SignImage})`,
           backgroundRepeat: 'no-repeat',
@@ -166,8 +167,22 @@ export function SignPage(): JSX.Element {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
-      />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      /> */}
+
+      <Grid
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        component={Paper}
+        elevation={6}
+        square
+        sx={{
+          height: '100vh',
+          alignContent: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <Box
           sx={{
             my: 8,
@@ -175,6 +190,7 @@ export function SignPage(): JSX.Element {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            margin: '10%',
           }}
         >
           <Typography component="h1" variant="h5">
