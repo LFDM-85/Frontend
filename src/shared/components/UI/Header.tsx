@@ -103,7 +103,7 @@ function Header() {
       </List>
       <Button
         variant="contained"
-        color="secondary"
+        color="primary"
         sx={button}
         onClick={clickHandler}
       >
@@ -111,22 +111,6 @@ function Header() {
       </Button>
     </Box>
   );
-
-  // const handleChange = (e: any, value: number) => {
-  //   setValue(value);
-  // };
-
-  // useEffect(() => {
-  //   if (window.location.pathname === '/' && value !== 0) {
-  //     setValue(0);
-  //   } else if (window.location.pathname === '/features' && value !== 1) {
-  //     setValue(1);
-  //   } else if (window.location.pathname === '/about' && value !== 2) {
-  //     setValue(2);
-  //   } else if (window.location.pathname === '/contact' && value !== 3) {
-  //     setValue(3);
-  //   }
-  // }, [value]);
 
   return (
     <>
@@ -174,7 +158,7 @@ function Header() {
                   ))}
                   <Button
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     sx={button}
                     onClick={clickHandler}
                   >

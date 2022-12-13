@@ -11,16 +11,11 @@ import {
 import { Theme } from '@mui/material';
 
 const layoutSection = {
-  position: 'relative',
-  justifyContent: 'center',
-  marginTop: '12em',
-  // backgroundColor: (theme: Theme) => theme.palette.primary.dark,
+  flexGrow: 1,
+  padding: '10px',
+  maxWidth: '700px',
+  margin: '30px auto',
 } as const;
-
-const title = {
-  color: (theme: Theme) => theme.palette.secondary.main,
-  fontFamily: 'Pacifico',
-};
 
 const defaultGrid = {
   direction: 'row',
@@ -52,16 +47,13 @@ function Contact() {
   return (
     <>
       <Grid container component="main" sx={layoutSection}>
-        <Grid container sx={defaultGrid}>
-          <Typography variant="h1" component="h1" sx={title}>
-            Contact Us
-          </Typography>
-        </Grid>
-
         <Card style={{ maxWidth: 550, margin: '0 auto', padding: '20px 5px' }}>
           <CardContent>
             <form onSubmit={sendEmail}>
-              <Grid container spacing={1}>
+              <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
+                <Typography variant="h3" component="h3">
+                  Contact Us
+                </Typography>
                 <Grid xs={12} item>
                   <TextField
                     label="Full Name"
@@ -92,7 +84,7 @@ function Contact() {
                 <Grid xs={12} item>
                   <Button
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     fullWidth
                     type="submit"
                     value="Send"

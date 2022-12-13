@@ -3,10 +3,11 @@ import { Theme } from '@mui/material';
 import CourseCard from '../../../shared/components/UI/CourseCard';
 
 const layoutSection = {
-  position: 'relative',
-  height: '85vh',
+  display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
-  marginTop: '8em',
+  width: '100%',
+  minHeight: '500px',
 } as const;
 
 const title = {
@@ -21,79 +22,51 @@ const card = {
 };
 
 const defaultGrid = {
-  direction: 'row',
-  justifyContent: 'center',
+  display: 'flex',
   alignItems: 'center',
-  margin: '2em',
+  justifyContent: 'center',
+  width: '100%',
+  minHeight: '500px',
 };
+
+const courses = [
+  {
+    id: 1,
+    title: 'Mathematics I',
+    image:
+      'https://images.unsplash.com/photo-1632571401005-458e9d244591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80',
+    description: 'Mathematics first level',
+  },
+  {
+    id: 2,
+    title: 'History',
+    image:
+      'https://images.unsplash.com/photo-1491841651911-c44c30c34548?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    description: 'History of Portugal first level',
+  },
+  {
+    id: 3,
+    title: 'Chemistry I',
+    image:
+      'https://images.unsplash.com/photo-1554475900-0a0350e3fc7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=717&q=80',
+    description: 'Organic Chemistry first level',
+  },
+];
 
 function Courses() {
   return (
     <>
       <Grid container component="main" sx={layoutSection}>
         <Grid container sx={defaultGrid}>
-          <Typography variant="h1" component="h1" sx={title}>
-            Your Courses
-          </Typography>
-        </Grid>
-
-        <Grid container sx={defaultGrid}>
-          <Grid item sx={card}>
-            <CourseCard
-              image="https://images.unsplash.com/photo-1632571401005-458e9d244591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
-              title="Mathematics"
-              description="Mathematics 1st Level"
-            />
-          </Grid>
-          <Grid item sx={card}>
-            <CourseCard
-              image="https://images.unsplash.com/photo-1491841651911-c44c30c34548?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-              title="History"
-              description="History of Portugal"
-            />
-          </Grid>
-          <Grid item sx={card}>
-            <CourseCard
-              image="https://images.unsplash.com/photo-1554475900-0a0350e3fc7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=717&q=80"
-              title="Chemistry"
-              description="Organic Chemistry"
-            />
-          </Grid>
-          <Grid item sx={card}>
-            <CourseCard
-              image="https://images.unsplash.com/photo-1631624215749-b10b3dd7bca7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-              title="Computer Science"
-              description="Introduction to JavaScript"
-            />
-          </Grid>
-          <Grid item sx={card}>
-            <CourseCard
-              image="https://images.unsplash.com/photo-1632571401005-458e9d244591?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80"
-              title="Mathematics"
-              description="Mathematics 1st Level"
-            />
-          </Grid>
-          <Grid item sx={card}>
-            <CourseCard
-              image="https://images.unsplash.com/photo-1491841651911-c44c30c34548?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-              title="History"
-              description="History of Portugal"
-            />
-          </Grid>
-          <Grid item sx={card}>
-            <CourseCard
-              image="https://images.unsplash.com/photo-1554475900-0a0350e3fc7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=717&q=80"
-              title="Chemistry"
-              description="Organic Chemistry"
-            />
-          </Grid>
-          <Grid item sx={card}>
-            <CourseCard
-              image="https://images.unsplash.com/photo-1631624215749-b10b3dd7bca7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-              title="Computer Science"
-              description="Introduction to JavaScript"
-            />
-          </Grid>
+          {courses.map((course) => (
+            <Grid item sx={card} key={course.id}>
+              <CourseCard
+                image={course.image}
+                title={course.title}
+                description={course.description}
+              />
+            </Grid>
+          ))}
         </Grid>
       </Grid>
     </>
