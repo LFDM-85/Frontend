@@ -16,8 +16,9 @@ const title = {
   paddingBottom: '15px',
 } as const;
 const subtitle = {
-  opacity: '0.4',
+  opacity: '0.7',
   paddingBottom: '30px',
+  fontSize: '18px',
 } as const;
 
 const gridContainer = {
@@ -41,7 +42,7 @@ function Hero() {
             <Typography variant="h3" sx={title} fontWeight={700}>
               E-le@ning School
             </Typography>
-            <Typography variant="h6" sx={subtitle}>
+            <Typography sx={subtitle}>
               Best elearning tool for teachers and students
               <br />
               <span style={{ fontWeight: 'bold' }}> Any time anywhere!</span>
