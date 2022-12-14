@@ -150,7 +150,12 @@ function Header() {
                   }}
                 >
                   {links.map((link) => (
-                    <Link to={link.url} target="_blank" key={link.id}>
+                    <Link
+                      to={link.url}
+                      target="_blank"
+                      key={link.id}
+                      style={{ textDecoration: 'none' }}
+                    >
                       <Typography component="h5" variant="h5" sx={linkStyle}>
                         {link.route}
                       </Typography>
