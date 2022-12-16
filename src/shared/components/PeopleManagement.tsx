@@ -3,6 +3,7 @@ import ProfessorSection from './ProfessorSection';
 import StudentSection from './StudentSection';
 import { makeStyles } from '@mui/styles';
 import React, { memo } from 'react';
+import DataTableUsers from './DataTable/DataTableUsers';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -17,7 +18,8 @@ const PeopleManagement = memo(() => {
   return (
     <>
       <Box className={classesStyles.boxItem}>
-        <ProfessorSection />
+        <DataTableUsers />
+        {/* <ProfessorSection /> */}
         <StudentSection />
       </Box>
     </>

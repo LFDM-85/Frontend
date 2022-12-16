@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import CourseSectionManagement from './CourseSectionManagement';
 import { makeStyles } from '@mui/styles';
 import { memo } from 'react';
+import DataTableCourses from './DataTable/DataTableCourses';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -15,6 +16,7 @@ const CourseManagement = memo(() => {
   return (
     <>
       <Box className={classesStyles.boxItem}>
+        <DataTableCourses />
         <CourseSectionManagement />
       </Box>
     </>
