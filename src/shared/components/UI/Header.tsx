@@ -67,8 +67,8 @@ function Header() {
 
   const links = [
     { id: 1, route: 'Home', url: '/' },
-    { id: 2, route: 'Features', url: '/features' },
     { id: 3, route: 'About', url: '/about' },
+    { id: 2, route: 'Courses', url: '/courses' },
     { id: 4, route: 'Contact', url: '/contact' },
   ];
 

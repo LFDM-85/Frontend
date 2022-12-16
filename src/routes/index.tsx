@@ -28,7 +28,7 @@ export const AppRoutes = () => {
 
   useEffect(() => {
     // axios
-    //   .get('auth/whoami', {
+    //   .get('auth/refresh', {
     //     headers: { 'Content-Type': 'application/json' },
     //     withCredentials: true,
     //   })
