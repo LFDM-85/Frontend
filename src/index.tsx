@@ -6,6 +6,7 @@ import { Theme } from './shared/themes/Theme';
 import './interceptors/axios';
 import { AuthContextProvider } from './shared/store/auth-context';
 import { CookiesProvider } from 'react-cookie';
+import './index.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

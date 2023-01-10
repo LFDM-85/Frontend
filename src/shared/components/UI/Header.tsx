@@ -66,10 +66,10 @@ function Header() {
   const matches = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
   const links = [
-    { id: 1, route: 'Home', url: '/' },
-    { id: 3, route: 'About', url: '/about' },
-    { id: 2, route: 'Courses', url: '/courses' },
-    { id: 4, route: 'Contact', url: '/contact' },
+    { id: 1, route: 'Home', url: '#' },
+    { id: 3, route: 'About', url: '#about' },
+    { id: 2, route: 'Courses', url: '#courses' },
+    { id: 4, route: 'Contact', url: '#contact' },
   ];
 
   const clickHandler = () => {
@@ -150,16 +150,17 @@ function Header() {
                   }}
                 >
                   {links.map((link) => (
-                    <Link
-                      to={link.url}
-                      target="_blank"
+                    <a
+                      // to={link.url}
+                      // target="_blank"
                       key={link.id}
                       style={{ textDecoration: 'none' }}
+                      href={link.url}
                     >
                       <Typography component="h5" variant="h5" sx={linkStyle}>
                         {link.route}
                       </Typography>
-                    </Link>
+                    </a>
                   ))}
                   <Button
                     variant="contained"

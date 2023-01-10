@@ -55,7 +55,7 @@ const courses = [
 
 function Courses() {
   return (
-    <>
+    <section id="courses">
       <Grid container component="main" sx={layoutSection}>
         <Grid container sx={defaultGrid}>
           {courses.map((course) => (
@@ -69,7 +69,7 @@ function Courses() {
           ))}
         </Grid>
       </Grid>
-    </>
+    </section>
   );
 }
 

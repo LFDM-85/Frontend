@@ -45,7 +45,7 @@ function Contact() {
       );
   };
   return (
-    <>
+    <section id="contact">
       <Grid container component="main" sx={layoutSection}>
         <Card style={{ maxWidth: 550, margin: '0 auto', padding: '20px 5px' }}>
           <CardContent>
@@ -97,7 +97,7 @@ function Contact() {
           </CardContent>
         </Card>
       </Grid>
-    </>
+    </section>
   );
 }
 
