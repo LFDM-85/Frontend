@@ -8,6 +8,7 @@ const layoutSection = {
   justifyContent: 'center',
   width: '100%',
   minHeight: '500px',
+  height: '100vh',
 } as const;
 
 const title = {

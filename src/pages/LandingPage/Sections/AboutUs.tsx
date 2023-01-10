@@ -2,12 +2,13 @@ import { Box, Grid, Typography } from '@mui/material';
 import Everywhere from '../../../assets/learn.jpg';
 
 const layoutSection = {
+  height: '100vh',
   width: '100%',
   display: 'flex',
   minHeight: '400px',
   alignItems: 'center',
   justifyContent: 'center',
-  margin: '30px 0px 50px 0px',
+  // margin: '3rem 7rem 5rem 0',
 } as const;
 
 const gridContainer = {
