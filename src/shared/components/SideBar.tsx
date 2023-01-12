@@ -34,7 +34,7 @@ const SideBar = ({ children }: IProps) => {
   const path = location.pathname;
 
   const signOutHandler = async () => {
-    await signout();
+    signout();
     authCtx.isSignedIn = false;
     navigate('/', { replace: true });
   };

@@ -7,7 +7,6 @@ import { NewCourseModal } from './Modals/NewCourseModal';
 import { Add } from '@mui/icons-material';
 import EditCourseItem from './EditCourseItem';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
 
 const useStyles = makeStyles({
   boxItem: {

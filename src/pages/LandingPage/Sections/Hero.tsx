@@ -45,7 +45,7 @@ function Hero() {
             <Typography sx={subtitle}>
               Best elearning tool for teachers and students
               <br />
-              <span style={{ fontWeight: 'bold' }}> Any time anywhere!</span>
+              <span style={{ fontWeight: 'bold' }}> Anytime anywhere!</span>
             </Typography>
             <Button
               variant="contained"
