@@ -7,7 +7,6 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import SignImage from '../assets/user-login.svg';
 import axios from '../interceptors/axios';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../shared/hooks/useAuth';
@@ -157,20 +156,6 @@ export function SignPage(): JSX.Element {
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
-      {/* <Grid
-        item
-        xs={false}
-        sm={2}
-        md={5}
-        sx={{
-          backgroundImage: `url(${SignImage})`,
-          backgroundRepeat: 'no-repeat',
-
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      /> */}
-
       <Grid
         item
         xs={12}
@@ -357,11 +342,7 @@ export function SignPage(): JSX.Element {
             </Button>
             <Grid container>
               <Grid item>
-                <Link
-                  href="src/pages/SignPage#"
-                  variant="body2"
-                  onClick={signUpToggleHandler}
-                >
+                <Link variant="body2" onClick={signUpToggleHandler}>
                   {signIn
                     ? 'Dont have an account? Sign Up'
                     : 'Have an account? Sign In'}
