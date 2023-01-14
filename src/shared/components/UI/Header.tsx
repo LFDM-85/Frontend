@@ -119,8 +119,8 @@ function Header() {
           <AppBar>
             <Toolbar sx={toolBar} disableGutters>
               <Link to="/">
-                <Typography variant="h5" sx={logoStyle}>
-                  Ele@ning
+                <Typography variant="h4" sx={logoStyle}>
+                  E-le@rn
                 </Typography>
               </Link>
               {matches ? (

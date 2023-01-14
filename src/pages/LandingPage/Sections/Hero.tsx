@@ -39,8 +39,8 @@ function Hero() {
       <Box sx={heroBox}>
         <Grid container spacing={6} sx={gridContainer}>
           <Grid item xs={12} md={5}>
-            <Typography variant="h3" sx={title} fontWeight={700}>
-              E-le@ning School
+            <Typography variant="h1" sx={title} fontWeight={700}>
+              E-le@rn
             </Typography>
             <Typography sx={subtitle}>
               Best elearning tool for teachers and students

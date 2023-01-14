@@ -27,17 +27,17 @@ function Footer() {
             <Grid item xs={12} sm={4}>
               <Typography variant="h4">Help</Typography>
               <Box>
-                <Link href="/" color="inherit">
+                <Link href="#" color="inherit">
                   Home
                 </Link>
               </Box>
               <Box>
-                <Link href="/" color="inherit">
+                <Link href="#about" color="inherit">
                   About us
                 </Link>
               </Box>
               <Box>
-                <Link href="/" color="inherit">
+                <Link href="#contact" color="inherit">
                   Contact
                 </Link>
               </Box>
