@@ -153,6 +153,35 @@ export function SignPage(): JSX.Element {
     }
   };
 
+  const adminDemoSignIn = () => {
+    axios
+      .post(
+        'auth/signin',
+        { name: 'admin', email: 'admin@admin.com', password: 'qwertyuiop' },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        const accessToken = res.data.tokens.accessToken;
+        // localStorage.setItem('tokens', JSON.stringify(res.data.tokens));
+        localStorage.setItem('accessToken', res.data.tokens.accessToken);
+        localStorage.setItem('refreshToken', res.data.tokens.refreshToken);
+
+        authCtx.signin(accessToken, res.data.user);
+        // authCtx.isSignedIn = true;
+
+        console.log('User logged In');
+        navigate('/my', { replace: true });
+      })
+      .catch(function (error) {
+        alert('User not found!');
+        console.log(error.message);
+        // authCtx.isSignedIn = false;
+      });
+  };
+
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
       <CssBaseline />
@@ -340,6 +369,18 @@ export function SignPage(): JSX.Element {
             >
               {!signIn ? 'Sign Up' : 'Sign In'}
             </Button>
+            {signIn && (
+              <Button
+                // type="submit"
+                onClick={() => adminDemoSignIn()}
+                fullWidth
+                variant="contained"
+                color="secondary"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                {'Admin Demonstration Sign IN'}
+              </Button>
+            )}
             <Grid container>
               <Grid item>
                 <Link variant="body2" onClick={signUpToggleHandler}>
