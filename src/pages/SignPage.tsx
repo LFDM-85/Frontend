@@ -112,6 +112,7 @@ export function SignPage(): JSX.Element {
               alert('User was created! Please Sign In');
               console.log('User created');
               navigate('/sign', { replace: true });
+              setSignIn(true);
               return;
             }
           })
@@ -135,12 +136,11 @@ export function SignPage(): JSX.Element {
         })
         .then((res) => {
           const accessToken = res.data.tokens.accessToken;
-          // localStorage.setItem('tokens', JSON.stringify(res.data.tokens));
           localStorage.setItem('accessToken', res.data.tokens.accessToken);
           localStorage.setItem('refreshToken', res.data.tokens.refreshToken);
 
           authCtx.signin(accessToken, res.data.user);
-          // authCtx.isSignedIn = true;
+          authCtx.isSignedIn = true;
 
           console.log('User logged In');
           navigate('/my', { replace: true });
@@ -148,7 +148,6 @@ export function SignPage(): JSX.Element {
         .catch(function (error) {
           alert('User not found!');
           console.log(error.message);
-          // authCtx.isSignedIn = false;
         });
     }
   };

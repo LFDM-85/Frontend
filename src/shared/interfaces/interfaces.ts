@@ -5,7 +5,7 @@ export interface ICourse {
   nameCourse: string;
   open: boolean;
   lecture: ILectures[];
-  users: IUser[];
+  user: IUser[];
 }
 
 export interface ILectures {

@@ -136,16 +136,28 @@ const SideBar = ({ children }: IProps) => {
                 </ListItemButton>
               )}
               {authCtx.user.roles.includes('admin') && (
-                <ListItemButton
-                  component={Link}
-                  to={'/my/management'}
-                  selected={'/my/management' === path}
-                >
-                  <ListItemIcon>
-                    <ManageAccountsIcon />
-                  </ListItemIcon>
-                  <ListItemText secondary="Management"></ListItemText>
-                </ListItemButton>
+                <>
+                  <ListItemButton
+                    component={Link}
+                    to={'/my/management'}
+                    selected={'/my/management/course' === path}
+                  >
+                    <ListItemIcon>
+                      <ManageAccountsIcon />
+                    </ListItemIcon>
+                    <ListItemText secondary="Class Management"></ListItemText>
+                  </ListItemButton>
+                  <ListItemButton
+                    component={Link}
+                    to={'/my/management'}
+                    selected={'/my/management/staff' === path}
+                  >
+                    <ListItemIcon>
+                      <ManageAccountsIcon />
+                    </ListItemIcon>
+                    <ListItemText secondary="Staff Management"></ListItemText>
+                  </ListItemButton>
+                </>
               )}
               <ListItemButton onClick={signOutHandler}>
                 <ListItemIcon>

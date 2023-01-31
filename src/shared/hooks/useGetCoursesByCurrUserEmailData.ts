@@ -6,29 +6,24 @@ const useGetCoursesCurrUserEmailData = () => {
   const [courseData, setCourseData] = useState([]);
   const authCtx = useAuth();
 
-  useEffect(() => {
+  const getCoursesCurrUserEmailData = async () => {
     const config = {
       headers: { Authorization: `Bearer ${authCtx.token}` },
     };
-
-    console.log('User email: ', authCtx.user.email);
-
-    const getCoursesCurrUserEmailData = async () => {
-      try {
-        const { data: response } = await axios.get(
-          `users/${authCtx.user.email}/courses`,
-          config
-        );
-        setCourseData(response.courses);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
+    try {
+      const { data: response } = await axios.get(
+        `users/${authCtx.user.email}/courses`,
+        config
+      );
+      setCourseData(response.courses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
     getCoursesCurrUserEmailData();
-  }, []);
+  }, [setCourseData]);
 
-  console.log(courseData);
   return {
     courseData,
   };

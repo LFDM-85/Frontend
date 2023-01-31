@@ -12,6 +12,7 @@ import JustificationItem from './JustificationItem';
 import useGetAllUsersData from '../hooks/useGetAllUsersData';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
+import useGetCoursesCurrUserEmailData from '../hooks/useGetCoursesByCurrUserEmailData';
 
 const useStyles = makeStyles({
   boxItem: {
@@ -35,12 +36,18 @@ const LecturesSection = memo(() => {
   const [isProfessor, setIsProfessor] = useState<boolean>();
   const { data } = useGetAllUsersData();
 
+  const { courseData } = useGetCoursesCurrUserEmailData();
+
   const [courses, setCourses] = useState<ICourse[]>(() => []);
   const [courseId, setCourseId] = useState<string>();
 
   const addHandler = (id: string) => {
     setOpen(true);
     setCourseId(id);
+  };
+
+  const getAllCourses = () => {
+    setCourses(() => courseData);
   };
 
   const onchangeHandler = useCallback(
@@ -50,43 +57,28 @@ const LecturesSection = memo(() => {
 
       axios
         .patch(`lectures/${id}`, { finished: true })
-        .then((res) => setIsFinished(true))
+        .then((res) => setIsFinished(() => true))
         .catch((error) => console.log('Error', error));
     },
     []
   );
 
-  useEffect(() => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authCtx.token}`,
-      },
-    };
-    axios
-      .get(`users/${authCtx.user.email}`, config)
-      .then((res) => {
-        const courseData = res.data.courses;
-        setCourses(courseData);
-      })
-      .catch((error) => console.log(`Error: ${error}`));
-
-    console.log('Courses ===> ', courses);
-
+  const isLectureFinished = () => {
     courses.map((course: ICourse) => {
+      console.log('LICOES ====>', course.lecture);
       const findLectureFinished = course.lecture.find((lecture: ILectures) => {
         lecture.finished === true;
       });
       if (findLectureFinished) setIsFinished(true);
       else setIsFinished(false);
     });
+  };
 
+  const isProfessorLogged = () => {
     data &&
       data.map((user) => {
-        const theuser = user; //TODO: check this
-
         if (
-          !theuser.roles.includes('professor') &&
+          !user.roles.includes('professor') &&
           authCtx.user.roles.includes('professor')
         ) {
           setIsProfessor(true);
@@ -94,7 +86,13 @@ const LecturesSection = memo(() => {
           setIsProfessor(false);
         }
       });
-  }, [setIsProfessor]);
+  };
+
+  useEffect(() => {
+    getAllCourses();
+    isLectureFinished();
+    isProfessorLogged();
+  });
 
   return (
     <>
@@ -103,88 +101,85 @@ const LecturesSection = memo(() => {
       </Typography>
       <Box className={classesStyles.boxItem}>
         {courses ? (
-          courses.map((courseId: ICourse) => {
+          courses.map((courseName: ICourse) => {
             return (
-              <>
-                <div key={courseId._id}>
-                  <Typography key={Math.random()} component="h5" variant="h5">
-                    {courseId.nameCourse}
-                  </Typography>
-                  {authCtx.user.roles.includes('professor') && (
-                    <Button
-                      key={courseId._id}
-                      className={classesStyles.buttonItem}
-                      variant="contained"
-                      startIcon={<PlusOne />}
-                      onClick={() => addHandler(courseId._id)}
-                    >
-                      Add Lecture
-                    </Button>
-                  )}
-                  {courseId.lecture ? (
-                    courseId.lecture.map((lecture: ILectures) => {
-                      return (
-                        <>
-                          <LectureItem
-                            key={lecture._id}
-                            summary={lecture.summary}
-                            description={lecture.description}
-                          />
-                          {authCtx.user.roles.includes('professor') && (
-                            <FormControlLabel
-                              control={
-                                <Checkbox
-                                  key={Math.random()}
-                                  name={lecture.summary}
-                                  id={lecture._id}
-                                  onChange={onchangeHandler}
-                                />
-                              }
-                              label="Finish Lecture"
-                            />
-                          )}
-                          {authCtx.user.roles.includes('professor') && (
-                            <h3>Works submitted by students</h3>
-                          )}
-
-                          {authCtx.user.roles.includes('professor') &&
-                            lecture.work &&
-                            lecture.work.map((work: IWorks) => {
-                              if (work.owner.includes('student')) {
-                                return (
-                                  <>
-                                    <WorkItem
-                                      key={Math.random()}
-                                      filename={work.filename}
-                                      filepath={work.filepath}
-                                      owner={work.owner}
-                                    />
-                                  </>
-                                );
-                              }
-                            })}
-                          {authCtx.user.roles.includes('professor') && (
-                            <h3>Justifications submitted by students</h3>
-                          )}
-                          {authCtx.user.roles.includes('professor') &&
-                            (lecture.attendance ? (
-                              <JustificationItem
+              <div key={courseName._id}>
+                <Typography component="h5" variant="h5">
+                  {courseName.nameCourse}
+                </Typography>
+                {authCtx.user.roles.includes('professor') && (
+                  <Button
+                    key={courseName._id}
+                    className={classesStyles.buttonItem}
+                    variant="contained"
+                    startIcon={<PlusOne />}
+                    onClick={() => addHandler(courseName._id)}
+                  >
+                    Add Lecture
+                  </Button>
+                )}
+                {courseName.lecture ? (
+                  courseName.lecture.map((lecture: ILectures) => {
+                    console.log('Lições', lecture);
+                    return (
+                      <div key={lecture._id}>
+                        <LectureItem
+                          key={lecture._id}
+                          summary={lecture.summary}
+                          description={lecture.description}
+                        />
+                        {authCtx.user.roles.includes('professor') && (
+                          <FormControlLabel
+                            control={
+                              <Checkbox
                                 key={Math.random()}
-                                attendance={lecture.attendance ?? null}
+                                name={lecture.summary}
+                                id={lecture._id}
+                                onChange={onchangeHandler}
                               />
-                            ) : (
-                              <p>
-                                No justifications here found for this lecture
-                              </p>
-                            ))}
-                        </>
-                      );
-                    })
-                  ) : (
-                    <h3>No data found</h3>
-                  )}
-                </div>
-              </>
+                            }
+                            label="Finish Lecture"
+                          />
+                        )}
+                        {authCtx.user.roles.includes('professor') && (
+                          <h3>Works submitted by students</h3>
+                        )}
+
+                        {authCtx.user.roles.includes('professor') &&
+                          lecture.work &&
+                          lecture.work.map((work: IWorks) => {
+                            if (work.owner.includes('student')) {
+                              return (
+                                <div key={work._id}>
+                                  <WorkItem
+                                    key={Math.random()}
+                                    filename={work.filename}
+                                    filepath={work.filepath}
+                                    owner={work.owner}
+                                  />
+                                </div>
+                              );
+                            }
+                          })}
+                        {authCtx.user.roles.includes('professor') && (
+                          <h3>Justifications submitted by students</h3>
+                        )}
+                        {authCtx.user.roles.includes('professor') &&
+                          (lecture.attendance ? (
+                            <JustificationItem
+                              key={Math.random()}
+                              attendance={lecture.attendance ?? null}
+                            />
+                          ) : (
+                            <p>No justifications here found for this lecture</p>
+                          ))}
+                      </div>
+                    );
+                  })
+                ) : (
+                  <h3>No data found</h3>
+                )}
+              </div>
             );
           })
         ) : (

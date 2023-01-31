@@ -15,7 +15,6 @@ const useGetAllUsersData = () => {
     const getUsersData = async () => {
       try {
         const { data: response } = await axios.get('users', config);
-        console.log(response);
         setData(response);
       } catch (error) {
         console.error(error);

@@ -46,6 +46,7 @@ export const signup = (route: string, inputs: IInputs) => {
 // export const signToken = () => {};
 export const signout = () => {
   axios.post('/auth/signout').then((_res) => {
-    localStorage.clear();
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('accessToken');
   });
 };

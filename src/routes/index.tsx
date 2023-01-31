@@ -13,6 +13,9 @@ import WorkPage from '../pages/WorkPage';
 import AssessmentsPage from '../pages/AssessmentsPage';
 import { ManagementPage } from '../pages/ManagementPage';
 import { MyLayout } from '../shared/layouts/MyLayout';
+import CourseManagement from '../shared/components/CourseManagement';
+import PeopleManagement from '../shared/components/PeopleManagement';
+import jwt_decode from 'jwt-decode';
 import useAuth from '../shared/hooks/useAuth';
 
 export const AppRoutes = () => {
@@ -20,30 +23,64 @@ export const AppRoutes = () => {
   const navigate = useNavigate();
   const authCtx = useAuth();
 
+  const [token, setToken] = useState(localStorage.getItem('accessToken') || '');
+  const [refreshToken, setRefreshToken] = useState(
+    localStorage.getItem('refreshToken') || ''
+  );
+
   const SignPage = lazy(() =>
     import('../pages/SignPage').then(({ SignPage }) => ({
       default: SignPage,
     }))
   );
 
+  const userId = authCtx.user._id;
+
   useEffect(() => {
-    // axios
-    //   .get('auth/refresh', {
-    //     headers: { 'Content-Type': 'application/json' },
-    //     withCredentials: true,
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     if (res.status === 200) {
-    //       setSignedUser(true);
-    //       navigate('/my', { replace: true });
-    //       return res.data;
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-  }, []);
+    const refresh = async () => {
+      try {
+        const res = await axios.post('auth/refresh', {
+          userId,
+          refreshToken,
+        });
+        const newToken = res.data.token;
+        setToken(newToken);
+        localStorage.setItem('accessToken', newToken);
+        setRefreshToken(refreshToken);
+        setSignedUser(true);
+      } catch (err) {
+        console.error(err);
+        setSignedUser(false);
+      }
+    };
+
+    if (!token) {
+      return setSignedUser(false);
+    } else {
+      setSignedUser(true);
+      const decoded = jwt_decode<{ exp: number }>(token);
+
+      const tokenExpiration = decoded.exp * 1000;
+      const now = Date.now();
+      if (tokenExpiration - now < 60 * 60 * 1000) {
+        refresh();
+      }
+    }
+  }, [token, refreshToken]);
+
+  useEffect(() => {
+    axios.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response.status === 401) {
+          navigate('/login');
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }, [token]);
 
   return (
     <>
@@ -74,11 +111,11 @@ export const AppRoutes = () => {
           ) : (
             <Route path="/my" element={<MyPageRoute />} />
           )}
-          {!signedUser ? (
+          {/* {!signedUser ? (
             <Route path="/unauthorized" element={<Unauthorized />} />
           ) : (
             <Route path="/my" element={<MyPageRoute />} />
-          )}
+          )} */}
 
           {/*  private routes */}
           {/*Separate Protected Nested Routes with every role. For now Admin, Student and Professor are allowed */}
@@ -94,7 +131,16 @@ export const AppRoutes = () => {
                 <Route path="lecture" element={<LecturesPage />} />
                 <Route path="work" element={<WorkPage />} />
                 <Route path="assessment" element={<AssessmentsPage />} />
-                <Route path="management" element={<ManagementPage />} />
+                <Route path="management" element={<ManagementPage />}>
+                  <Route
+                    path="management/course"
+                    element={<CourseManagement />}
+                  />
+                  <Route
+                    path="management/staff"
+                    element={<PeopleManagement />}
+                  />
+                </Route>
               </Route>
             </Route>
           </Route>
