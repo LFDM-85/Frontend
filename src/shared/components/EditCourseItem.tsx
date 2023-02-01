@@ -47,7 +47,7 @@ const EditCourseItem = memo(({ name, id }: Props) => {
         people.roles.includes('professor')
       ) {
         return (
-          <div>
+          <div key={people._id}>
             <PeopleItem
               key={people._id}
               id={people._id}
