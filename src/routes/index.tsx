@@ -19,14 +19,13 @@ import jwt_decode from 'jwt-decode';
 import useAuth from '../shared/hooks/useAuth';
 
 export const AppRoutes = () => {
-  const [signedUser, setSignedUser] = useState(false);
   const navigate = useNavigate();
-  const authCtx = useAuth();
-
+  const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem('accessToken') || '');
   const [refreshToken, setRefreshToken] = useState(
     localStorage.getItem('refreshToken') || ''
   );
+  const authCtx = useAuth();
 
   const SignPage = lazy(() =>
     import('../pages/SignPage').then(({ SignPage }) => ({
@@ -36,6 +35,7 @@ export const AppRoutes = () => {
 
   useEffect(() => {
     const refreshedToken = localStorage.getItem('refreshToken');
+    const accessedToken = localStorage.getItem('accessToken');
 
     const config = {
       headers: { Authorization: `Bearer ${refreshedToken}` },
@@ -44,21 +44,36 @@ export const AppRoutes = () => {
     const refresh = async () => {
       try {
         const res = await axios.get('auth/refresh', config);
-        const newToken = res.data.token;
+        const newToken = res.data.accessToken;
+        const newRefreshToken = res.data.refreshToken;
         setToken(newToken);
+        setRefreshToken(newRefreshToken);
         localStorage.setItem('accessToken', newToken);
-        setRefreshToken(refreshToken);
-        setSignedUser(true);
+        localStorage.setItem('refreshToken', newRefreshToken);
+        authCtx.isSignedIn = true;
+        axios
+          .get('auth/whoami', {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+          .then((res) => {
+            console.log(res.data);
+
+            authCtx.signin(token, res.data);
+          })
+          .catch((error) => console.log(error.message));
       } catch (err) {
         console.error(err);
-        setSignedUser(false);
+        authCtx.isSignedIn = false;
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
       }
     };
 
-    if (!token) {
-      return setSignedUser(false);
+    if (!accessedToken || !refreshedToken) {
+      authCtx.isSignedIn = false;
     } else {
-      setSignedUser(true);
+      authCtx.isSignedIn = true;
+
       const decoded = jwt_decode<{ exp: number }>(token);
 
       const tokenExpiration = decoded.exp * 1000;
@@ -67,6 +82,7 @@ export const AppRoutes = () => {
         refresh();
       }
     }
+    setIsLoading(false);
   }, [token, refreshToken]);
 
   useEffect(() => {
@@ -74,7 +90,7 @@ export const AppRoutes = () => {
       (response) => response,
       (error) => {
         if (error.response.status === 401) {
-          navigate('/login');
+          navigate('/');
         }
         return Promise.reject(error);
       }
@@ -83,12 +99,15 @@ export const AppRoutes = () => {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   }, [token]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
   return (
     <>
       <Routes>
         <Route path="/" element={<LayoutRoutes />}>
           {/* public routes */}
-          {!signedUser ? (
+          {!authCtx.isSignedIn ? (
             <Route
               path="/"
               element={
@@ -100,7 +119,7 @@ export const AppRoutes = () => {
           ) : (
             <Route path="/my" element={<MyPageRoute />} />
           )}
-          {!signedUser ? (
+          {!authCtx.isSignedIn ? (
             <Route
               path="/sign"
               element={
@@ -112,11 +131,11 @@ export const AppRoutes = () => {
           ) : (
             <Route path="/my" element={<MyPageRoute />} />
           )}
-          {/* {!signedUser ? (
+          {!authCtx.isSignedIn ? (
             <Route path="/unauthorized" element={<Unauthorized />} />
           ) : (
             <Route path="/my" element={<MyPageRoute />} />
-          )} */}
+          )}
 
           {/*  private routes */}
           {/*Separate Protected Nested Routes with every role. For now Admin, Student and Professor are allowed */}
