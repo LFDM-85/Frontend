@@ -37,12 +37,15 @@ export const AppRoutes = () => {
   const userId = authCtx.user._id;
 
   useEffect(() => {
+    const refreshedToken = localStorage.getItem('refreshToken');
+
+    const config = {
+      headers: { Authorization: `Bearer ${refreshedToken}` },
+    };
+
     const refresh = async () => {
       try {
-        const res = await axios.post('auth/refresh', {
-          userId,
-          refreshToken,
-        });
+        const res = await axios.get('auth/refresh', config);
         const newToken = res.data.token;
         setToken(newToken);
         localStorage.setItem('accessToken', newToken);
