@@ -34,8 +34,6 @@ export const AppRoutes = () => {
     }))
   );
 
-  const userId = authCtx.user._id;
-
   useEffect(() => {
     const refreshedToken = localStorage.getItem('refreshToken');
 
